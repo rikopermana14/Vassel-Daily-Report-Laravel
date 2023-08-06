@@ -16,7 +16,7 @@
 
   <style>
     .custom-icon-size {
-      font-size:120px ; /* Ubah angka sesuai ukuran yang diinginkan */
+      font-size:120px ;
     }
   </style>
   

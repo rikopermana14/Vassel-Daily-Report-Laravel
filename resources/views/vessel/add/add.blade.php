@@ -32,7 +32,10 @@
                   <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Page 1</a></li>
                   <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Page 2</a></li>
                   <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">Page 3</a></li>
-                 
+                  <li><a href="#" class="btn btn-warning">Back</a>
+                    <button type="submit" class="btn btn-info">Save</button>
+                    </form></li>
+                    
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
@@ -57,11 +60,6 @@
             </div><!-- /.card-body -->
                   <!-- /.tab-pane -->
 
-            <div class="card-footer">
-             <a href="https://vms.gotrain.id/index.php/vessel/file" class="btn btn-warning">Back</a>
-            <button type="submit" class="btn btn-info">Save</button>
-            </form>
-            </div>
             </div>
             <!-- ./card -->
           </div>

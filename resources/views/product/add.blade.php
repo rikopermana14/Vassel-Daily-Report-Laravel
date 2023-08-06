@@ -121,24 +121,6 @@
 
             <div class="row">
             
-            <div class="col-sm">
-            <div class="form-group">
-              <label>Stock</label>
-             <select class="form-control" name="Fg_Stock">
-               <option>Y</option>
-               <option>N</option>
-             </select>
-            </div>
-            </div>
-            <div class="col-sm">
-            <div class="form-group">
-              <label>Active</label>
-              <select class="form-control" name="Fg_Active">
-               <option>Y</option>
-               <option>N</option>
-             </select>
-            </div>
-            </div>
             
             </div>
 

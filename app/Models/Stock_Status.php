@@ -5,23 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Stock_Status extends Model
 {
     use HasFactory;
-    protected $table = 'products';
+    protected $table = 'stock_status';
     protected $primaryKey = "id";
     protected $fillable = [
+        'tanggal',
         'name',
         'spec',
-        'stock',
-        'image',
-        'type',
-        'alias',
-        'unit',
-        'min',
-        'lead',
-        'delivery',
-        'idle',
-        'volume',
+        'previous',
+        'receive',
+        'use',
+        'transfer',
+        'soud',
+        'remain',
     ];
 }
