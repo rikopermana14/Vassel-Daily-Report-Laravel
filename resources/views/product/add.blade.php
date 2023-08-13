@@ -11,8 +11,8 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Add Product </li>
+              <li class="breadcrumb-product"><a href="#">Home</a></li>
+              <li class="breadcrumb-product active">Add Product </li>
             </ol>
           </div>
         </div>
@@ -31,21 +31,22 @@
            <div class="row">
             <div class="col-sm">
                 <div class="form-group">
-                     <form action="#" method="post" enctype="multipart/form-data">
+                     <form action="{{ isset($product) ? route('product.update',Crypt::encrypt ($product->id)): route('store-product') }}" method="post" enctype="multipart/form-data">
+                      @csrf
               <label>Product Code</label>
-              <input type="text" class="form-control" name="ID_Product_Code" placeholder="Product Code">
+              <input type="text" class="form-control" name="ID_Product_Code" placeholder="Product Code" value="{{ isset($product) ? $product->product_id : '' }}">
               <p></p>
             <label>Spesification</label>
-            <input type="text" class="form-control" name="Product_Spec">
+            <input type="text" class="form-control" name="Product_Spec"value="{{ isset($product) ? $product->spec : '' }}">
           </div>
         </div>
             <div class="col-sm">
                 <div class="form-group">
                     <label>Product Name</label>
-              <input type="text" class="form-control" name="Product_Name" placeholder="Product Name">
+              <input type="text" class="form-control" name="Product_Name" placeholder="Product Name"value="{{ isset($product) ? $product->name : '' }}">
               <p></p>
               <label>Product Type</label>
-          <select class="form-control select2bs4" name="ID_Product_Type">
+          <select class="form-control select2bs4" name="ID_Product_Type" value="{{ isset($product) ? $product->type : '' }}">
                      		<option value="AHU">Heating Ventilation Air Conditioning</option>
                    		<option value="BMT">Building Material</option>
                    		<option value="DEQ">Deck Equipment</option>
@@ -70,13 +71,13 @@
                 <div class="col-sm">
                 <div class="form-group">
                 <label>Product Alias</label>
-                <input type="text" class="form-control" name="Product_Alias">
+                <input type="text" class="form-control" name="Product_Alias"value="{{ isset($product) ? $product->alias : '' }}">
                 </div>
                 </div>
             <div class="col-sm">
             <div class="form-group">
             <label>Unit</label>  
-            <select class="form-control" name="Product_Unit">
+            <select class="form-control" name="Product_Unit"value="{{ isset($product) ? $product->unit : '' }}">
               <option>Bottle</option>
               <option>Sachet</option>
               <option>Unit</option>
@@ -90,31 +91,31 @@
             <div class="col-sm">
             <div class="form-group">
             <label>Min Order</label>  
-            <input type="text" class="form-control" name="Min_Order">
+            <input type="text" class="form-control" name="Min_Order"value="{{ isset($product) ? $product->min : '' }}">
             </div>
             </div>
             <div class="col-sm">
             <div class="form-group">
               <label>Lead Time</label>
-              <input type="text" class="form-control" name="Lead_Time">
+              <input type="text" class="form-control" name="Lead_Time"value="{{ isset($product) ? $product->lead : '' }}">
             </div>
             </div>
             <div class="col-sm">
             <div class="form-group">
               <label>Delivery Time</label>
-              <input type="text" class="form-control" name="Delivery_Time">
+              <input type="text" class="form-control" name="Delivery_Time"value="{{ isset($product) ? $product->delivery : '' }}">
             </div>
             </div>
             <div class="col-sm">
             <div class="form-group">
               <label>Idle Time</label>
-              <input type="text" class="form-control" name="Idle_Time">
+              <input type="text" class="form-control" name="Idle_Time"value="{{ isset($product) ? $product->idle : '' }}">
             </div>
             </div>
             <div class="col-sm">
             <div class="form-group">
               <label>Volume (mm3)</label>
-              <input type="text" class="form-control" name="Volume">
+              <input type="text" class="form-control" name="Volume"value="{{ isset($product) ? $product->volume : '' }}">
             </div>
             </div>
             </div>
@@ -127,7 +128,7 @@
   </div>
 
    <div class="card-footer">
-       <a href="#"> <button type="button" class="btn btn-warning" data-dismiss="modal">Back</button></a>
+       <a href="/product"> <button type="button" class="btn btn-warning" data-dismiss="modal">Back</button></a>
             <button class="btn btn-info" type="submit">Save</button>
             </form>
 </div>
@@ -136,7 +137,7 @@
 </div>
 </div>
 </div>
-</body>
+
 <script type="text/javascript">
 function readURL(input) {
         if (input.files && input.files[0]) {

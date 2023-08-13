@@ -95,7 +95,24 @@
             </tr>
                 </tfoot>
                 <tbody>
-
+                  @foreach ($data as $item)
+                  <tr>
+                    <td><input type="radio"name="selected_vessel" class="select-vessel" data-product-id="{{ Crypt::encrypt($item->id) }}"></td>
+                  <td>{{ $item->vessel_id }}</td>
+                  <td>{{ $item->vessel_name }}</td>
+                  <td>{{ $item->vessel_type }}</td>
+                  <td>{{ $item->email }}</td>
+                  <td>{{ $item->vessel_alias }}</td>
+                  <td>{{ $item->country_flag }}</td>
+                  <td>{{ $item->builder }}</td>
+                  <td>{{ $item->year_built }}</td>
+                  <td>{{ $item->class }}</td>
+                  <td>{{ $item->official_number }}</td>
+                  <td>{{ $item->call_sign }}</td>
+                  <td>{{ $item->lenght_overall }}</td>
+                  <td>{{ $item->length_perpendicular }}</td>
+                  </tr>
+                  @endforeach
                 </tbody>
             </table>
         </div>

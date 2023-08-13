@@ -32,14 +32,17 @@
                   <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Page 1</a></li>
                   <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Page 2</a></li>
                   <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">Page 3</a></li>
-                  <li><a href="#" class="btn btn-warning">Back</a>
+                  <form action="/store-vessel" method="post" enctype="multipart/form-data">
+                    @csrf
+                  <li><a href="/vessel" class="btn btn-warning">Back</a>
                     <button type="submit" class="btn btn-info">Save</button>
-                    </form></li>
+                   </li>
                     
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
+                 
                     <!-- Konten Tab Informasi Umum -->
                     <div class="tab-pane active" id="tab_1">
                         @include('vessel.add.page1')
@@ -61,6 +64,7 @@
                   <!-- /.tab-pane -->
 
             </div>
+          </form>
             <!-- ./card -->
           </div>
           <!-- /.col -->

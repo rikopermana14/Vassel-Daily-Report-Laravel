@@ -37,9 +37,13 @@
                   <div class="col-sm">
                   </div>
                   <div class="col-sm">
-                  <a href="/add-product" class="btn btn-primary">Add</a>
-                    <a id="url" href="" class="btn btn-warning">Edit</a>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">Delete</button>
+                    <div class="col-sm">
+                      <a href="/add-product" class="btn btn-primary">Add</a>
+                      <a id="editBtn" class="btn btn-warning" href="#">Edit</a>
+                      <button type="button" class="btn btn-danger btn-sm text-center" data-toggle="modal" data-target="#deleteModal">
+                        Delete
+                    </button>
+
                   </div>
                 </div>
               </div>
@@ -69,8 +73,18 @@
                       <th>Product Type</th>
                   </tr>
                   </tfoot>
-                  <tbody>
-                                 
+                  <tbody> 
+                    @foreach ($data as $item)
+                       <tr>      
+                        <td><input type="radio"name="selected_product" class="select-product" data-product-id="{{ Crypt::encrypt($item->id) }}"></td>
+                      <td>{{ $item->product_id }}</td>
+                      <td>{{ $item->name }}</td>
+                      <td><img src="{{ asset('image').'/'.$item->image }}" class="img-round elevation-2" height="100" width="100"></td>
+                      <td>{{ $item->alias }}</td>
+                      <td>{{ $item->spec }}</td>
+                      <td>{{ $item->type }}</td>
+                    </tr>
+                      @endforeach
                                     </tbody>
                                 </table>
                               </div>
@@ -90,4 +104,60 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+  <!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Delete Product</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              Are you sure you want to delete this product?
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <a id="deleteConfirmBtn" class="btn btn-danger" href="{{ route('product.hapus', Crypt::encrypt ($item->id)) }}">Delete</a>
+          </div>
+      </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+      var deleteUrl = '';
+
+      $('.btn-danger').click(function() {
+          deleteUrl = $(this).attr('href'); // Menyimpan URL delete saat tombol "Delete" diklik
+      });
+
+      $('#deleteConfirmBtn').click(function() {
+          window.location.href = deleteUrl; // Redirect ke URL delete saat tombol "Delete" di modal diklik
+      });
+  });
+</script>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var editBtn = document.getElementById("editBtn");
+
+        editBtn.addEventListener("click", function() {
+            var selectedRadio = document.querySelector('.select-product:checked');
+            if (selectedRadio) {
+                var encryptedId = selectedRadio.getAttribute('data-product-id');
+                var editUrl = "{{ route('product.edit', ':encryptedId') }}".replace(':encryptedId', encryptedId);
+                window.location.href = editUrl;
+            } else {
+                alert("Please select a product to edit.");
+            }
+        });
+    });
+</script>
+
+
+
 @endsection

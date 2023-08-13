@@ -11,6 +11,7 @@ class Vessel extends Model
     protected $table = 'vessels';
     protected $primaryKey = "id";
     protected $fillable = [
+        'vessel_id',
         'vessel_name',
         'email',
         'vessel_type',
@@ -20,7 +21,6 @@ class Vessel extends Model
         'length_perpendicular',
         'depth_moulded',
         'gross_tonage',
-        'cost_tonage',
         'cost_center',
         'work_place',
         'clear_deck_area',
@@ -30,7 +30,7 @@ class Vessel extends Model
         'country_flag',
         'year_built',
         'official_number',
-        'length_overall',
+        'lenght_overall',
         'breadth_mouled',
         'draft_final',
         'netto_tonnage',
@@ -46,27 +46,27 @@ class Vessel extends Model
         'horse_power',
     ];
 
-    protected static function booted()
-    {
-        static::creating(function ($vessel) {
-            $vessel->id = 'VSL' . static::generateId();
-        });
-    }
+    // protected static function booted()
+    // {
+    //     static::creating(function ($vessel) {
+    //         $vessel->id = 'VSL' . static::generateId();
+    //     });
+    // }
 
-    private static function generateId()
-    {
-        // Mendapatkan ID terakhir yang disimpan dalam database
-        $lastId = static::latest('id')->value('id');
+    // private static function generateId()
+    // {
+    //     // Mendapatkan ID terakhir yang disimpan dalam database
+    //     $lastId = static::latest('id')->value('id');
 
-        // Jika tidak ada data sebelumnya atau format ID tidak sesuai, mulai dari 1
-        if (!$lastId || !preg_match('/^VSL(\d+)$/', $lastId, $matches)) {
-            return 1;
-        }
+    //     // Jika tidak ada data sebelumnya atau format ID tidak sesuai, mulai dari 1
+    //     if (!$lastId || !preg_match('/^VSL(\d+)$/', $lastId, $matches)) {
+    //         return 1;
+    //     }
 
-        // Dapatkan angka dari ID terakhir dan tambahkan 1
-        $number = (int)$matches[1] + 1;
+    //     // Dapatkan angka dari ID terakhir dan tambahkan 1
+    //     $number = (int)$matches[1] + 1;
 
-        // Format ulang ID dengan awalan "VSL" dan tambahkan angka nol di depan jika kurang dari 4 digit
-        return 'VSL' . str_pad($number, 4, '0', STR_PAD_LEFT);
-    }
+    //     // Format ulang ID dengan awalan "VSL" dan tambahkan angka nol di depan jika kurang dari 4 digit
+    //     return 'VSL' . str_pad($number, 4, '0', STR_PAD_LEFT);
+    // }
 }

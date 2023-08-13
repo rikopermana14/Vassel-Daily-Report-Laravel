@@ -16,12 +16,18 @@ use Spatie\Permission\Middlewares\RoleMiddleware;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
-
 Auth::routes();
 
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/', function () {
+     return view('auth.login');
+    });
+    // Rute logout
+    Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+    // Rute-rute lain yang memerlukan sesi dan otorisasi dapat ditambahkan di sini...
+    
+});
 
 Route::middleware('role:admin')->group(function () {
     Route::get('/admin-page', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.page');
@@ -29,10 +35,21 @@ Route::middleware('role:admin')->group(function () {
     // vessel
     Route::get('/vessel', [App\Http\Controllers\VesselController::class, 'vessel'])->name('vessel');
     Route::get('/add', [App\Http\Controllers\VesselController::class, 'add'])->name('add');
+    Route::post('/store-vessel', [App\Http\Controllers\VesselController::class, 'storevessel'])->name('store-vessel');
 
     //Product
     Route::get('/product', [App\Http\Controllers\ProductController::class, 'product'])->name('product');
     Route::get('/add-product', [App\Http\Controllers\ProductController::class, 'add'])->name('add-product');
+    Route::post('/store-product', [App\Http\Controllers\ProductController::class, 'storeproduct'])->name('store-product');
+    Route::get('/edit/{id}', [App\Http\Controllers\ProductController::class, 'editproduct'])->name('product.edit');
+    Route::post('/edit/{id}', [App\Http\Controllers\ProductController::class, 'updateproduct'])->name('product.update');
+    Route::get('/destroy/{id}', [App\Http\Controllers\ProductController::class, 'delete'])->name('product.hapus');
+
+    // Route untuk menyimpan produk ke dalam daftar temporary
+    Route::post('/temporary-products', [App\Http\Controllers\ProductController::class, 'store'])->name('temporary-products.store');
+
+    // Route untuk membersihkan daftar produk temporary
+    Route::post('/temporary-products/clear', [App\Http\Controllers\ProductController::class, 'clearTemporaryProducts'])->name('temporary-products.clear');
 });
 
 // Grup middleware untuk user
@@ -40,13 +57,4 @@ Route::middleware('role:user')->group(function () {
     Route::get('user-page', function() {
         return 'Halaman untuk User';
     })->name('user.page');
-});
-
-Route::group(['middleware' => ['web']], function () {
-
-    // Rute logout
-    Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-
-    // Rute-rute lain yang memerlukan sesi dan otorisasi dapat ditambahkan di sini...
-    
 });

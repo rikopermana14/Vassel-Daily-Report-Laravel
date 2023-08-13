@@ -15,11 +15,22 @@ class VesselController extends Controller
 
      public function vessel()
     {
-        return view('vessel.index');
+        $data = Vessel::all();
+        return view('vessel.index', compact('data'));
     }
 
     public function add()
     {
+        $latestVessel = Vessel::latest('id')->first();
+    if ($latestVessel) {
+        $vesselNumber = str_pad($latestVessel->id + 1, 2, '0', STR_PAD_LEFT);
+    } else {
+        $vesselNumber = '01';
+    }
+    $vesselId = 'VSL' . $vesselNumber;
+        $vesselId = 'VSL' . $vesselNumber;
+        session(['vesselId' => $vesselId]);
+
         return view('vessel.add.add');
     }
 
@@ -44,9 +55,90 @@ class VesselController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storevessel(Request $request)
     {
-        //
+        $request->validate([
+            'Vessel_Name' => 'required',
+            'Vessel_Email' => 'required',
+            'Vessel_Type' => 'required',
+            'Builder' => 'required',
+            'Class_Cert' => 'required',
+            'Call_Sign' => 'required',
+            'Length_Perpendicular' => 'required',
+            'Depth_Moulded' => 'required',
+            'Gross_Tonage' => 'required',
+            'Cost_Center' => 'required',
+            'Work_Place' => 'required',
+            'Clear_Deck_Area' => 'required',
+            'Other_Spec' => 'required',
+            'Fg_Available' => 'required',
+            'Vessel_Alias' => 'required',
+            'Country_Flag' => 'required',
+            'Year_Built' => 'required',
+            'Official_No' => 'required',
+            'Length_Over_All' => 'required',
+            'Breadth_Moulded' => 'required',
+            'Draft_Final' => 'required',
+            'Netto_Tonage' => 'required',
+            'Owner' => 'required',
+            'Consump_ME' => 'required',
+            'Consump_AE' => 'required',
+            'Consump_Max' => 'required',
+            'Consump_Eco' => 'required',
+            'Type_Fuel' => 'required',
+            'Speed_Max' => 'required',
+            'Speed_Eco' => 'required',
+            'Speed_Min' => 'required',
+            'Horse_Power' => 'required',
+
+        ]);
+
+         // Menghasilkan Vessel ID
+    $latestVessel = Vessel::latest('id')->first();
+    if ($latestVessel) {
+        $vesselNumber = str_pad($latestVessel->id + 1, 2, '0', STR_PAD_LEFT);
+    } else {
+        $vesselNumber = '01';
+    }
+    $vesselId = 'VSL' . $vesselNumber;
+    
+        Vessel::create([
+            'vessel_id' => $vesselId,
+            'vessel_name' => $request->input('Vessel_Name'),
+    'email' => $request->input('Vessel_Email'),
+    'vessel_type' => $request->input('Vessel_Type'),
+    'builder' => $request->input('Builder'),
+    'class' => $request->input('Class_Cert'),
+    'call_sign' => $request->input('Call_Sign'),
+    'length_perpendicular' => $request->input('Length_Perpendicular'),
+    'depth_moulded' => $request->input('Depth_Moulded'),
+    'gross_tonage' => $request->input('Gross_Tonage'),
+    'cost_center' => $request->input('Cost_Center'),
+    'work_place' => $request->input('Work_Place'),
+    'clear_deck_area' => $request->input('Clear_Deck_Area'),
+    'other_spesification' => $request->input('Other_Spec'),
+    'avaliable' => $request->input('Fg_Available'),
+    'vessel_alias' => $request->input('Vessel_Alias'),
+    'country_flag' => $request->input('Country_Flag'),
+    'year_built' => $request->input('Year_Built'),
+    'official_number' => $request->input('Official_No'),
+    'lenght_overall' => $request->input('Length_Over_All'),
+    'breadth_mouled' => $request->input('Breadth_Moulded'),
+    'draft_final' => $request->input('Draft_Final'),
+    'netto_tonnage' => $request->input('Netto_Tonage'),
+    'owner' => $request->input('Owner'),
+    'main_engine_fuel_oil_consumption' => $request->input('Consump_ME'),
+    'auxilary_engine_fuel_oil_consumption' => $request->input('Consump_AE'),
+    'fuel_oil_consumption_maximum' => $request->input('Consump_Max'),
+    'fuel_oil_consumption_economic' => $request->input('Consump_Eco'),
+    'type_of_fuel' => $request->input('Type_Fuel'),
+    'maximum_speed' => $request->input('Speed_Max'),
+    'economic_speed' => $request->input('Speed_Eco'),
+    'minimum_speed' => $request->input('Speed_Min'),
+    'horse_power' => $request->input('Horse_Power'),
+        ]);
+
+        return redirect()->route('vessel');with('success', 'Add Data Success');
     }
 
     /**

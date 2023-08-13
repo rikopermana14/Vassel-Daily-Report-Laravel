@@ -3,8 +3,7 @@
       <div class="col-sm-6">
         <div class="form-group">
 <label for="country_name">Vessel ID</label>
-<form action="#" method="post" enctype="multipart/form-data">
-<input type="text" class="form-control" name="ID_Vessel_Code" value=" " readonly>
+<input type="text" class="form-control" name="ID_Vessel_Code" value="{{ session('vesselId') }}" readonly>
 </div>
    <div class="form-group">
 <label for="country_name">Vessel Name</label>
