@@ -45,32 +45,56 @@
                             <div class="tab-content">
                                 <!-- Konten Tab Informasi Umum -->
                                 <div class="tab-pane active" id="tab_1">
+                                  <form action="/general-info" method="post" enctype="multipart/form-data">
+                                    @csrf
                                     @include('vdr.general_info')
+                                    <button class="btn btn-primary">Simpan</button>
+                              </form>
                                 </div>
-
+                             
                                 <!-- Konten Tab Aktivitas Harian -->
                                 <div class="tab-pane" id="tab_2">
+                                  <form action="/daily-activities" method="post" enctype="multipart/form-data">
+                                    @csrf
                                     @include('vdr.daily_activities')
+                                    <button class="btn btn-primary">Simpan</button>
+                              </form>
                                 </div>
 
                                 <!-- Konten Tab Jam Operasi Mesin -->
                                 <div class="tab-pane" id="tab_3">
+                                  <form action="/running-hours-machine" method="post" enctype="multipart/form-data">
+                                    @csrf
                                     @include('vdr.running_hours_machine')
+                                    <button class="btn btn-primary">Simpan</button>
+                              </form>
                                 </div>
 
                                 <!-- Konten Tab Konsumsi -->
                                 <div class="tab-pane" id="tab_4">
+                                  <form action="/consumption" method="post" enctype="multipart/form-data">
+                                    @csrf
                                     @include('vdr.consumption')
+                                    <button class="btn btn-primary">Simpan</button>
+                              </form>
                                 </div>
 
                                 <!-- Konten Tab Status Stok -->
                                 <div class="tab-pane" id="tab_5">
+                                  <form action="/stock_status" method="post" enctype="multipart/form-data">
+                                    @csrf
                                     @include('vdr.stock_status')
+                                    <button class="btn btn-primary">Simpan</button>
+                              </form>
                                 </div>
 
                                 <!-- Konten Tab Muatan -->
                                 <div class="tab-pane" id="tab_6">
+                                  <form action="/muatan" method="post" enctype="multipart/form-data">
+                                    @csrf
                                     @include('vdr.muatan')
+                                    <button class="btn btn-primary">Simpan</button>
+                              </form>
                                 </div>
                             </div>
                             <!-- /.tab-content -->

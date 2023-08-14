@@ -18,7 +18,7 @@
                    <div class="col-sm-6">
                    <div class="form-group">
                      <label>Time From</label>
-                   <input type="text" name="" class="form-control">
+                   <input type="text" name="time_from" class="form-control">
                    </div>
                    </div>
                  </div>
@@ -27,7 +27,7 @@
                    <div class="col-sm-6">
                    <div class="form-group">
                      <label>Time To</label>
-                   <input type="text" name="" class="form-control">
+                   <input type="text" name="time_to" class="form-control">
                    </div>
                    </div>
                  </div>
@@ -36,7 +36,7 @@
                    <div class="col-sm-6">
                      <div class="form-group">
                        <label>Description</label>
-                       <textarea class="form-control" row="15"></textarea>
+                       <textarea class="form-control" row="15" name="description"></textarea>
                      </div>
                    </div>
                   </div>   

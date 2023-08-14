@@ -15,7 +15,7 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Distance Run</label>
-          <input type="text" name="" class="form-control">
+          <input type="text" name="distance_run" class="form-control">
         </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Vessel Name</label>
-        <select class="form-control">
+        <select class="form-control" name="vessel_name">
           <option>LOGINDO STAMINA</option>
           <option>LOGINDO ENERGY</option>
           <option>LOGINDO STOUT</option>
@@ -34,7 +34,7 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Total Distance Run</label>
-          <input type="text" name="" class="form-control">
+          <input type="text" name="total_distance" class="form-control">
         </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Vessel Group</label>
-        <select class="form-control">
+        <select class="form-control"name="vessel_group">
           <option>AHTS</option>
           <option>AHT</option>
           <option>AWB</option>
@@ -54,7 +54,7 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Time Run</label>
-          <input type="text" name="" class="form-control">
+          <input type="text" name="time_run" class="form-control">
         </div>
         </div>
       </div>
@@ -64,13 +64,13 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>General Position</label>
-        <input type="text" name="" class="form-control">
+        <input type="text" name="general_position" class="form-control">
         </div>
         </div>
         <div class="col-sm-6">
         <div class="form-group">
           <label>Total Time Run</label>
-          <input type="text" name="" class="form-control">
+          <input type="text" name="total_time" class="form-control">
         </div>
         </div>
       </div>
@@ -80,13 +80,13 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Master's Name</label>
-        <input type="text" name="" class="form-control">
+        <input type="text" name="master_name" class="form-control">
         </div>
         </div>
         <div class="col-sm-6">
         <div class="form-group">
           <label>Average Speed</label>
-          <input type="text" name="" class="form-control">
+          <input type="text" name="avarage_speed" class="form-control">
         </div>
         </div>
       </div>
@@ -96,13 +96,13 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Time Zone</label>
-        <input type="text" name="" class="form-control">
+        <input type="text" name="time_zone" class="form-control">
         </div>
         </div>
         <div class="col-sm-6">
         <div class="form-group">
           <label>General Average Speed</label>
-          <input type="text" name="" class="form-control">
+          <input type="text" name="general_avarage" class="form-control">
         </div>
         </div>
       </div>
@@ -112,13 +112,13 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Latitude</label>
-        <input type="text" name="" class="form-control">
+        <input type="text" name="latitude" class="form-control">
         </div>
         </div>
         <div class="col-sm-6">
         <div class="form-group">
           <label>Visibility Scale</label>
-          <input type="text" name="" class="form-control">
+          <input type="text" name="visibility" class="form-control">
         </div>
         </div>
       </div>
@@ -127,13 +127,13 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Longitude</label>
-        <input type="text" name="" class="form-control">
+        <input type="text" name="longtuide" class="form-control">
         </div>
         </div>
         <div class="col-sm-6">
         <div class="form-group">
           <label>Scale of Wind Force</label>
-          <input type="text" name="" class="form-control">
+          <input type="text" name="scale_wind" class="form-control">
         </div>
         </div>
       </div>
@@ -142,13 +142,13 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Scale of Sea Swell</label>
-        <input type="text" name="" class="form-control">
+        <input type="text" name="scale_sea" class="form-control">
         </div>
         </div>
         <div class="col-sm-6">
         <div class="form-group">
           <label>Barometer</label>
-          <input type="text" name="" class="form-control">
+          <input type="text" name="barometer" class="form-control">
         </div>
         </div>
       </div>
@@ -157,13 +157,13 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Wind Direction</label>
-        <input type="text" name="" class="form-control">
+        <input type="text" name="wind_direction" class="form-control">
         </div>
         </div>
         <div class="col-sm-6">
         <div class="form-group">
           <label>Vessel Course (T)</label>
-          <input type="text" name="" class="form-control">
+          <input type="text" name="vessel_course" class="form-control">
         </div>
         </div>
       </div>
@@ -172,13 +172,13 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Weather</label>
-        <input type="text" name="" class="form-control">
+        <input type="text" name="weather" class="form-control">
         </div>
         </div>
         <div class="col-sm-6">
         <div class="form-group">
           <label>Distance To Go</label>
-          <input type="text" name="" class="form-control">
+          <input type="text" name="distance" class="form-control">
         </div>
         </div>
       </div>
@@ -187,13 +187,13 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Temperature</label>
-        <input type="text" name="" class="form-control">
+        <input type="text" name="temperature" class="form-control">
         </div>
         </div>
         <div class="col-sm-6">
         <div class="form-group">
           <label>Towage Operation</label>
-          <input type="text" name="" class="form-control">
+          <input type="text" name="towage" class="form-control">
         </div>
         </div>
       </div>
@@ -202,13 +202,13 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Destination</label>
-        <input type="text" name="" class="form-control">
+        <input type="text" name="destination" class="form-control">
         </div>
         </div>
         <div class="col-sm-6">
         <div class="form-group">
           <label>Name / Size (GRT)</label>
-          <input type="text" name="" class="form-control">
+          <input type="text" name="size" class="form-control">
         </div>
         </div>
       </div>
@@ -217,13 +217,13 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>ETA</label>
-        <input type="text" name="" class="form-control">
+        <input type="text" name="eta" class="form-control">
         </div>
         </div>
         <div class="col-sm-6">
         <div class="form-group">
           <label>Vessel Status</label>
-          <select class="form-control">
+          <select class="form-control"name="vessel_status">
           <option>ON HIRE</option>
           <option>OFF HIRE</option>
         </select>

@@ -17,7 +17,7 @@
          <div class="col-sm-6">
            <div class="form-group">
              <label>Machine</label>
-             <select class="form-control">
+             <select class="form-control"name="machine">
            <option>A/E 1</option>
            <option>A/E 2</option>
            <option>M/E 1</option>                      
@@ -31,7 +31,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Towing</label>
-         <input type="text" name="" class="form-control">
+         <input type="text" name="towing" class="form-control">
          </div>
          </div>
        </div>
@@ -40,7 +40,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Manouver</label>
-         <input type="text" name="" class="form-control">
+         <input type="text" name="manouver" class="form-control">
          </div>
          </div>
        </div>
@@ -49,7 +49,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Slow</label>
-         <input type="text" name="" class="form-control">
+         <input type="text" name="slow" class="form-control">
          </div>
          </div>
        </div> 
@@ -58,7 +58,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Economi</label>
-         <input type="text" name="" class="form-control">
+         <input type="text" name="economi" class="form-control">
          </div>
          </div>
        </div>
@@ -67,7 +67,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Full Speed</label>
-         <input type="text" name="" class="form-control">
+         <input type="text" name="full_speed" class="form-control">
          </div>
          </div>
        </div>
@@ -76,7 +76,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Stand By</label>
-         <input type="text" name="" class="form-control">
+         <input type="text" name="standby" class="form-control">
          </div>
          </div>
        </div>

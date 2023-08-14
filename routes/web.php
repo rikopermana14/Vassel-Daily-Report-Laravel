@@ -31,7 +31,15 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::middleware('role:admin')->group(function () {
     Route::get('/admin-page', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.page');
+
+    // VDR
     Route::get('/vdr', [App\Http\Controllers\VDRController::class, 'vdr'])->name('vdr');
+    Route::post('/general-info', [App\Http\Controllers\VDRController::class, 'storegeneralinfo'])->name('general-info');
+    Route::post('/daily-activities', [App\Http\Controllers\VDRController::class, 'storedaily'])->name('daily-activities');
+    Route::post('/running-hours-machine', [App\Http\Controllers\VDRController::class, 'storerunning'])->name('running-hours-machine');
+    Route::post('/consumption', [App\Http\Controllers\VDRController::class, 'storeconsumption'])->name('consumption');
+    Route::get('/get_product/{codeproduct}', [App\Http\Controllers\VDRController::class, 'getProduct']);
+
     // vessel
     Route::get('/vessel', [App\Http\Controllers\VesselController::class, 'vessel'])->name('vessel');
     Route::get('/add', [App\Http\Controllers\VesselController::class, 'add'])->name('add');

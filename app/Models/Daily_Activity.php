@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Daily_Activity extends Model
 {
     use HasFactory;
-    protected $table = 'daily_activities';
+    protected $table = 'daily_activitiy';
     protected $primaryKey = "id";
     protected $fillable = [
         'tanggal',

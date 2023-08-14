@@ -15,32 +15,7 @@ return new class extends Migration
     {
         Schema::create('vdr', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('tanggal');
-            $table->string('vessel_group');
-            $table->string('general_position');
-            $table->string('master_name');
-            $table->string('time_zone');
-            $table->string('longtuide');
-            $table->string('scale_sea');
-            $table->string('wind');
-            $table->string('weather');
-            $table->string('tempratur');
-            $table->string('destination');
-            $table->string('eta');
-            $table->string('distance_run');
-            $table->string('total_distance');
-            $table->string('time_run');
-            $table->string('total_time');
-            $table->string('avarage_speed');
-            $table->string('general_avarage_speed');
-            $table->string('visibility_scale');
-            $table->string('scale_of_wind_force');
-            $table->string('barometer');
-            $table->string('vessel_course');
-            $table->string('distance_to_go');
-            $table->string('towage_operation');
-            $table->string('size_grt');
-            $table->string('vessel_status');
+            $table->string('id_general_info');
             $table->string('id_daily_activities');
             $table->string('id_running_hours');
             $table->string('id_consumption');
