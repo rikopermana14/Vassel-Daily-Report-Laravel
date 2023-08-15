@@ -143,11 +143,11 @@
               </button>
           </div>
           <div class="modal-body">
-              Are you sure you want to delete this product?
+              Are you sure you want to delete this Vessel?
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <a id="deleteConfirmBtn" class="btn btn-danger" href="{{ route('product.hapus', Crypt::encrypt ($item->id)) }}">Delete</a>
+              <a id="deleteConfirmBtn" class="btn btn-danger" href="{{ route('vessel.hapus', Crypt::encrypt ($item->id)) }}">Delete</a>
           </div>
       </div>
   </div>

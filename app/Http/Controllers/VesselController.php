@@ -259,8 +259,12 @@ class VesselController extends Controller
      * @param  \App\Models\Vessel  $vessel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vessel $vessel)
-    {
-        //
-    }
+    public function delete($encryptedId)
+    {   $id = Crypt::decrypt($encryptedId);
+        $Vessel = Vessel::find($id);
+        // Hapus data film
+        $Vessel->delete();
+    
+        return redirect()->route('vessel');
+}
 }

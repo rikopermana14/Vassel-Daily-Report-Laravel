@@ -17,10 +17,10 @@
     <label>Vessel Type</label>
     <select class="form-control" name="Vessel_Type" id="vessel_type" required>
         <option value="">Vessel Type</option>
-        <option value="001" {{ isset($vessel) && $vessel->vessel_type === '001' ? 'selected' : '' }}>AHTS</option>
-        <option value="002" {{ isset($vessel) && $vessel->vessel_type === '002' ? 'selected' : '' }}>AHT</option>
-        <option value="003" {{ isset($vessel) && $vessel->vessel_type === '003' ? 'selected' : '' }}>AWB</option>
-        <option value="004" {{ isset($vessel) && $vessel->vessel_type === '004' ? 'selected' : '' }}>Tug Boat</option>
+        <option value="AHTS" {{ isset($vessel) && $vessel->vessel_type === 'AHTS' ? 'selected' : '' }}>AHTS</option>
+        <option value="AHT" {{ isset($vessel) && $vessel->vessel_type === 'AHT' ? 'selected' : '' }}>AHT</option>
+        <option value="AWB" {{ isset($vessel) && $vessel->vessel_type === 'AWB' ? 'selected' : '' }}>AWB</option>
+        <option value="Tug Boat" {{ isset($vessel) && $vessel->vessel_type === 'Tug Boat' ? 'selected' : '' }}>Tug Boat</option>
     </select>
 </div>
 <div class="form-group">

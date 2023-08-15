@@ -34,7 +34,16 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+
+<!-- DataTables CSS and JS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+<!-- DataTables Buttons CSS and JS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+<script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+
 
 
 
@@ -141,13 +150,13 @@
         dom: 'Bfrtip',
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
        initComplete: function() {
-         var $buttons = $('.dt-buttons').hide();
-         $('#exportLink').on('change', function() {
-            var btnClass = $(this).find(":selected")[0].id 
-               ? '.buttons-' + $(this).find(":selected")[0].id 
-               : null;
-            if (btnClass) $buttons.find(btnClass).click(); 
-         })
+        var $buttons = $('.dt-buttons').hide();
+$('#exportLink').on('change', function() {
+    var btnClass = $(this).find(":selected")[0].id 
+        ? '.buttons-' + $(this).find(":selected")[0].id 
+        : null;
+    if (btnClass) $buttons.find(btnClass).click(); 
+});
        } 
    });
   });
