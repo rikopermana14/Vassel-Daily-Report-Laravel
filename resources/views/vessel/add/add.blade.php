@@ -32,7 +32,7 @@
                   <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Page 1</a></li>
                   <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Page 2</a></li>
                   <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">Page 3</a></li>
-                  <form action="/store-vessel" method="post" enctype="multipart/form-data">
+                  <form action="{{ isset($vessel) ? route('vessel.update',Crypt::encrypt ($vessel->id)): route('store-vessel') }}" method="post" enctype="multipart/form-data">
                     @csrf
                   <li><a href="/vessel" class="btn btn-warning">Back</a>
                     <button type="submit" class="btn btn-info">Save</button>

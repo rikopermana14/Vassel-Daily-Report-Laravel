@@ -144,6 +144,10 @@
     $('#muatan_date').datetimepicker({
       format: 'YYYY/MM/DD HH:mm'
     });
+    //Date range picker for Stock_Status
+    $('#stock_date').datetimepicker({
+      format: 'YYYY/MM/DD HH:mm'
+    });
 
     // Tangkap tanggal saat tanggal di "General Info" berubah
     $('#joined_date').on('change.datetimepicker', function(e) {

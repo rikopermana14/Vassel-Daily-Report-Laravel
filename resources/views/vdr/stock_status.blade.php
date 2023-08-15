@@ -1,97 +1,202 @@
 <div class="card-body">
-<div class="row">
-  <div class="col-sm-6">
-    <div class="form-group">
-      <label>Date</label>
-      <div class="input-group date" id="birth_date" data-target-input="nearest">
-        <input name="date" type="text" class="form-control datetimepicker-input" data-target="#birth_date"/>
-        <div class="input-group-append" data-target="#birth_date" data-toggle="datetimepicker">
-          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+  <ul class="nav nav-pills ml-auto p-2">
+    <li class="nav-item">
+      <a id="addTabLink" class="nav-link" href="#tab_7" data-toggle="tab">ADD</a>
+      
+    </li>
+  </ul>
+  <table id="example" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Product Code</th>
+            <th>Product Name</th>
+            <th>Specifications</th>
+            <th>Previous</th>
+            <th>Recived</th>
+            <th>Used</th>
+            <th>Transfer</th>
+            <th>Sound</th>
+            <th>Remain</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr> @foreach ($stock as $item)
+          <td>{{ $item->tanggal }}</td>
+          <td>{{ $item->product_id }}</td>
+          <td>{{ $item->name }}</td>
+          <td>{{ $item->spec }}</td>
+          <td>{{ $item->previous }}</td>
+          <td>{{ $item->receive }}</td>
+          <td>{{ $item->use }}</td>
+          <td>{{ $item->transfer }}</td>
+          <td>{{ $item->soud }}</td>
+          <td>{{ $item->remain }}</td>
+          @endforeach
+        </tr>
+    </tbody>
+</table>
+
+<div class="tab-content">
+<div class="tab-pane" id="tab_7">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>Date</label>
+        <div class="input-group date" id="stock_date" data-target-input="nearest">
+          <input name="stock_date" type="text" class="form-control datetimepicker-input" data-target="#stock_date"/>
+          <div class="input-group-append" data-target="#stock_date" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-6">
-    <div class="form-group">
-      <label>Product Code</label>
-      <input type="text" name="product_code" class="form-control">
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-6">
-    <div class="form-group">
-      <label>Product Name</label>
-      <input type="text" name="product_name" class="form-control">
-    </div>
-  </div>
-</div>
   
-<div class="row">
-  <div class="col-sm-6">
-    <div class="form-group">
-      <label>Spec</label>
-      <textarea class="form-control" name="spec" rows="5"></textarea>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>Product Code</label>
+        <input type="text" name="product_code" class="form-control" id="productCodeSelect" >
+      </div>
     </div>
   </div>
-</div>
 
-<!-- Add the remaining input fields with proper name attributes -->
-<div class="row">
-  <div class="col-sm-6">
-    <div class="form-group">
-      <label>Previous</label>
-      <input type="text" name="previous" class="form-control">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>Product Name</label>
+        <select class="form-control" name="product_name" id="productNameInput">
+          <option value="">-Pilih Product-</option>
+          @foreach ($data as $item)
+            <option value="{{ $item->name }}">{{ $item->name }}</option>
+          @endforeach
+        </select>
+      </div>
     </div>
   </div>
+    
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>Spec</label>
+        <textarea class="form-control" name="spec" rows="5"></textarea>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Add the remaining input fields with proper name attributes -->
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>Previous</label>
+        <input type="text" name="previous" class="form-control">
+      </div>
+    </div>
+  </div>
+  
+   <div class="row">
+    <div class="col-sm-6">
+    <div class="form-group">
+      <label>Received</label>
+    <input type="text" name="received" class="form-control">
+    </div>
+    </div>
+  </div>
+  
+   <div class="row">
+    <div class="col-sm-6">
+    <div class="form-group">
+      <label>Used</label>
+    <input type="text" name="used" class="form-control">
+    </div>
+    </div>
+  </div>
+  
+   <div class="row">
+    <div class="col-sm-6">
+    <div class="form-group">
+      <label>Transfered</label>
+    <input type="text" name="transfer" class="form-control">
+    </div>
+    </div>
+  </div>
+  
+   <div class="row">
+    <div class="col-sm-6">
+    <div class="form-group">
+      <label>Sounding</label>
+    <input type="text" name="sound" class="form-control">
+    </div>
+    </div>
+  </div>
+  
+   <div class="row">
+    <div class="col-sm-6">
+    <div class="form-group">
+      <label>Remain</label>
+    <input type="text" name="remain" class="form-control">
+    </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const productCodeSelect = document.getElementById("productCodeSelect");
+    const productNameInput = document.getElementById("productNameInput");
+    const productsData = {!! json_encode($data) !!}; // Memasukkan data produk dari PHP ke JavaScript
+
+    productNameInput.addEventListener("change", function () {
+      const selectedProductName = productNameInput.value;
+      const selectedProduct = productsData.find(product => product.name === selectedProductName);
+
+      if (selectedProduct) {
+        productCodeSelect.value = selectedProduct.product_id;
+      } else {
+        productCodeSelect.value = "";
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const addTabLink = document.getElementById("addTabLink");
+    const tabContent = document.querySelector(".tab-content");
+    const stockTable = document.getElementById("stockTable");
+    let addingMode = false;
+
+    // Fungsi untuk menampilkan tab "ADD"
+    function showAddTab() {
+      addingMode = true;
+      addTabLink.classList.add("active");
+      tabContent.querySelector(".tab-pane.active").classList.remove("active");
+      tabContent.querySelector("#tab_7").classList.add("active");
+    }
+
+    // Fungsi untuk menampilkan tabel stok dan menyembunyikan tab "ADD"
+    function showStockTable() {
+      addingMode = false;
+      addTabLink.classList.remove("active");
+      tabContent.querySelector(".tab-pane.active").classList.remove("active");
+      stockTable.classList.add("active");
+    }
+
+    // Saat halaman dimuat, tampilkan tabel stok
+    showStockTable();
+
+    // Saat tab "ADD" diklik, tampilkan tab "ADD"
+    addTabLink.addEventListener("click", function (event) {
+      event.preventDefault();
+      if (!addingMode) {
+        showAddTab();
+      } else {
+        showStockTable();
+      }
+    });
+  });
+  </script>
+  
+  
+</div>
+</div>
 </div>
 
- <div class="row">
-  <div class="col-sm-6">
-  <div class="form-group">
-    <label>Received</label>
-  <input type="text" name="received" class="form-control">
-  </div>
-  </div>
-</div>
 
- <div class="row">
-  <div class="col-sm-6">
-  <div class="form-group">
-    <label>Used</label>
-  <input type="text" name="used" class="form-control">
-  </div>
-  </div>
-</div>
 
- <div class="row">
-  <div class="col-sm-6">
-  <div class="form-group">
-    <label>Transfered</label>
-  <input type="text" name="transfer" class="form-control">
-  </div>
-  </div>
-</div>
-
- <div class="row">
-  <div class="col-sm-6">
-  <div class="form-group">
-    <label>Sounding</label>
-  <input type="text" name="sound" class="form-control">
-  </div>
-  </div>
-</div>
-
- <div class="row">
-  <div class="col-sm-6">
-  <div class="form-group">
-    <label>Remain</label>
-  <input type="text" name="" class="form-control">
-  </div>
-  </div>
-</div>
-</div>

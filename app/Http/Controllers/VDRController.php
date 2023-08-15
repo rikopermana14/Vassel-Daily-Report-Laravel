@@ -6,16 +6,18 @@ use App\Models\consumption;
 use App\Models\Daily_Activity;
 use Illuminate\Http\Request;
 use App\Models\GeneralInfo;
+use App\Models\muatan;
 use App\Models\Product;
 use App\Models\Running_hours;
+use App\Models\Stock_Status;
 
 class VDRController extends Controller
 {
     public function vdr()
     {
-
+        $stock=Stock_Status::all();
         $data=Product::all();
-        return view('vdr.index', compact('data'));
+        return view('vdr.index', compact('data','stock'));
     }
     public function getProduct($codeproduct)
 {
@@ -159,6 +161,61 @@ class VDRController extends Controller
             'name_product' => $request->input('product_name'),
             'description' => $request->input('description'),
             'used'=> $request->input('used'), 
+        ]);
+        
+
+        return redirect()->route('vdr');with('success', 'Add Data Success');
+    }
+
+    public function storemuatan(Request $request)
+    {
+        $request->validate([
+            'muatan_date' => 'required',
+            'product' => 'required',
+            'previous' => 'required',
+            'received' => 'required',
+            'transfered' => 'required',
+            'remain' => 'required',
+        ]);
+    
+        muatan::create([
+            'tanggal'=> $request->input('muatan_date'),
+            'product_name' => $request->input('product'),
+            'previous' => $request->input('previous'),
+            'receive' => $request->input('received'),
+            'transfer' => $request->input('transfered'),
+            'remain'=> $request->input('remain'), 
+        ]);
+        
+
+        return redirect()->route('vdr');with('success', 'Add Data Success');
+    }
+    public function storestock(Request $request)
+    {
+        $request->validate([
+            'stock_date' => 'required',
+            'product_code' => 'required',
+            'product_name' => 'required',
+            'spec' => 'required',
+            'previous' => 'required',
+            'received' => 'required',
+            'used'=> 'required',
+            'transfer'=> 'required',
+            'sound'=> 'required',
+            'remain'=> 'required',
+        ]);
+    
+        Stock_Status::create([
+            'tanggal'=> $request->input('stock_date'),
+            'product_id'=> $request->input('product_code'),
+            'name' => $request->input('product_name'),
+            'spec' => $request->input('spec'),
+            'previous' => $request->input('previous'),
+            'receive' => $request->input('received'),
+            'use'=> $request->input('used'), 
+            'transfer'=> $request->input('transfer'), 
+            'soud'=> $request->input('sound'), 
+            'remain'=> $request->input('remain'), 
         ]);
         
 

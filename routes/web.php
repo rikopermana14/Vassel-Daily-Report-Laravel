@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth; 
 use Spatie\Permission\Middlewares\RoleMiddleware;
+use App\Http\Controllers\VesselController;
+
 
 
 /*
@@ -38,19 +40,23 @@ Route::middleware('role:admin')->group(function () {
     Route::post('/daily-activities', [App\Http\Controllers\VDRController::class, 'storedaily'])->name('daily-activities');
     Route::post('/running-hours-machine', [App\Http\Controllers\VDRController::class, 'storerunning'])->name('running-hours-machine');
     Route::post('/consumption', [App\Http\Controllers\VDRController::class, 'storeconsumption'])->name('consumption');
+    Route::post('/muatan', [App\Http\Controllers\VDRController::class, 'storemuatan'])->name('muatan');
+    Route::post('/stock_status', [App\Http\Controllers\VDRController::class, 'storestock'])->name('stock_stsatus');
     Route::get('/get_product/{codeproduct}', [App\Http\Controllers\VDRController::class, 'getProduct']);
 
     // vessel
     Route::get('/vessel', [App\Http\Controllers\VesselController::class, 'vessel'])->name('vessel');
     Route::get('/add', [App\Http\Controllers\VesselController::class, 'add'])->name('add');
     Route::post('/store-vessel', [App\Http\Controllers\VesselController::class, 'storevessel'])->name('store-vessel');
+    Route::get('/edit-vessel/{id}', [App\Http\Controllers\VesselController::class, 'editvessel'])->name('vessel.edit');
+    Route::post('/edit-vessel/{id}', [App\Http\Controllers\VesselController::class, 'updatevessel'])->name('vessel.update');
 
     //Product
     Route::get('/product', [App\Http\Controllers\ProductController::class, 'product'])->name('product');
     Route::get('/add-product', [App\Http\Controllers\ProductController::class, 'add'])->name('add-product');
     Route::post('/store-product', [App\Http\Controllers\ProductController::class, 'storeproduct'])->name('store-product');
-    Route::get('/edit/{id}', [App\Http\Controllers\ProductController::class, 'editproduct'])->name('product.edit');
-    Route::post('/edit/{id}', [App\Http\Controllers\ProductController::class, 'updateproduct'])->name('product.update');
+    Route::get('/edit-product/{id}', [App\Http\Controllers\ProductController::class, 'editproduct'])->name('product.edit');
+    Route::post('/edit-product/{id}', [App\Http\Controllers\ProductController::class, 'updateproduct'])->name('product.update');
     Route::get('/destroy/{id}', [App\Http\Controllers\ProductController::class, 'delete'])->name('product.hapus');
 
     // Route untuk menyimpan produk ke dalam daftar temporary

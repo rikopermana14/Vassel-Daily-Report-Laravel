@@ -31,21 +31,21 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Product Code</label>
-                      <select class="form-control"name="product_code" id="productCodeSelect">
-                        <option value="">-Pilih Kode Product-</option>
-                        @foreach ($data as $item)
-                    <option value="{{ $item->product_id }}">{{ $item->product_id }}</option>
-                    @endforeach
-                  </select>
+                      <input type="text" name="product_code" class="form-control" id="productCodeSelect" readonly>
                     </div>
                   </div>
-                 </div>
-
-                 <div class="row">
+                </div>
+              
+                <div class="row">
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Product Name</label>
-                      <input type="text" name="product_name" class="form-control" id="productNameInput" readonly>
+                      <select class="form-control" name="product_name" id="productNameInput">
+                        <option value="">-Pilih Product-</option>
+                        @foreach ($data as $item)
+                          <option value="{{ $item->name }}">{{ $item->name }}</option>
+                        @endforeach
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -70,43 +70,26 @@
 
                <script>
                 document.addEventListener("DOMContentLoaded", function () {
-                    const productCodeSelect = document.getElementById("productCodeSelect");
-                    const productNameInput = document.getElementById("productNameInput");
-                    const productsData = {!! json_encode($data) !!}; // Memasukkan data produk dari PHP ke JavaScript
-        
-                    productCodeSelect.addEventListener("change", function () {
-                        const selectedProductCode = productCodeSelect.value;
-                        const selectedProduct = productsData.find(product => product.product_id === selectedProductCode);
-        
-                        if (selectedProduct) {
-                            productNameInput.value = selectedProduct.name;
-                        } else {
-                            productNameInput.value = "";
-                        }
-                    });
-                });
-            </script>
-
-               </div>
-               <!-- /.tab-pane -->
-
-               <script>
-                document.addEventListener("DOMContentLoaded", function () {
                   const productCodeSelect = document.getElementById("productCodeSelect");
+                  const productNameInput = document.getElementById("productNameInput");
+                  const productsData = {!! json_encode($data) !!}; // Memasukkan data produk dari PHP ke JavaScript
               
-                  productCodeSelect.addEventListener("change", function () {
-                    const selectedProductCode = productCodeSelect.value;
-                    // Di sini, Anda dapat menambahkan logika pencarian sesuai dengan kebutuhan Anda.
-                    // Misalnya, mungkin Anda ingin mengirim permintaan ke server atau memproses data di sisi klien.
+                  productNameInput.addEventListener("change", function () {
+                    const selectedProductName = productNameInput.value;
+                    const selectedProduct = productsData.find(product => product.name === selectedProductName);
               
-                    // Contoh aksi pencarian sederhana:
-                    if (selectedProductCode) {
-                      alert("Anda sedang mencari produk dengan kode: " + selectedProductCode);
-                      // Tambahkan logika pencarian atau tindakan lain di sini
+                    if (selectedProduct) {
+                      productCodeSelect.value = selectedProduct.product_id;
                     } else {
-                      alert("Pilih kode produk terlebih dahulu.");
+                      productCodeSelect.value = "";
                     }
                   });
                 });
               </script>
+              
+
+               </div>
+               <!-- /.tab-pane -->
+
+               
 

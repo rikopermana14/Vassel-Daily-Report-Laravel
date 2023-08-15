@@ -46,9 +46,10 @@
                   </div>
                   <div class="col-sm">
                     <a href="/add" class="btn btn-primary">Add</a>
-                    <a id="url" href="" class="btn btn-warning">Edit</a>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">Delete</button>
-                  </div>
+                    <a id="editBtn" class="btn btn-warning" href="#">Edit</a>
+                      <button type="button" class="btn btn-danger btn-sm text-center" data-toggle="modal" data-target="#deleteModal">
+                        Delete
+                    </button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -130,5 +131,60 @@
     <!-- /.content -->
   </div>
     <!-- /.content -->
+  
+  <!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Delete Product</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              Are you sure you want to delete this product?
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <a id="deleteConfirmBtn" class="btn btn-danger" href="{{ route('product.hapus', Crypt::encrypt ($item->id)) }}">Delete</a>
+          </div>
+      </div>
   </div>
-  @endsection
+</div>
+
+<script>
+  $(document).ready(function() {
+      var deleteUrl = '';
+
+      $('.btn-danger').click(function() {
+          deleteUrl = $(this).attr('href'); // Menyimpan URL delete saat tombol "Delete" diklik
+      });
+
+      $('#deleteConfirmBtn').click(function() {
+          window.location.href = deleteUrl; // Redirect ke URL delete saat tombol "Delete" di modal diklik
+      });
+  });
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      var editBtn = document.getElementById("editBtn");
+
+      editBtn.addEventListener("click", function() {
+          var selectedRadio = document.querySelector('.select-vessel:checked'); // Menggunakan class "select-vessel"
+          if (selectedRadio) {
+              var encryptedId = selectedRadio.getAttribute('data-product-id');
+              var editUrl = "{{ route('vessel.edit', ':encryptedId') }}".replace(':encryptedId', encryptedId);
+              window.location.href = editUrl;
+          } else {
+              alert("Please select a vessel to edit.");
+          }
+      });
+  });
+</script>
+
+
+
+@endsection

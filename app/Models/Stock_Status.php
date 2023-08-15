@@ -12,6 +12,7 @@ class Stock_Status extends Model
     protected $primaryKey = "id";
     protected $fillable = [
         'tanggal',
+        'product_id',
         'name',
         'spec',
         'previous',
