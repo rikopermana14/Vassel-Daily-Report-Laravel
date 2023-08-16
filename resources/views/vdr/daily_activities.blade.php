@@ -12,13 +12,16 @@
                    </div>
                    </div>
                  </div>
-
+                 <input type="hidden" name="_methodAdd" id="_methodAdd" value="POST">
+                 <input type="hidden" name="_enctype" id="_enctype" value="multipart/form-data">
+                 <input type="hidden" name="_tokenAdd" id="_tokenAdd" value="{{ csrf_token() }}">
+                 <input type="hidden" name="user_input" id="user_input" value="{{auth()->user()->id}}">
 
                   <div class="row">
                    <div class="col-sm-6">
                    <div class="form-group">
                      <label>Time From</label>
-                   <input type="text" name="time_from" class="form-control">
+                   <input type="text" name="time_from" id="time_from" class="form-control">
                    </div>
                    </div>
                  </div>
@@ -27,7 +30,7 @@
                    <div class="col-sm-6">
                    <div class="form-group">
                      <label>Time To</label>
-                   <input type="text" name="time_to" class="form-control">
+                   <input type="text" name="time_to" id="time_to" class="form-control">
                    </div>
                    </div>
                  </div>
@@ -36,10 +39,120 @@
                    <div class="col-sm-6">
                      <div class="form-group">
                        <label>Description</label>
-                       <textarea class="form-control" row="15" name="description"></textarea>
+                       <textarea class="form-control" row="15" name="description" id="description"></textarea>
                      </div>
                    </div>
                   </div>   
+                  <button type="submit" id="add-daily" class="btn btn-primary">Add</button>
+
+                <div class="row">
+                  <div class="table-responsive">
+                    <table id="tablebagagge" class="display table table-hover" >
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time From</th>
+                                <th>Time To</th>
+                                <th>Description</th>
+                         
+                                <th style="width: 10%">Action</th>
+                            </tr>
+                        </thead>
+                           <tbody id="show_data">
+                                            </tbody>
+                           
+                           
+                     
+                    </table>
+                </div>            
+                </div>
                 </div>     
 
-                 
+                <script>
+                  $(document).ready(function() {
+                      let id_user = {{auth()->user()->id}};
+                      
+          
+                      getdaily(); 
+                      {{--  $('#mydata').dataTable();  --}}
+          
+                      //fungsi tampil barang
+                      function getdaily() {
+                          $.ajax({
+                              type: 'GET',
+                              url: '{{ route('dailyactivities.ajaxdaily') }}',
+                         
+                              async: true,
+                              dataType: 'json',
+                              success: function(data) {
+                                  {{--  console.log(data.details.length);  --}}
+                                  
+          
+                                  var html = '';
+                                  var i;
+          
+                                  for (i = 0; i < data.details.length; i++) {
+          
+                                      html += `
+                                    <tr>
+                                       <td>` + data.details[i].date + `</td> 
+                                       <td>` + data.details[i].time_from + `</td> 
+                                       <td>` + data.details[i].time_to + `</td> 
+                                       <td>` + data.details[i].description + `</td> 
+                                     
+                                       <td class="text-center">
+                                          <button class="btn btn-warning btn-round ml-auto btn-sm baggage_edit" data-toggle="modal" data-target="#editModal1" data="` +
+                                          data.details[i].id +
+                                          `">
+                                            <i class="fa fa-edit"></i>
+                                            Edit
+                                          </button>
+                                          <button class="btn btn-danger btn-round ml-1 btn-sm baggage_hapus" data-toggle="modal" data-target="#deleteModal" data="` +
+                                          data.details[i].id + `">
+                                            <i class="fas fa-trash-alt"></i>
+                                            Delete
+                                        </div>
+                                      </td>
+                                    </tr>
+                                    `;
+                                  }
+                                  html += `
+                                
+          
+                                  `
+                                  $('#show_data').html(html);
+                              }
+                          });
+                      }
+                      
+             
+          
+          
+          //ADD Baggage
+                      $('#adddaily').on('click', function() {
+                            var formData = new FormData();
+                          formData.append('_method', $('#_methodAdd').val());
+                          formData.append('_token', $('#_tokenAdd').val());
+                          formData.append('_enctype', $('#_enctype').val());
+                          formData.append('date', $('#daily_date').val());
+                          formData.append('time_from', $('#time_from').val());
+                          formData.append('time_to', $('#time_to').val());
+                          formData.append('description', $('#description').val());
+                          formData.append('user_input', $('#user_input').val());
+                          
+          
+                          $.ajax({
+                             type: 'POST',
+                              url: '{{ route('dailyactivities.adddaily') }}',
+                              processData: false,
+                              contentType: false,
+                              data: formData,
+                              success: function(data) {
+                                  {{--  console.log(data);  --}}
+                                  //$('#addBaggageModal').modal('hide');
+                                  getdaily();
+                              }
+                          });
+                          return false;
+                      });
+</script>          

@@ -25,6 +25,62 @@ class VDRController extends Controller
     return response()->json($product);
 }
 
+public function ajaxdaily(Request $request)
+{
+  $data = Daily_Activity::orderBy('id','desc')->get();
+
+  $response = [
+    'success' => true,
+    'details' => $data,
+
+  ];
+
+return response()->json($response, 200);
+}
+
+public function adddaily(Request $request)
+{
+    $request->validate([
+          'time_from' => 'required',
+          'time_to' => 'required',
+      ]);
+      
+  $userid = $request->get('user_input');
+  $color = $request->get('color');
+  $ipAddress=$_SERVER['REMOTE_ADDR'];
+  
+  
+  DB::beginTransaction();
+  try {
+  
+      $addBag = Daily_Activity::create([
+        'date' => $request->get('date'),
+        'time_from' => $request->get('time_from'),
+        'time_to' => $time_to,
+        'description' => $description,
+        'user_input' => $user_input,
+      ]);
+    
+                      
+      return response()->json([
+          'notification' => $notification
+                              ]);
+         
+
+
+    DB::commit();
+    $notification = [
+                      'message' => 'Success add Baggage Identification',
+                      'alert-type' => 'success'
+                      ];
+    return response()->json($notification);
+    // return redirect('/item')->with('success', 'Succes Add Data Item ' . $request->item_name);
+  } catch (\Throwable $e) {
+    DB::rollback();
+    return response()->json("GAGAL");
+    // return redirect('/item')->with('failed', 'Failed Add Data Item ' . $request->item_name);
+  }
+}
 
     public function storegeneralinfo(Request $request)
     {
