@@ -11,9 +11,11 @@ class Daily_Activity extends Model
     protected $table = 'daily_activitiy';
     protected $primaryKey = "id";
     protected $fillable = [
-        'tanggal',
+        'date',
         'time_from',
         'time_to',
         'description',
+        'user_input',
+        'id_vdr',
     ];
 }
