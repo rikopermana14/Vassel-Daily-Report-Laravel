@@ -221,4 +221,12 @@ class VDRController extends Controller
 
         return redirect()->route('vdr');with('success', 'Add Data Success');
     }
+
+    public function storevdr(Request $request)
+    {
+        
+        
+
+        return redirect()->route('vdr');with('success', 'Add Data Success');
+    }
 }
