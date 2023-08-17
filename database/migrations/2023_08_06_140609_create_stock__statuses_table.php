@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('stock_status', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('tanggal');
+            $table->dateTime('product_id');
+            $table->dateTime('date');
             $table->string('name');
             $table->string('spec');
             $table->string('previous');

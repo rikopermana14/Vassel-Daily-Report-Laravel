@@ -11,7 +11,7 @@ class muatan extends Model
     protected $table = 'muatan';
     protected $primaryKey = "id";
     protected $fillable = [
-        'tanggal',
+        'date',
         'product_name',
         'previous',
         'receive',

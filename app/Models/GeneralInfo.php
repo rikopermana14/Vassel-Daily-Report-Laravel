@@ -11,7 +11,7 @@ class GeneralInfo extends Model
     protected $table = 'general_info';
     protected $primaryKey = "id";
     protected $fillable = [
-        'tanggal',
+        'date',
         'vessel_name',
         'vessel_group',
         'general_position',

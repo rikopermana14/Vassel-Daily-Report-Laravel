@@ -11,7 +11,7 @@ class consumption extends Model
     protected $table = 'consumption';
     protected $primaryKey = "id";
     protected $fillable = [
-        'tanggal',
+        'date',
         'machine',
         'code_product',
         'name_product',

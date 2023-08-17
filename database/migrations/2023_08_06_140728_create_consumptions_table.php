@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('consumption', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('tanggal');
+            $table->dateTime('date');
             $table->string('machine');
             $table->string('code_product');
             $table->string('name_product');
             $table->string('description');
             $table->string('used');
+            $table->string('user_input');
+            $table->string('id_vdr');
             $table->timestamps();
         });
     }

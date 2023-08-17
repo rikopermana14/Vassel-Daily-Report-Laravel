@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('general_info', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('tanggal');
+            $table->dateTime('date');
+            $table->dateTime('vessel_name');
             $table->string('vessel_group');
             $table->string('general_position');
             $table->string('master_name');
             $table->string('time_zone');
+            $table->string('latitude');
             $table->string('longtuide');
             $table->string('scale_sea');
             $table->string('wind');

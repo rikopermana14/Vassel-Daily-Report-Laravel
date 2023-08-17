@@ -11,7 +11,7 @@ class Stock_Status extends Model
     protected $table = 'stock_status';
     protected $primaryKey = "id";
     protected $fillable = [
-        'tanggal',
+        'date',
         'product_id',
         'name',
         'spec',

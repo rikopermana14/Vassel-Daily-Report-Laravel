@@ -11,7 +11,7 @@ class Running_hours extends Model
     protected $table = 'running_hours';
     protected $primaryKey = "id";
     protected $fillable = [
-        'tanggal',
+        'date',
         'machine',
         'towing',
         'manouver',

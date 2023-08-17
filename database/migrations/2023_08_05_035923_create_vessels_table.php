@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('vessels', function (Blueprint $table) {
             $table->id();
+            $table->string('vessel_id');
             $table->string('vessel_name');
             $table->string('email');
             $table->string('vessel_type');
@@ -24,7 +25,6 @@ return new class extends Migration
             $table->string('length_perpendicular');
             $table->string('depth_moulded');
             $table->string('gross_tonage');
-            $table->string('cost_tonage');
             $table->string('cost_center');
             $table->string('work_place');
             $table->string('clear_deck_area');

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('running_hours', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('tanggal');
+            $table->dateTime('date');
             $table->string('machine');
             $table->string('towing');
             $table->string('manouver');

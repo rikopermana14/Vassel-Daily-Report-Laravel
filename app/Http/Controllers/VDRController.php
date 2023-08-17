@@ -10,7 +10,8 @@ use App\Models\muatan;
 use App\Models\Product;
 use App\Models\Running_hours;
 use App\Models\Stock_Status;
-use DB;
+use Illuminate\Support\Facades\DB;
+
 
 class VDRController extends Controller
 {
@@ -24,6 +25,34 @@ class VDRController extends Controller
 {
     $product = Product::where('product_id', $codeproduct)->first();
     return response()->json($product);
+}
+
+public function moveDataToDaily(Request $request) {
+    try {
+        // Pindahkan data dari tabel sementara ke tabel daily activity
+        DB::table('daily_activity')->insert(
+            DB::table('temp_daily')->get()->toArray()
+        );
+
+        // Kembalikan respons sukses
+        return response()->json(['success' => true]);
+    } catch (\Exception $e) {
+        // Tangani kesalahan dan kembalikan respons gagal
+        return response()->json(['success' => false]);
+    }
+}
+
+public function clearTempTable(Request $request) {
+    try {
+        // Hapus data dari tabel sementara
+        DB::table('temp_daily')->delete();
+
+        // Kembalikan respons sukses
+        return response()->json(['success' => true]);
+    } catch (\Exception $e) {
+        // Tangani kesalahan dan kembalikan respons gagal
+        return response()->json(['success' => false]);
+    }
 }
 
 public function ajaxdaily(Request $request)
@@ -107,7 +136,7 @@ public function adddaily(Request $request)
         ]);
     
         GeneralInfo::create([
-            'tanggal' => $request->input('joined_date'),
+            'date' => $request->input('joined_date'),
             'distance_run' => $request->input('distance_run'),
             'vessel_name' => $request->input('vessel_name'),
             'total_distance' => $request->input('total_distance'),
@@ -151,7 +180,7 @@ public function adddaily(Request $request)
         ]);
     
         Daily_Activity::create([
-            'tanggal' => $request->input('daily_date'),
+            'date' => $request->input('daily_date'),
             'time_from' => $request->input('time_from'),
             'time_to' => $request->input('time_to'),
             'description' => $request->input('description'),
@@ -175,7 +204,7 @@ public function adddaily(Request $request)
         ]);
     
         Running_hours::create([
-            'tanggal'=> $request->input('running_hours_date'),
+            'date'=> $request->input('running_hours_date'),
             'machine' => $request->input('machine'),
             'towing' => $request->input('towing'),
             'manouver' => $request->input('manouver'),
@@ -202,7 +231,7 @@ public function adddaily(Request $request)
         ]);
     
         consumption::create([
-            'tanggal'=> $request->input('comsumption_date'),
+            'date'=> $request->input('comsumption_date'),
             'machine' => $request->input('machine'),
             'code_product' => $request->input('product_code'),
             'name_product' => $request->input('product_name'),
@@ -226,7 +255,7 @@ public function adddaily(Request $request)
         ]);
     
         muatan::create([
-            'tanggal'=> $request->input('muatan_date'),
+            'date'=> $request->input('muatan_date'),
             'product_name' => $request->input('product'),
             'previous' => $request->input('previous'),
             'receive' => $request->input('received'),
@@ -253,7 +282,7 @@ public function adddaily(Request $request)
         ]);
     
         Stock_Status::create([
-            'tanggal'=> $request->input('stock_date'),
+            'date'=> $request->input('stock_date'),
             'product_id'=> $request->input('product_code'),
             'name' => $request->input('product_name'),
             'spec' => $request->input('spec'),

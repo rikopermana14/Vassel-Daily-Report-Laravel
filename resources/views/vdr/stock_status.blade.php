@@ -2,7 +2,6 @@
   <ul class="nav nav-pills ml-auto p-2">
     <li class="nav-item">
       <a id="addTabLink" class="nav-link" href="#tab_7" data-toggle="tab">ADD</a>
-      
     </li>
   </ul>
   <table id="example" class="table table-bordered table-striped">
@@ -141,56 +140,21 @@
   </div>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-    const productCodeSelect = document.getElementById("productCodeSelect");
-    const productNameInput = document.getElementById("productNameInput");
-    const productsData = {!! json_encode($data) !!}; // Memasukkan data produk dari PHP ke JavaScript
-
-    productNameInput.addEventListener("change", function () {
-      const selectedProductName = productNameInput.value;
-      const selectedProduct = productsData.find(product => product.name === selectedProductName);
-
-      if (selectedProduct) {
-        productCodeSelect.value = selectedProduct.product_id;
-      } else {
-        productCodeSelect.value = "";
-      }
+      const productCodeSelect = document.getElementById("productCodeSelect");
+      const productNameInput = document.getElementById("productNameInput");
+      const productsData = {!! json_encode($data) !!}; // Memasukkan data produk dari PHP ke JavaScript
+  
+      productNameInput.addEventListener("change", function () {
+        const selectedProductName = productNameInput.value;
+        const selectedProduct = productsData.find(product => product.name === selectedProductName);
+  
+        if (selectedProduct) {
+          productCodeSelect.value = selectedProduct.product_id;
+        } else {
+          productCodeSelect.value = "";
+        }
+      });
     });
-
-    document.addEventListener("DOMContentLoaded", function () {
-    const addTabLink = document.getElementById("addTabLink");
-    const tabContent = document.querySelector(".tab-content");
-    const stockTable = document.getElementById("stockTable");
-    let addingMode = false;
-
-    // Fungsi untuk menampilkan tab "ADD"
-    function showAddTab() {
-      addingMode = true;
-      addTabLink.classList.add("active");
-      tabContent.querySelector(".tab-pane.active").classList.remove("active");
-      tabContent.querySelector("#tab_7").classList.add("active");
-    }
-
-    // Fungsi untuk menampilkan tabel stok dan menyembunyikan tab "ADD"
-    function showStockTable() {
-      addingMode = false;
-      addTabLink.classList.remove("active");
-      tabContent.querySelector(".tab-pane.active").classList.remove("active");
-      stockTable.classList.add("active");
-    }
-
-    // Saat halaman dimuat, tampilkan tabel stok
-    showStockTable();
-
-    // Saat tab "ADD" diklik, tampilkan tab "ADD"
-    addTabLink.addEventListener("click", function (event) {
-      event.preventDefault();
-      if (!addingMode) {
-        showAddTab();
-      } else {
-        showStockTable();
-      }
-    });
-  });
   </script>
   
   

@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('daily_activitiy', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('tanggal');
+            $table->dateTime('date');
             $table->string('time_from');
             $table->string('time_to');
             $table->string('description');
+            $table->string('user_input');
+            $table->string('id_vdr');
             $table->timestamps();
         });
     }

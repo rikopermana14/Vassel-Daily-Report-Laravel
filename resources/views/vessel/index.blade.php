@@ -147,8 +147,10 @@
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              @foreach ($data as $item)
               <a id="deleteConfirmBtn" class="btn btn-danger" href="{{ route('vessel.hapus', Crypt::encrypt ($item->id)) }}">Delete</a>
-          </div>
+              @endforeach
+            </div>
       </div>
   </div>
 </div>
