@@ -128,83 +128,85 @@
              
           
           
-          // //ADD Baggage
-          //             $('#adddaily').on('click', function() {
-          //                   var formData = new FormData();
-          //                 formData.append('_method', $('#_methodAdd').val());
-          //                 formData.append('_token', $('#_tokenAdd').val());
-          //                 formData.append('_enctype', $('#_enctype').val());
-          //                 formData.append('date', $('#daily_date_input').val());
-          //                 formData.append('time_from', $('#time_from').val());
-          //                 formData.append('time_to', $('#time_to').val());
-          //                 formData.append('description', $('#description').val());
-          //                 formData.append('user_input', $('#user_input').val());
+          //ADD Baggage
+                      $('#adddaily').on('click', function() {
+                            var formData = new FormData();
+                          formData.append('_method', $('#_methodAdd').val());
+                          formData.append('_token', $('#_tokenAdd').val());
+                          formData.append('_enctype', $('#_enctype').val());
+                          formData.append('date', $('#daily_date_input').val());
+                          formData.append('time_from', $('#time_from').val());
+                          formData.append('time_to', $('#time_to').val());
+                          formData.append('description', $('#description').val());
+                          formData.append('user_input', $('#user_input').val());
                           
           
-          //                 $.ajax({
-          //                    type: 'POST',
-          //                     url: '{{ route('dailyactivities.adddaily') }}',
-          //                     processData: false,
-          //                     contentType: false,
-          //                     data: formData,
-          //                     success: function(data) {
-          //                         {{--  console.log(data);  --}}
-          //                         //$('#addBaggageModal').modal('hide');
-          //                         getdaily();
-          //                     }
-          //                 });
+                          $.ajax({
+                             type: 'POST',
+                              url: '{{ route('dailyactivities.adddaily') }}',
+                              processData: false,
+                              contentType: false,
+                              data: formData,
+                              success: function(data) {
+                                  {{--  console.log(data);  --}}
+                                  //$('#addBaggageModal').modal('hide');
+                                  getdaily();
+                              }
+                          });
 
-          function moveDataToDailyActivity() {
-        $.ajax({
-            type: 'POST',
-            url: '{{ route('dailyactivities.movedata') }}',
-            success: function(data) {
-                if (data.success) {
-                    // Hapus data dari temporary table
-                    $.ajax({
-                        type: 'POST',
-                        url: '{{ route('dailyactivities.cleartemp') }}',
-                        success: function(clearData) {
-                            if (clearData.success) {
-                                // Perbarui data yang ditampilkan
-                                getdaily();
-                            } else {
-                                console.log('Gagal menghapus tabel sementara.');
-                            }
-                        }
-                    });
-                } else {
-                    console.log('Gagal memindahkan data ke tabel daily activity.');
-                }
-            }
-        });
-    }
+                              //       function moveDataToDailyActivity() {
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '{{ route('dailyactivities.movedata') }}',
+    //         success: function(data) {
+    //             if (data.success) {
+    //                 // Hapus data dari temporary table
+    //                 $.ajax({
+    //                     type: 'POST',
+    //                     url: '{{ route('dailyactivities.cleartemp') }}',
+    //                     success: function(clearData) {
+    //                         if (clearData.success) {
+    //                             // Perbarui data yang ditampilkan
+    //                             getdaily();
+    //                         } else {
+    //                             console.log('Gagal menghapus tabel sementara.');
+    //                         }
+    //                     }
+    //                 });
+    //             } else {
+    //                 console.log('Gagal memindahkan data ke tabel daily activity.');
+    //             }
+    //         }
+    //     });
+    // }
 
-    // Event listener untuk menambahkan aktivitas harian
-    $('#adddaily').on('click', function() {
-        var formData = new FormData();
-        formData.append('_method', $('#_methodAdd').val());
-        formData.append('_token', $('#_tokenAdd').val());
-        formData.append('_enctype', $('#_enctype').val());
-        formData.append('date', $('#daily_date_input').val());
-        formData.append('time_from', $('#time_from').val());
-        formData.append('time_to', $('#time_to').val());
-        formData.append('description', $('#description').val());
-        formData.append('user_input', $('#user_input').val());
+    // // Event listener untuk menambahkan aktivitas harian
+    // $('#adddaily').on('click', function() {
+    //     var formData = new FormData();
+    //     formData.append('_method', $('#_methodAdd').val());
+    //     formData.append('_token', $('#_tokenAdd').val());
+    //     formData.append('_enctype', $('#_enctype').val());
+    //     formData.append('date', $('#daily_date_input').val());
+    //     formData.append('time_from', $('#time_from').val());
+    //     formData.append('time_to', $('#time_to').val());
+    //     formData.append('description', $('#description').val());
+    //     formData.append('user_input', $('#user_input').val());
 
-        $.ajax({
-            type: 'POST',
-            url: '{{ route('dailyactivities.adddaily') }}',
-            processData: false,
-            contentType: false,
-            data: formData,
-            success: function(data) {
-                // Panggil fungsi untuk memindahkan data ke daily activity setelah penambahan berhasil
-                moveDataToDailyActivity();
-            }
-        });
-
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '{{ route('dailyactivities.adddaily') }}',
+    //         processData: false,
+    //         contentType: false,
+    //         data: formData,
+    //         success: function(data) {
+    //             // Panggil fungsi untuk memindahkan data ke daily activity setelah penambahan berhasil
+    //             moveDataToDailyActivity();
+    //         }
+    //     });
                           return false;
                       });
                     });
 </script>          
+
+
+ 
