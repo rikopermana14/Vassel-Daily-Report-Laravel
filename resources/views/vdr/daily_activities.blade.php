@@ -43,11 +43,11 @@
                      </div>
                    </div>
                   </div>   
-                  <button type="submit" id="add-daily" class="btn btn-primary">Add</button>
+                  <button id="adddaily" class="btn btn-primary">Add</button>
 
                 <div class="row">
                   <div class="table-responsive">
-                    <table id="tablebagagge" class="display table table-hover" >
+                    <table id="tabledaily" class="display table table-hover" >
                         <thead>
                             <tr>
                                 <th>Date</th>
@@ -74,7 +74,7 @@
                       
           
                       getdaily(); 
-                      {{--  $('#mydata').dataTable();  --}}
+                      {{--  $('#tabledaily').dataTable();  --}}
           
                       //fungsi tampil barang
                       function getdaily() {
@@ -134,7 +134,7 @@
                           formData.append('_method', $('#_methodAdd').val());
                           formData.append('_token', $('#_tokenAdd').val());
                           formData.append('_enctype', $('#_enctype').val());
-                          formData.append('date', $('#daily_date').val());
+                          formData.append('date', $('#daily_date_input').val());
                           formData.append('time_from', $('#time_from').val());
                           formData.append('time_to', $('#time_to').val());
                           formData.append('description', $('#description').val());
@@ -155,4 +155,5 @@
                           });
                           return false;
                       });
+                    });
 </script>          

@@ -33,16 +33,6 @@
 {{-- Java Script Bootsrap --}}
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-
-<!-- DataTables CSS and JS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-
-<!-- DataTables Buttons CSS and JS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
-<script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
 
 
 
@@ -120,6 +110,25 @@
 <!-- AdminLTE App -->
 <script src="{{asset('adminlte/dist/js/adminlte.js')}}"></script>
 
+ <!-- DataTables -->
+ <link rel="stylesheet" href="{{asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+ <link rel="stylesheet" href="{{asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+ <link rel="stylesheet" href="{{asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+<!-- DataTables  & Plugins -->
+
+<script src="{{asset('adminlte/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{asset('adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{asset('adminlte/plugins/jszip/jszip.min.js')}}"></script>
+
+<script src="{{asset('adminlte/plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+
 
 <script>
   $(function () {
@@ -128,7 +137,7 @@
     $('#example thead tr:eq(1) th').each( function (i) {
         var title = $(this).text();
         $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
- 
+
         $( 'input', this ).on( 'keyup change', function () {
             if ( table.column(i).search() !== this.value ) {
                 table
@@ -138,23 +147,23 @@
             }
         } );
     } );
- 
+
     var table = $('#example').DataTable( {
-         "orderCellsTop": true,
+        "orderCellsTop": true,
         "searching": true,
-        "lengthChange": false,
-        "fixedHeader": true,
+        "lengthChange": true,
+       "fixedHeader": true,
         dom: 'Bfrtip',
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
        initComplete: function() {
-        var $buttons = $('.dt-buttons').hide();
-$('#exportLink').on('change', function() {
-    var btnClass = $(this).find(":selected")[0].id 
-        ? '.buttons-' + $(this).find(":selected")[0].id 
-        : null;
-    if (btnClass) $buttons.find(btnClass).click(); 
-});
-       } 
+         var $buttons = $('.dt-buttons').hide();
+         $('#exportLink').on('change', function() {
+            var btnClass = $(this).find(":selected")[0].id
+               ? '.buttons-' + $(this).find(":selected")[0].id
+               : null;
+            if (btnClass) $buttons.find(btnClass).click();
+         })
+       }
    });
   });
 </script>

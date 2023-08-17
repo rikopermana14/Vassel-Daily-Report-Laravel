@@ -35,7 +35,7 @@ Route::group(['middleware' => ['web','auth']], function () {
         Route::get('/vdr', [App\Http\Controllers\VDRController::class, 'vdr'])->name('vdr');
         Route::post('/general-info', [App\Http\Controllers\VDRController::class, 'storegeneralinfo'])->name('general-info');
         Route::post('/daily-activities', [App\Http\Controllers\VDRController::class, 'storedaily'])->name('daily-activities');
-        Route::post('/ajaxdaily', [App\Http\Controllers\VDRController::class, 'ajaxdaily'])->name('dailyactivities.ajaxdaily');
+        Route::get('/ajaxdaily', [App\Http\Controllers\VDRController::class, 'ajaxdaily'])->name('dailyactivities.ajaxdaily');
         Route::post('/adddaily', [App\Http\Controllers\VDRController::class, 'adddaily'])->name('dailyactivities.adddaily');
 
         Route::post('/running-hours-machine', [App\Http\Controllers\VDRController::class, 'storerunning'])->name('running-hours-machine');

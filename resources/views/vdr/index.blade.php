@@ -54,11 +54,10 @@
                              
                                 <!-- Konten Tab Aktivitas Harian -->
                                 <div class="tab-pane" id="tab_2">
-                                  <form action="/daily-activities" method="post" enctype="multipart/form-data">
-                                    @csrf
+                                  
                                     @include('vdr.daily_activities')
-                                    <button class="btn btn-primary">Simpan</button>
-                              </form>
+                                   
+                            
                                 </div>
 
                                 <!-- Konten Tab Jam Operasi Mesin -->
@@ -129,7 +128,7 @@
 
     //Date range picker for Daily Activities
     $('#daily_date').datetimepicker({
-      format: 'YYYY/MM/DD HH:mm'
+      format: 'YYYY/MM/DD'
     });
 
     //Date range picker for Running Hours Machine

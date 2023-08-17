@@ -10,6 +10,7 @@ use App\Models\muatan;
 use App\Models\Product;
 use App\Models\Running_hours;
 use App\Models\Stock_Status;
+use DB;
 
 class VDRController extends Controller
 {
@@ -41,45 +42,35 @@ return response()->json($response, 200);
 public function adddaily(Request $request)
 {
     $request->validate([
-          'time_from' => 'required',
-          'time_to' => 'required',
-      ]);
-      
-  $userid = $request->get('user_input');
-  $color = $request->get('color');
-  $ipAddress=$_SERVER['REMOTE_ADDR'];
-  
-  
-  DB::beginTransaction();
-  try {
-  
-      $addBag = Daily_Activity::create([
-        'date' => $request->get('date'),
-        'time_from' => $request->get('time_from'),
-        'time_to' => $time_to,
-        'description' => $description,
-        'user_input' => $user_input,
-      ]);
-    
-                      
-      return response()->json([
-          'notification' => $notification
-                              ]);
-         
+        'date' => 'required',
+        'time_from' => 'required',
+        'time_to' => 'required',
+    ]);
 
+    $userid = $request->input('user_input');
 
-    DB::commit();
-    $notification = [
-                      'message' => 'Success add Baggage Identification',
-                      'alert-type' => 'success'
-                      ];
-    return response()->json($notification);
-    // return redirect('/item')->with('success', 'Succes Add Data Item ' . $request->item_name);
-  } catch (\Throwable $e) {
-    DB::rollback();
-    return response()->json("GAGAL");
-    // return redirect('/item')->with('failed', 'Failed Add Data Item ' . $request->item_name);
-  }
+    DB::beginTransaction();
+    try {
+        $adddaily = Daily_Activity::create([
+            'date' => $request->input('date'),
+            'time_from' => $request->input('time_from'),
+            'time_to' => $request->input('time_to'), // Fixed: 'time_to' value should come from 'time_to' input
+            'description' => $request->input('description'),
+            'user_input' => $userid,
+        ]);
+
+        DB::commit();
+
+        $notification = [
+            'message' => 'Success add Baggage Identification',
+            'alert-type' => 'success'
+        ];
+
+        return response()->json($notification);
+    } catch (\Throwable $e) {
+        DB::rollback();
+        return response()->json("GAGAL");
+    }
 }
 
     public function storegeneralinfo(Request $request)
