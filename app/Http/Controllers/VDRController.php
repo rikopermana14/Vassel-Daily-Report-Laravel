@@ -29,6 +29,24 @@ class VDRController extends Controller
     return response()->json($product);
 }
 
+public function deleteDaily($id)
+    {
+        try {
+            // Cari aktivitas harian berdasarkan ID
+            $dailyActivity = Temp_Daily::findOrFail($id);
+
+            dd($dailyActivity);
+            // Hapus aktivitas harian
+            $dailyActivity->delete();
+
+            // Berikan respons berhasil
+            return response()->json(['success' => true, 'message' => 'Daily activity deleted successfully']);
+        } catch (\Exception $e) {
+            // Tangani kesalahan
+            return response()->json(['success' => false, 'message' => 'Failed to delete daily activity', 'error' => $e->getMessage()], 500);
+        }
+    }
+
 public function moveDataToDaily(Request $request) {
     try {
         // Pindahkan data dari tabel sementara ke tabel daily activity
@@ -60,7 +78,7 @@ public function clearTempTable(Request $request) {
 public function ajaxdaily(Request $request)
 {
     $user = Auth::User()->id;
-  $data = Daily_Activity::where('user_input',$user)->orderby('id','desc')->get();
+  $data = Temp_Daily::where('user_input',$user)->orderby('id','desc')->get();
 
   $response = [
     'success' => true,
@@ -83,7 +101,7 @@ public function adddaily(Request $request)
 
     DB::beginTransaction();
     try {
-        $adddaily = Daily_Activity::create([
+        $adddaily = Temp_Daily::create([
             'date' => $request->input('date'),
             'time_from' => $request->input('time_from'),
             'time_to' => $request->input('time_to'), // Fixed: 'time_to' value should come from 'time_to' input

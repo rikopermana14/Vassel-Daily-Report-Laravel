@@ -21,19 +21,28 @@ class VesselController extends Controller
     }
 
     public function add()
-    {
-        $latestVessel = Vessel::latest('id')->first();
-    if ($latestVessel) {
-        $vesselNumber = str_pad($latestVessel->id + 1, 2, '0', STR_PAD_LEFT);
-    } else {
-        $vesselNumber = '01';
-    }
-    $vesselId = 'VSL' . $vesselNumber;
-        $vesselId = 'VSL' . $vesselNumber;
-        session(['vesselId' => $vesselId]);
+{
+    $latestVessel = Vessel::latest('vessel_id')->first(); // Mendapatkan data Vessel terakhir berdasarkan ID
 
-        return view('vessel.add.add');
+    $vesselPrefix = 'VSL';
+    $defaultNumber = 1;
+
+    if ($latestVessel) {
+        $lastVesselId = $latestVessel->vessel_id;
+        $lastNumber = intval(substr($lastVesselId, strlen($vesselPrefix))); // Mengambil angka dari ID terakhir
+        $nextNumber = $lastNumber + 1; // Menghitung angka berikutnya
+    } else {
+        $nextNumber = $defaultNumber; // Default jika belum ada data
     }
+
+    $formattedNumber = str_pad($nextNumber, 2, '0', STR_PAD_LEFT); // Format angka dengan 2 digit (01, 02, dst)
+    $vesselId = $vesselPrefix . $formattedNumber; // Menggabungkan dengan prefix
+
+    session(['vesselId' => $vesselId]);
+
+    return view('vessel.add.add');
+}
+
 
     public function index()
     {
@@ -95,13 +104,21 @@ class VesselController extends Controller
         ]);
 
          // Menghasilkan Vessel ID
-    $latestVessel = Vessel::latest('id')->first();
-    if ($latestVessel) {
-        $vesselNumber = str_pad($latestVessel->id + 1, 2, '0', STR_PAD_LEFT);
-    } else {
-        $vesselNumber = '01';
-    }
-    $vesselId = 'VSL' . $vesselNumber;
+         $latestVessel = Vessel::latest('vessel_id')->first(); // Mendapatkan data Vessel terakhir berdasarkan ID
+
+         $vesselPrefix = 'VSL';
+         $defaultNumber = 1;
+     
+         if ($latestVessel) {
+             $lastVesselId = $latestVessel->vessel_id;
+             $lastNumber = intval(substr($lastVesselId, strlen($vesselPrefix))); // Mengambil angka dari ID terakhir
+             $nextNumber = $lastNumber + 1; // Menghitung angka berikutnya
+         } else {
+             $nextNumber = $defaultNumber; // Default jika belum ada data
+         }
+     
+         $formattedNumber = str_pad($nextNumber, 2, '0', STR_PAD_LEFT); // Format angka dengan 2 digit (01, 02, dst)
+         $vesselId = $vesselPrefix . $formattedNumber;
     
         Vessel::create([
             'vessel_id' => $vesselId,

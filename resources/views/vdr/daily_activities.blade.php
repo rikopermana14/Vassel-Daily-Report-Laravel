@@ -67,12 +67,34 @@
                     <button id="savedaily" class="btn btn-primary">Simpan</button>
                 </div>            
                 </div>
-                </div>     
+                </div>
+                
+                <!-- Delete Modal -->
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Delete Daily Activity</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to delete this daily activity?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
 
                 <script>
                   $(document).ready(function() {
-                      let id_user = {{auth()->user()->id}};
-                      
+                    let id_user = {{auth()->user()->id}};
+                    let idToDelete; // Deklarasi variabel di sini
           
                       getdaily(); 
                       {{--  $('#tabledaily').dataTable();  --}}
@@ -108,11 +130,10 @@
                                             <i class="fa fa-edit"></i>
                                             Edit
                                           </button>
-                                          <button class="btn btn-danger btn-round ml-1 btn-sm baggage_hapus" data-toggle="modal" data-target="#deleteModal" data="` +
+                                          <button class="btn btn-danger btn-round ml-1 btn-sm baggage_hapus" data-toggle="modal" data-target="#deleteModal" data="` + 
                                           data.details[i].id + `">
-                                            <i class="fas fa-trash-alt"></i>
-                                            Delete
-                                        </div>
+                                        <i class="fas fa-trash-alt"></i> Delete
+                                        </button>
                                       </td>
                                     </tr>
                                     `;
@@ -183,7 +204,7 @@
     // }
 
     // // Event listener untuk menambahkan aktivitas harian
-    // $('#adddaily').on('click', function() {
+    // $('#savedaily').on('click', function() {
     //     var formData = new FormData();
     //     formData.append('_method', $('#_methodAdd').val());
     //     formData.append('_token', $('#_tokenAdd').val());
@@ -207,7 +228,34 @@
     //     });
                           return false;
                       });
-                    });
+
+                      // Function to delete a daily activity
+                     
+
+                      $('.baggage_hapus').on('click', function() {
+    idToDelete = $(this).data('id');
+    $('#deleteModal').modal('show');
+});
+
+// Menangkap event klik pada tombol Delete di dalam modal
+$('#confirmDelete').on('click', function() {
+    var idToDelete = $(this).data('id'); // Ambil nilai idToDelete dari atribut data-id tombol confirmDelete
+    $.ajax({
+        type: 'DELETE',
+        url: '/delete-daily/' + idToDelete,
+        headers: {
+            'X-CSRF-TOKEN': $('#_tokenAdd').val()
+        },
+        success: function(data) {
+            $('#deleteModal').modal('hide');
+            getdaily();
+        },
+        error: function(err) {
+            console.error(err);
+        }
+    });
+});
+});
 </script>          
 
 
