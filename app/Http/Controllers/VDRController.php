@@ -10,6 +10,8 @@ use App\Models\muatan;
 use App\Models\Product;
 use App\Models\Running_hours;
 use App\Models\Stock_Status;
+use App\Models\Temp_Daily;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
@@ -30,7 +32,7 @@ class VDRController extends Controller
 public function moveDataToDaily(Request $request) {
     try {
         // Pindahkan data dari tabel sementara ke tabel daily activity
-        DB::table('daily_activity')->insert(
+        DB::table('daily_activitiy')->insert(
             DB::table('temp_daily')->get()->toArray()
         );
 
@@ -45,7 +47,7 @@ public function moveDataToDaily(Request $request) {
 public function clearTempTable(Request $request) {
     try {
         // Hapus data dari tabel sementara
-        DB::table('temp_daily')->delete();
+        DB::table('temp_daily')->truncate();
 
         // Kembalikan respons sukses
         return response()->json(['success' => true]);
@@ -57,7 +59,8 @@ public function clearTempTable(Request $request) {
 
 public function ajaxdaily(Request $request)
 {
-  $data = Daily_Activity::orderBy('id','desc')->get();
+    $user = Auth::User()->id;
+  $data = Daily_Activity::where('user_input',$user)->orderby('id','desc')->get();
 
   $response = [
     'success' => true,
@@ -88,6 +91,172 @@ public function adddaily(Request $request)
             'user_input' => $userid,
         ]);
 
+        DB::commit();
+
+        $notification = [
+            'message' => 'Success add Baggage Identification',
+            'alert-type' => 'success'
+        ];
+
+        return response()->json($notification);
+    } catch (\Throwable $e) {
+        DB::rollback();
+        return response()->json("GAGAL");
+    }
+}
+
+
+public function ajaxrunning(Request $request)
+{
+    $user = Auth::User()->id;
+    $data = Running_hours::where('user_input',$user)->orderby('id','desc')->get();
+
+  $response = [
+    'success' => true,
+    'details' => $data,
+
+  ];
+
+return response()->json($response, 200);
+}
+
+public function addrunning(Request $request)
+{
+    $request->validate([
+        'date' => 'required',
+            'machine' => 'required',
+            'towing' => 'required',
+            'manouver' => 'required',
+            'slow' => 'required',
+            'economi' => 'required',
+            'full_speed' => 'required',
+            'standby' => 'required',
+    ]);
+
+    $userid = $request->input('user_input');
+
+    DB::beginTransaction();
+    try {
+        $addrunning = Running_hours::create([
+            'date'=> $request->input('date'),
+            'machine' => $request->input('machine'),
+            'towing' => $request->input('towing'),
+            'manouver' => $request->input('manouver'),
+            'slow' => $request->input('slow'),
+            'economi'=> $request->input('economi'),
+            'full_speed'=> $request->input('full_speed'),
+            'standby'=> $request->input('standby'),
+            'user_input' => $userid,
+        ]);
+
+        DB::commit();
+
+        $notification = [
+            'message' => 'Success add Baggage Identification',
+            'alert-type' => 'success'
+        ];
+
+        return response()->json($notification);
+    } catch (\Throwable $e) {
+        DB::rollback();
+        return response()->json("GAGAL");
+    }
+}
+
+public function ajaxconsumption(Request $request)
+{
+    $user = Auth::User()->id;
+    $data = consumption::where('user_input',$user)->orderby('id','desc')->get();
+
+  $response = [
+    'success' => true,
+    'details' => $data,
+
+  ];
+
+return response()->json($response, 200);
+}
+
+public function addconsumption(Request $request)
+{
+    $request->validate([
+            'date' => 'required',
+            'machine' => 'required',
+            'code_product' => 'required',
+            'name_product' => 'required',
+            'description' => 'required',
+            'used' => 'required',
+    ]);
+
+    $userid = $request->input('user_input');
+
+    DB::beginTransaction();
+    try {
+        $addconsumption = consumption::create([
+            'date'=> $request->input('date'),
+            'machine' => $request->input('machine'),
+            'code_product' => $request->input('code_product'),
+            'name_product' => $request->input('name_product'),
+            'description' => $request->input('description'),
+            'used'=> $request->input('used'), 
+            'user_input' => $userid,
+        ]);
+        
+        DB::commit();
+
+        $notification = [
+            'message' => 'Success add Baggage Identification',
+            'alert-type' => 'success'
+        ];
+
+        return response()->json($notification);
+    } catch (\Throwable $e) {
+        DB::rollback();
+        return response()->json("GAGAL");
+    }
+}
+
+
+public function ajaxmuatan(Request $request)
+{
+    $user = Auth::User()->id;
+    $data = muatan::where('user_input',$user)->orderby('id','desc')->get();
+
+  $response = [
+    'success' => true,
+    'details' => $data,
+
+  ];
+
+return response()->json($response, 200);
+}
+
+public function addmuatans(Request $request)
+{
+   // dd($request->all());
+    $request->validate([
+        'date' => 'required',
+        'product_name' => 'required',
+        'previous' => 'required',
+        'receive' => 'required',
+        'transfer' => 'required',
+        'remain' => 'required',
+    ]);
+
+    $userid = $request->input('user_input');
+
+    DB::beginTransaction();
+    try {
+        $addconsumption = muatan::create([
+            'date'=> $request->input('date'),
+            'product_name' => $request->input('product_name'),
+            'previous' => $request->input('previous'),
+            'receive' => $request->input('receive'),
+            'transfer' => $request->input('transfer'),
+            'remain'=> $request->input('remain'), 
+            'user_input' => $userid,
+        ]);
+        
         DB::commit();
 
         $notification = [

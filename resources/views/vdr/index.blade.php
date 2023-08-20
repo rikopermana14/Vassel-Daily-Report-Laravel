@@ -62,19 +62,17 @@
 
                                 <!-- Konten Tab Jam Operasi Mesin -->
                                 <div class="tab-pane" id="tab_3">
-                                  <form action="/running-hours-machine" method="post" enctype="multipart/form-data">
-                                    @csrf
+                                  
                                     @include('vdr.running_hours_machine')
-                                    <button class="btn btn-primary">Simpan</button>
+                                    
                               </form>
                                 </div>
 
                                 <!-- Konten Tab Konsumsi -->
                                 <div class="tab-pane" id="tab_4">
-                                  <form action="/consumption" method="post" enctype="multipart/form-data">
-                                    @csrf
+                                  
                                     @include('vdr.consumption')
-                                    <button class="btn btn-primary">Simpan</button>
+                                    
                               </form>
                                 </div>
 
@@ -89,10 +87,9 @@
 
                                 <!-- Konten Tab Muatan -->
                                 <div class="tab-pane" id="tab_6">
-                                  <form action="/muatan" method="post" enctype="multipart/form-data">
-                                    @csrf
+                                  
                                     @include('vdr.muatan')
-                                    <button class="btn btn-primary">Simpan</button>
+                                    
                               </form>
                                 </div>
                             </div>
@@ -122,7 +119,7 @@
   $(function () {
     //Date range picker for General Info
     $('#joined_date').datetimepicker({
-      format: 'YYYY/MM/DD HH:mm'
+      format: 'YYYY/MM/DD'
     });
 
     //Date range picker for Daily Activities
@@ -132,19 +129,19 @@
 
     //Date range picker for Running Hours Machine
     $('#running_hours_date').datetimepicker({
-      format: 'YYYY/MM/DD HH:mm'
+      format: 'YYYY/MM/DD '
     });
     //Date range picker for consumtion
     $('#comsumption_date').datetimepicker({
-      format: 'YYYY/MM/DD HH:mm'
+      format: 'YYYY/MM/DD '
     });
     //Date range picker for muatan
     $('#muatan_date').datetimepicker({
-      format: 'YYYY/MM/DD HH:mm'
+      format: 'YYYY/MM/DD '
     });
     //Date range picker for Stock_Status
     $('#stock_date').datetimepicker({
-      format: 'YYYY/MM/DD HH:mm'
+      format: 'YYYY/MM/DD '
     });
 
     // Tangkap tanggal saat tanggal di "General Info" berubah

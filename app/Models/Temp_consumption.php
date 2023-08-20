@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class consumption extends Model
+class Temp_consumption extends Model
 {
     use HasFactory;
-    protected $table = 'consumption';
+    protected $table = 'temp_consumption';
     protected $primaryKey = "id";
     protected $fillable = [
         'date',

@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class consumption extends Model
+class Temp_Muatan extends Model
 {
     use HasFactory;
-    protected $table = 'consumption';
+    protected $table = 'temp_muatan';
     protected $primaryKey = "id";
     protected $fillable = [
         'date',
-        'machine',
-        'code_product',
-        'name_product',
-        'description',
-        'used',
+        'product_name',
+        'previous',
+        'receive',
+        'transfer',
+        'remain',
         'user_input',
     ];
 }

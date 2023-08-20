@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('muatan', function (Blueprint $table) {
+        Schema::create('temp_consumptions', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date');
-            $table->string('product_name');
-            $table->string('previous');
-            $table->string('receive');
-            $table->string('transfer');
-            $table->string('remain');
-            $table->string('user_input');
+            $table->string('machine');
+            $table->string('code_product');
+            $table->string('name_product');
+            $table->string('description');
+            $table->string('used');
+            $table->integer('user_input');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('muatans');
+        Schema::dropIfExists('temp_consumptions');
     }
 };

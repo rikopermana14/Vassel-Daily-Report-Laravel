@@ -17,5 +17,6 @@ class muatan extends Model
         'receive',
         'transfer',
         'remain',
+        'user_input',
     ];
 }

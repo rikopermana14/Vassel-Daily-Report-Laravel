@@ -19,5 +19,6 @@ class Running_hours extends Model
         'economi',
         'full_speed',
         'standby',
+        'user_input',
     ];
 }

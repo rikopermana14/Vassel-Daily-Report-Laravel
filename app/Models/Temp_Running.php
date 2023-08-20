@@ -5,18 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class consumption extends Model
+class Temp_Running extends Model
 {
     use HasFactory;
-    protected $table = 'consumption';
+    protected $table = 'temp_running_hours';
     protected $primaryKey = "id";
     protected $fillable = [
         'date',
         'machine',
-        'code_product',
-        'name_product',
-        'description',
-        'used',
+        'towing',
+        'manouver',
+        'slow',
+        'economi',
+        'full_speed',
+        'standby',
         'user_input',
     ];
 }

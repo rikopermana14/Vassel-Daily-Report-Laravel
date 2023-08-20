@@ -19,7 +19,7 @@ return new class extends Migration
             $table->time('time_from');
             $table->time('time_to');
             $table->text('description');
-            $table->unsignedBigInteger('user_input');
+            $table->integer('user_input');
             $table->timestamps();
         });
     }

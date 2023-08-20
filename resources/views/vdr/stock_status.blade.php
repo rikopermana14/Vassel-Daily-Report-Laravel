@@ -56,7 +56,7 @@
     <div class="col-sm-6">
       <div class="form-group">
         <label>Product Code</label>
-        <input type="text" name="product_code" class="form-control" id="productCodeSelect" >
+        <input type="text" name="product_code" class="form-control" id="productkode" readonly>
       </div>
     </div>
   </div>
@@ -65,7 +65,7 @@
     <div class="col-sm-6">
       <div class="form-group">
         <label>Product Name</label>
-        <select class="form-control" name="product_name" id="productNameInput">
+        <select class="form-control" name="product_name" id="productnama">
           <option value="">-Pilih Product-</option>
           @foreach ($data as $item)
             <option value="{{ $item->name }}">{{ $item->name }}</option>
@@ -140,18 +140,18 @@
   </div>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const productCodeSelect = document.getElementById("productCodeSelect");
-      const productNameInput = document.getElementById("productNameInput");
-      const productsData = {!! json_encode($data) !!}; // Memasukkan data produk dari PHP ke JavaScript
+      const produkkode = document.getElementById("productkode");
+      const produknama = document.getElementById("productnama");
+      const dataproduk = {!! json_encode($data) !!}; // Memasukkan data produk dari PHP ke JavaScript
   
-      productNameInput.addEventListener("change", function () {
-        const selectedProductName = productNameInput.value;
-        const selectedProduct = productsData.find(product => product.name === selectedProductName);
+      produknama.addEventListener("change", function () {
+        const selekproduknama = produknama.value;
+        const selekproduk = dataproduk.find(product => product.name === selekproduknama);
   
-        if (selectedProduct) {
-          productCodeSelect.value = selectedProduct.product_id;
+        if (selekproduk) {
+          produkkode.value = selekproduk.product_id;
         } else {
-          productCodeSelect.value = "";
+          produkkode.value = "";
         }
       });
     });

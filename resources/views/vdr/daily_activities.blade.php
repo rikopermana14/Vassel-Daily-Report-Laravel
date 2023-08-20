@@ -64,6 +64,7 @@
                            
                      
                     </table>
+                    <button id="savedaily" class="btn btn-primary">Simpan</button>
                 </div>            
                 </div>
                 </div>     
@@ -128,7 +129,7 @@
              
           
           
-          //ADD Baggage
+          //ADD Daily
                       $('#adddaily').on('click', function() {
                             var formData = new FormData();
                           formData.append('_method', $('#_methodAdd').val());
@@ -153,6 +154,7 @@
                                   getdaily();
                               }
                           });
+                          
 
                               //       function moveDataToDailyActivity() {
     //     $.ajax({

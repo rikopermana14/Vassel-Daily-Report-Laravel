@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('muatan', function (Blueprint $table) {
+        Schema::create('temp__muatans', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date');
             $table->string('product_name');
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('receive');
             $table->string('transfer');
             $table->string('remain');
-            $table->string('user_input');
+            $table->integer('user_input');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('muatans');
+        Schema::dropIfExists('temp__muatans');
     }
 };

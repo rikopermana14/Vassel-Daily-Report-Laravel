@@ -13,11 +13,16 @@
          </div>
        </div>
 
+       <input type="hidden" name="_methodAdd" id="_methodAdd" value="POST">
+                 <input type="hidden" name="_enctype" id="_enctype" value="multipart/form-data">
+                 <input type="hidden" name="_tokenAdd" id="_tokenAdd" value="{{ csrf_token() }}">
+                 <input type="hidden" name="user_input" id="user_input" value="{{auth()->user()->id}}">
+
         <div class="row">
          <div class="col-sm-6">
            <div class="form-group">
              <label>Machine</label>
-             <select class="form-control"name="machine">
+             <select class="form-control"name="machine" id="machine">
            <option>A/E 1</option>
            <option>A/E 2</option>
            <option>M/E 1</option>                      
@@ -31,7 +36,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Towing</label>
-         <input type="text" name="towing" class="form-control">
+         <input type="text" name="towing" id="towing" class="form-control">
          </div>
          </div>
        </div>
@@ -40,7 +45,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Manouver</label>
-         <input type="text" name="manouver" class="form-control">
+         <input type="text" name="manouver" id="manouver" class="form-control">
          </div>
          </div>
        </div>
@@ -49,7 +54,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Slow</label>
-         <input type="text" name="slow" class="form-control">
+         <input type="text" name="slow" id="slow" class="form-control">
          </div>
          </div>
        </div> 
@@ -58,7 +63,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Economi</label>
-         <input type="text" name="economi" class="form-control">
+         <input type="text" name="economi" id="economi" class="form-control">
          </div>
          </div>
        </div>
@@ -67,7 +72,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Full Speed</label>
-         <input type="text" name="full_speed" class="form-control">
+         <input type="text" name="full_speed" id="full_speed" class="form-control">
          </div>
          </div>
        </div>
@@ -76,8 +81,137 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Stand By</label>
-         <input type="text" name="standby" class="form-control">
+         <input type="text" name="standby" id="standby" class="form-control">
          </div>
          </div>
        </div>
+
+       <button id="addrunning" class="btn btn-primary">Add</button>
+
+       <div class="row">
+        <div class="table-responsive">
+          <table id="tablerunning" class="display table table-hover" >
+              <thead>
+                  <tr>
+                      <th>Date</th>
+                      <th>Machine</th>
+                      <th>Run Hours Towing</th>
+                      <th>Run Hours Manouver</th>
+                      <th>Run Hours Slow</th>
+                      <th>Run Hours Economi</th>
+                      <th>Run Hours Full Speed</th>
+                      <th>Run Hours Stand By</th>
+               
+                      <th style="width: 10%">Action</th>
+                  </tr>
+              </thead>
+                 <tbody id="show_running">
+                                  </tbody>
+                 
+                 
+           
+          </table>
       </div>
+    </div></div>
+
+      <script>
+        $(document).ready(function() {
+            let id_user = {{auth()->user()->id}};
+            
+
+            getrunning(); 
+            {{--  $('#tablerunning').dataTable();  --}}
+
+            //fungsi tampil barang
+            function getrunning() {
+                $.ajax({
+                    type: 'GET',
+                    url: '{{ route('running.ajaxrunning') }}',
+               
+                    async: true,
+                    dataType: 'json',
+                    success: function(data) {
+                        {{--  console.log(data.details.length);  --}}
+                        
+
+                        var html = '';
+                        var i;
+
+                        for (i = 0; i < data.details.length; i++) {
+
+                            html += `
+                          <tr>
+                             <td>` + data.details[i].date + `</td> 
+                             <td>` + data.details[i].machine + `</td> 
+                             <td>` + data.details[i].towing + `</td> 
+                             <td>` + data.details[i].manouver + `</td> 
+                             <td>` + data.details[i].slow + `</td> 
+                             <td>` + data.details[i].economi + `</td> 
+                             <td>` + data.details[i].full_speed + `</td> 
+                             <td>` + data.details[i].standby + `</td> 
+                           
+                             <td class="text-center">
+                                <button class="btn btn-warning btn-round ml-auto btn-sm baggage_edit" data-toggle="modal" data-target="#editModal1" data="` +
+                                data.details[i].id +
+                                `">
+                                  <i class="fa fa-edit"></i>
+                                  Edit
+                                </button>
+                                <button class="btn btn-danger btn-round ml-1 btn-sm baggage_hapus" data-toggle="modal" data-target="#deleteModal" data="` +
+                                data.details[i].id + `">
+                                  <i class="fas fa-trash-alt"></i>
+                                  Delete
+                              </div>
+                            </td>
+                          </tr>
+                          `;
+                        }
+                        html += `
+                      
+
+                        `
+                        $('#show_running').html(html);
+                    }
+                });
+            }
+            
+   
+
+
+//ADD Baggage
+            $('#addrunning').on('click', function() {
+                  var formData = new FormData();
+                formData.append('_method', $('#_methodAdd').val());
+                formData.append('_token', $('#_tokenAdd').val());
+                formData.append('_enctype', $('#_enctype').val());
+                formData.append('date', $('#running_hours_date_input').val());
+                formData.append('machine', $('#machine').val());
+                formData.append('towing', $('#towing').val());
+                formData.append('manouver', $('#manouver').val());
+                formData.append('slow', $('#slow').val());
+                formData.append('economi', $('#economi').val());
+                formData.append('full_speed', $('#full_speed').val());
+                formData.append('standby', $('#standby').val());
+                formData.append('user_input', $('#user_input').val());
+                
+
+                $.ajax({
+                   type: 'POST',
+                    url: '{{ route('running.addrunning') }}',
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function(data) {
+                        {{--  console.log(data);  --}}
+                        //$('#addBaggageModal').modal('hide');
+                        getrunning();
+                    }
+                });
+
+                return false;
+            });
+          });
+</script>          
+
+
+
