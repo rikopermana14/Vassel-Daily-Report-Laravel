@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="{{asset('adminlte/plugins/summernote/summernote-bs4.min.css')}}">
 
   {{-- css bootstarp --}}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> --}}
 {{-- java script --}}
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 {{-- Java Script Bootsrap --}}
@@ -43,7 +43,7 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="{{asset('adminlte/dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
   </div>
 
   <!-- Navbar -->
@@ -80,7 +80,7 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{{asset('adminlte/plugins/jquery/jquery.min.js')}}"></script>
+{{-- <script src="{{asset('adminlte/plugins/jquery/jquery.min.js')}}"></script> --}}
 <!-- jQuery UI 1.11.4 -->
 <script src="{{asset('adminlte/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
