@@ -12,7 +12,7 @@
         <img src="{{asset('adminlte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="/admin-page" class="d-block">Alexander Pierce</a>
+        <h5 class="d-block" style="color: white">{{ Auth::user()->name }}</h5>
       </div>
     </div>
 
