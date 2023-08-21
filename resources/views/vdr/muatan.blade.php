@@ -93,11 +93,32 @@
 </div>
 </div>
 
+<!-- Delete Modal -->
+<div class="modal fade" id="delete_modal_muatan" tabindex="-1" role="dialog" aria-labelledby="delete_modal_muatanLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="delete_modal_muatanLabel">Delete Daily Activity</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this daily activity?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirm_delete_muatan">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script>
   $(document).ready(function() {
       let id_user = {{auth()->user()->id}};
-      
+      let idToDelete;
 
       getmuatan(); 
       {{--  $('#tablemuatan').dataTable();  --}}
@@ -135,10 +156,10 @@
                             <i class="fa fa-edit"></i>
                             Edit
                           </button>
-                          <button class="btn btn-danger btn-round ml-1 btn-sm baggage_hapus" data-toggle="modal" data-target="#deleteModal" data="` +
-                          data.details[i].id + `">
-                            <i class="fas fa-trash-alt"></i>
-                            Delete
+                          <button class="btn btn-danger btn-round ml-1 btn-sm baggage_hapus" data-toggle="modal" data-target="#delete_modal_muatan" data="` + 
+                                          data.details[i].id + `">
+                                        <i class="fas fa-trash-alt"></i> Delete
+                                        </button>
                         </div>
                       </td>
                     </tr>
@@ -186,5 +207,32 @@
 
           return false;
       });
+      //untuk dellete 
+      function deletemuatan(id) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('muatan.deletemuatan') }}', // Ubah URL sesuai dengan rute Anda
+                data: {
+                    _token: $('#_tokenAdd').val(),
+                    id: id
+                },
+                success: function(data) {
+                    $('#delete_modal_muatan').modal('hide');
+                    getmuatan();
+                }
+            });
+        }
+
+        $('#tablemuatan').on('click', '.baggage_hapus', function() {
+            idToDelete = $(this).attr('data');
+            $('#delete_modal_muatan').modal('show');
+        });
+
+        $('#confirm_delete_muatan').on('click', function() {
+            if (idToDelete) {
+              deletemuatan(idToDelete);
+                idToDelete = null;
+            }
+        });
     });
 </script>          

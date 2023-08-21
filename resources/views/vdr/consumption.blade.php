@@ -42,7 +42,7 @@
                       <label>Product Name</label>
                       <select class="form-control" name="name_product" id="name_product">
                         <option value="">-Pilih Product-</option>
-                        @foreach ($data as $item)
+                        @foreach ($data1 as $item)
                           <option value="{{ $item->name }}">{{ $item->name }}</option>
                         @endforeach
                       </select>
@@ -72,7 +72,7 @@
                 document.addEventListener("DOMContentLoaded", function () {
                   const productCodeSelect = document.getElementById("code_product");
                   const productNameInput = document.getElementById("name_product");
-                  const productsData = {!! json_encode($data) !!}; // Memasukkan data produk dari PHP ke JavaScript
+                  const productsData = {!! json_encode($data1) !!}; // Memasukkan data produk dari PHP ke JavaScript
               
                   productNameInput.addEventListener("change", function () {
                     const selectedProductName = productNameInput.value;
@@ -116,11 +116,32 @@
           </div>
 
                <!-- /.tab-pane -->
+               <!-- Delete Modal -->
+               <div class="modal fade" id="delete_modal_consumption" tabindex="-1" role="dialog" aria-labelledby="delete_modal_consumptionLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="delete_modal_consumptionLabel">Delete Daily Activity</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Are you sure you want to delete this daily activity?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-danger" id="confirm_delete_consumption">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
 
                <script>
                 $(document).ready(function() {
                     let id_user = {{auth()->user()->id}};
+                    let idToDelete;
                     
         
                     getconsumption(); 
@@ -159,11 +180,10 @@
                                           <i class="fa fa-edit"></i>
                                           Edit
                                         </button>
-                                        <button class="btn btn-danger btn-round ml-1 btn-sm baggage_hapus" data-toggle="modal" data-target="#deleteModal" data="` +
-                                        data.details[i].id + `">
-                                          <i class="fas fa-trash-alt"></i>
-                                          Delete
-                                      </div>
+                                        <button class="btn btn-danger btn-round ml-1 btn-sm baggage_hapus" data-toggle="modal" data-target="#delete_modal_consumption" data="` + 
+                                          data.details[i].id + `">
+                                        <i class="fas fa-trash-alt"></i> Delete
+                                        </button>
                                     </td>
                                   </tr>
                                   `;
@@ -210,6 +230,34 @@
         
                         return false;
                     });
+
+                    //untuk dellete 
+                    function deleteconsumption(id) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('consumption.deleteconsumption') }}', // Ubah URL sesuai dengan rute Anda
+                data: {
+                    _token: $('#_tokenAdd').val(),
+                    id: id
+                },
+                success: function(data) {
+                    $('#delete_modal_consumption').modal('hide');
+                    getconsumption();
+                }
+            });
+        }
+
+        $('#tableconsumption').on('click', '.baggage_hapus', function() {
+            idToDelete = $(this).attr('data');
+            $('#delete_modal_consumption').modal('show');
+        });
+
+        $('#confirm_delete_consumption').on('click', function() {
+            if (idToDelete) {
+                deleteconsumption(idToDelete);
+                idToDelete = null;
+            }
+        });
                   });
         </script>          
         

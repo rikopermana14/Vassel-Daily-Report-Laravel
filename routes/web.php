@@ -39,20 +39,23 @@ Route::group(['middleware' => ['web','auth']], function () {
         Route::post('/adddaily', [App\Http\Controllers\VDRController::class, 'adddaily'])->name('dailyactivities.adddaily');
         Route::post('/movedatadaily', [App\Http\Controllers\VDRController::class, 'moveDataToDaily'])->name('dailyactivities.movedata');
         Route::post('/movedaily', [App\Http\Controllers\VDRController::class, 'clearTempTable'])->name('dailyactivities.cleartemp');
-        Route::delete('/delete-daily/{id}', [App\Http\Controllers\VDRController::class, 'deleteDaily'])->name('dailyactivities.delete');
+        Route::post('/dailyactivities/delete', [App\Http\Controllers\VDRController::class, 'deleteDaily'])->name('dailyactivities.deletedaily');
 
         Route::post('/running-hours-machine', [App\Http\Controllers\VDRController::class, 'storerunning'])->name('running-hours-machine');
         Route::get('/ajaxrunning', [App\Http\Controllers\VDRController::class, 'ajaxrunning'])->name('running.ajaxrunning');
         Route::post('/addrunning', [App\Http\Controllers\VDRController::class, 'addrunning'])->name('running.addrunning');
+        Route::post('/running/delete-running', [App\Http\Controllers\VDRController::class, 'deleterunning'])->name('running.deleterunning');
 
         Route::post('/consumption', [App\Http\Controllers\VDRController::class, 'storeconsumption'])->name('consumption');
         Route::get('/ajaxconsumption', [App\Http\Controllers\VDRController::class, 'ajaxconsumption'])->name('consumption.ajaxconsumption');
         Route::post('/addconsumption', [App\Http\Controllers\VDRController::class, 'addconsumption'])->name('consumption.addconsumption');
         Route::post('/updateconsumption', [App\Http\Controllers\VDRController::class, 'addconsumption'])->name('consumption.updateconsumption');
+        Route::post('/consumption/delete-consumption', [App\Http\Controllers\VDRController::class, 'deleteconsumption'])->name('consumption.deleteconsumption');
         
         Route::post('/muatan', [App\Http\Controllers\VDRController::class, 'storemuatan'])->name('muatan');
         Route::get('/ajaxmuatan', [App\Http\Controllers\VDRController::class, 'ajaxmuatan'])->name('muatan.ajaxmuatan');
         Route::post('/addmuatans', [App\Http\Controllers\VDRController::class, 'addmuatans'])->name('muatan.addmuatans');
+        Route::post('/muatan/delete-muatan', [App\Http\Controllers\VDRController::class, 'deletemuatan'])->name('muatan.deletemuatan');
         
         Route::post('/stock_status', [App\Http\Controllers\VDRController::class, 'storestock'])->name('stock_stsatus');
         Route::get('/get_product/{codeproduct}', [App\Http\Controllers\VDRController::class, 'getProduct']);

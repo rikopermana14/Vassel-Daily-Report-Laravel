@@ -20,8 +20,8 @@ class VDRController extends Controller
     public function vdr()
     {
         $stock=Stock_Status::all();
-        $data=Product::all();
-        return view('vdr.index', compact('data','stock'));
+        $data1=Product::all();
+        return view('vdr.index', compact('data1','stock'));
     }
     public function getProduct($codeproduct)
 {
@@ -29,22 +29,18 @@ class VDRController extends Controller
     return response()->json($product);
 }
 
-public function deleteDaily($id)
+public function deleteDaily(Request $request)
     {
-        try {
-            // Cari aktivitas harian berdasarkan ID
-            $dailyActivity = Temp_Daily::findOrFail($id);
+        $id = $request->id;
+        $dailyActivity = Temp_Daily::find($id);
 
-            dd($dailyActivity);
-            // Hapus aktivitas harian
-            $dailyActivity->delete();
-
-            // Berikan respons berhasil
-            return response()->json(['success' => true, 'message' => 'Daily activity deleted successfully']);
-        } catch (\Exception $e) {
-            // Tangani kesalahan
-            return response()->json(['success' => false, 'message' => 'Failed to delete daily activity', 'error' => $e->getMessage()], 500);
+        if (!$dailyActivity) {
+            return response()->json(['error' => 'Daily activity not found'], 404);
         }
+
+        $dailyActivity->delete();
+
+        return response()->json(['message' => 'Daily activity deleted successfully']);
     }
 
 public function moveDataToDaily(Request $request) {
@@ -181,6 +177,20 @@ public function addrunning(Request $request)
     }
 }
 
+public function deleterunning(Request $request)
+    {
+        $id = $request->id;
+        $running = Running_hours::find($id);
+
+        if (!$running) {
+            return response()->json(['error' => 'Consumption not found'], 404);
+        }
+
+        $running->delete();
+
+        return response()->json(['message' => 'Consumption deleted successfully']);
+    }
+
 public function ajaxconsumption(Request $request)
 {
     $user = Auth::User()->id;
@@ -233,6 +243,20 @@ public function addconsumption(Request $request)
         return response()->json("GAGAL");
     }
 }
+
+public function deleteconsumption(Request $request)
+    {
+        $id = $request->id;
+        $consumption = consumption::find($id);
+
+        if (!$consumption) {
+            return response()->json(['error' => 'Consumption not found'], 404);
+        }
+
+        $consumption->delete();
+
+        return response()->json(['message' => 'Consumption deleted successfully']);
+    }
 
 
 public function ajaxmuatan(Request $request)
@@ -288,6 +312,20 @@ public function addmuatans(Request $request)
         return response()->json("GAGAL");
     }
 }
+
+public function deletemuatan(Request $request)
+    {
+        $id = $request->id;
+        $muatan = muatan::find($id);
+
+        if (!$muatan) {
+            return response()->json(['error' => 'Consumption not found'], 404);
+        }
+
+        $muatan->delete();
+
+        return response()->json(['message' => 'Consumption deleted successfully']);
+    }
 
     public function storegeneralinfo(Request $request)
     {

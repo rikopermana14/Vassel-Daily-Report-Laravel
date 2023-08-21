@@ -67,7 +67,7 @@
         <label>Product Name</label>
         <select class="form-control" name="product_name" id="productnama">
           <option value="">-Pilih Product-</option>
-          @foreach ($data as $item)
+          @foreach ($data1 as $item)
             <option value="{{ $item->name }}">{{ $item->name }}</option>
           @endforeach
         </select>
@@ -142,7 +142,7 @@
     document.addEventListener("DOMContentLoaded", function () {
       const produkkode = document.getElementById("productkode");
       const produknama = document.getElementById("productnama");
-      const dataproduk = {!! json_encode($data) !!}; // Memasukkan data produk dari PHP ke JavaScript
+      const dataproduk = {!! json_encode($data1) !!}; // Memasukkan data produk dari PHP ke JavaScript
   
       produknama.addEventListener("change", function () {
         const selekproduknama = produknama.value;
