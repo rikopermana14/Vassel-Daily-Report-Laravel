@@ -34,7 +34,7 @@
                                 <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">Running Hours Machine</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#tab_4" data-toggle="tab">Consumption</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#tab_5" data-toggle="tab" role="tab">Stock Status</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#tab_6" data-toggle="tab">Muatan</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#tab_6" data-toggle="tab">Payload</a></li>
                                 <li>
                                     <a href="#" class="btn btn-warning">Kembali</a>
                                     <button class="btn btn-primary">Simpan</button>

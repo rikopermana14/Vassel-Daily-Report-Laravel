@@ -88,6 +88,9 @@
                     </div>
                   </div>
                 </div>
+
+                {{-- Modal Edit --}}
+                @include('vdr.modal_edit.modal_daily')
                 
 
 
@@ -124,7 +127,7 @@
                                        <td>` + data.details[i].description + `</td> 
                                      
                                        <td class="text-center">
-                                          <button class="btn btn-warning btn-round ml-auto btn-sm baggage_edit" data-toggle="modal" data-target="#editModal1" data="` +
+                                          <button class="btn btn-warning btn-round ml-auto btn-sm baggage_edit" data-toggle="modal" data-target="#editModal" data="` +
                                           data.details[i].id +
                                           `">
                                             <i class="fa fa-edit"></i>
@@ -209,8 +212,62 @@
         });
 
                       // Function to delete a daily activity
+
+        // Function to edit a daily activity
+    function editDailyActivity(id) {
+      var formData = new FormData();
+    formData.append('_method', 'PUT'); // Menggunakan metode PUT untuk edit
+    formData.append('_token', $('#_tokenAdd').val());
+    formData.append('date', $('#edit_date').val());
+    formData.append('time_from', $('#edit_time_from').val());
+    formData.append('time_to', $('#edit_time_to').val());
+    formData.append('description', $('#edit_description').val());
+    formData.append('user_input', $('#user_input').val());
+
+    $.ajax({
+        type: 'POST', // Anda juga bisa gunakan method PUT sesuai kebutuhan Anda
+        url: '/daily-activities/' + id, // Ubah URL sesuai dengan rute yang benar
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function(data) {
+            $('#editModal').modal('hide');
+            getdaily();
+            }
+        });
+    }
+
+    // Function to populate the edit modal
+    function populateEditModal(id) {
+        $.ajax({
+            type: 'GET',
+            url: '/daily-activities/' + id,
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                $('#edit_id').val(data.id);
+                $('#edit_date').val(data.date);
+                $('#edit_time_from').val(data.time_from);
+                $('#edit_time_to').val(data.time_to);
+                $('#edit_description').val(data.description);
+            }
+        });
+    }
+
+    $('#tabledaily').on('click', '.baggage_edit', function() {
+        idToEdit = $(this).attr('data');
+        populateEditModal(idToEdit);
+        $('#editModal').modal('show');
+    });
+
+    $('#confirm-Edit').on('click', function() {
+        if (idToEdit) {
+            editDailyActivity(idToEdit);
+            idToEdit = null;
+        }
+    });
 });
-</script>          
+</script> 
 
 
  

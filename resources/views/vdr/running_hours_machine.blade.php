@@ -120,13 +120,13 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="delete_modal_runningLabel">Delete Daily Activity</h5>
+          <h5 class="modal-title" id="delete_modal_runningLabel">Delete Running Hours</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          Are you sure you want to delete this daily activity?
+          Are you sure you want to delete this Running Hours?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -135,6 +135,9 @@
       </div>
     </div>
   </div>
+
+                  {{-- Modal Edit --}}
+                  @include('vdr.modal_edit.modal_running')
 
       <script>
         $(document).ready(function() {
@@ -174,7 +177,7 @@
                              <td>` + data.details[i].standby + `</td> 
                            
                              <td class="text-center">
-                                <button class="btn btn-warning btn-round ml-auto btn-sm baggage_edit" data-toggle="modal" data-target="#editModal1" data="` +
+                                <button class="btn btn-warning btn-round ml-auto btn-sm baggage_edit" data-toggle="modal" data-target="#editModalrunning" data="` +
                                 data.details[i].id +
                                 `">
                                   <i class="fa fa-edit"></i>
@@ -261,8 +264,69 @@
                 idToDelete = null;
             }
         });
-                  });
-</script>          
+                   // Function to edit a daily activity
+    function editrunning(id) {
+      var formData = new FormData();
+    formData.append('_method', 'PUT'); // Menggunakan metode PUT untuk edit
+    formData.append('_token', $('#_tokenAdd').val());
+    formData.append('date', $('#edit_daterunning').val());
+    formData.append('machine', $('#edit_machine').val());
+    formData.append('towing', $('#edit_towing').val());
+    formData.append('manouver', $('#edit_manouver').val());
+    formData.append('slow', $('#edit_slow').val());
+    formData.append('economi', $('#edit_economi').val());
+    formData.append('full_speed', $('#edit_full_speed').val());
+    formData.append('standby', $('#edit_standby').val());
+    formData.append('user_input', $('#user_input').val());
+
+    $.ajax({
+        type: 'POST', // Anda juga bisa gunakan method PUT sesuai kebutuhan Anda
+        url: '/running/' + id, // Ubah URL sesuai dengan rute yang benar
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function(data) {
+            $('#editModalrunning').modal('hide');
+            getrunning();
+            }
+        });
+    }
+
+    // Function to populate the edit modal
+    function populateEditModal(id) {
+        $.ajax({
+            type: 'GET',
+            url: '/running/' + id,
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                $('#edit_id').val(data.id);
+                $('#edit_daterunning').val(data.date);
+                $('#edit_machine').val(data.machine);
+                $('#edit_towing').val(data.towing);
+                $('#edit_manouver').val(data.manouver);
+                $('#edit_slow').val(data.slow);
+                $('#edit_economi').val(data.economi);
+                $('#edit_full_speed').val(data.full_speed);
+                $('#edit_standby').val(data.standby);
+            }
+        });
+    }
+
+    $('#tablerunning').on('click', '.baggage_edit', function() {
+        idToEdit = $(this).attr('data');
+        populateEditModal(idToEdit);
+        $('#editModalrunning').modal('show');
+    });
+
+    $('#confirm-Edit-running').on('click', function() {
+        if (idToEdit) {
+            editrunning(idToEdit);
+            idToEdit = null;
+        }
+    });
+});
+</script> 
 
 
 

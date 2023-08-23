@@ -40,11 +40,15 @@ Route::group(['middleware' => ['web','auth']], function () {
         Route::post('/movedatadaily', [App\Http\Controllers\VDRController::class, 'moveDataToDaily'])->name('dailyactivities.movedata');
         Route::post('/movedaily', [App\Http\Controllers\VDRController::class, 'clearTempTable'])->name('dailyactivities.cleartemp');
         Route::post('/dailyactivities/delete', [App\Http\Controllers\VDRController::class, 'deleteDaily'])->name('dailyactivities.deletedaily');
+        Route::get('/daily-activities/{id}', [App\Http\Controllers\VDRController::class, 'getDailyActivity'])->name('dailyactivities.getdaily');
+        Route::put('/daily-activities/{id}', [App\Http\Controllers\VDRController::class, 'editDailyActivity'])->name('dailyactivities.editdaily'); // Tambahkan route ini
 
         Route::post('/running-hours-machine', [App\Http\Controllers\VDRController::class, 'storerunning'])->name('running-hours-machine');
         Route::get('/ajaxrunning', [App\Http\Controllers\VDRController::class, 'ajaxrunning'])->name('running.ajaxrunning');
         Route::post('/addrunning', [App\Http\Controllers\VDRController::class, 'addrunning'])->name('running.addrunning');
         Route::post('/running/delete-running', [App\Http\Controllers\VDRController::class, 'deleterunning'])->name('running.deleterunning');
+        Route::get('/running/{id}', [App\Http\Controllers\VDRController::class, 'getrunning'])->name('running.getrunning');
+        Route::put('/running/{id}', [App\Http\Controllers\VDRController::class, 'editrunning'])->name('running.editrunning'); 
 
         Route::post('/consumption', [App\Http\Controllers\VDRController::class, 'storeconsumption'])->name('consumption');
         Route::get('/ajaxconsumption', [App\Http\Controllers\VDRController::class, 'ajaxconsumption'])->name('consumption.ajaxconsumption');

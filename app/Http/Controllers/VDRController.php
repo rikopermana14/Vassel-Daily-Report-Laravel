@@ -119,6 +119,35 @@ public function adddaily(Request $request)
     }
 }
 
+public function getDailyActivity($id)
+    {
+        $editdaily = Temp_Daily::find($id);
+        
+        if (!$editdaily) {
+            return response()->json(['error' => 'Daily Activity not found'], 404);
+        }
+
+        return response()->json($editdaily);
+    }
+
+    public function editDailyActivity(Request $request, $id)
+    {
+        // Ambil data dari request
+        $data = [
+            'date' => $request->input('date'),
+            'time_from' => $request->input('time_from'),
+            'time_to' => $request->input('time_to'),
+            'description' => $request->input('description'),
+            // ... sesuaikan dengan field lainnya ...
+        ];
+        
+        // Lakukan update data di database berdasarkan ID
+        Temp_Daily::where('id', $id)->update($data);
+        
+        return response()->json(['message' => 'Activity updated successfully']);
+    }
+    
+
 
 public function ajaxrunning(Request $request)
 {
@@ -189,6 +218,38 @@ public function deleterunning(Request $request)
         $running->delete();
 
         return response()->json(['message' => 'Consumption deleted successfully']);
+    }
+
+    public function getrunning($id)
+    {
+        $editrunning = Running_hours::find($id);
+        
+        if (!$editrunning) {
+            return response()->json(['error' => 'Daily Activity not found'], 404);
+        }
+
+        return response()->json($editrunning);
+    }
+
+    public function editrunning(Request $request, $id)
+    {
+        // Ambil data dari request
+        $data = [
+            'date'=> $request->input('date'),
+            'machine' => $request->input('machine'),
+            'towing' => $request->input('towing'),
+            'manouver' => $request->input('manouver'),
+            'slow' => $request->input('slow'),
+            'economi'=> $request->input('economi'),
+            'full_speed'=> $request->input('full_speed'),
+            'standby'=> $request->input('standby'),
+            // ... sesuaikan dengan field lainnya ...
+        ];
+        
+        // Lakukan update data di database berdasarkan ID
+        Running_hours::where('id', $id)->update($data);
+        
+        return response()->json(['message' => 'Activity updated successfully']);
     }
 
 public function ajaxconsumption(Request $request)
@@ -395,102 +456,6 @@ public function deletemuatan(Request $request)
         return redirect()->route('vdr');with('success', 'Add Data Success');
     }
 
-    public function storedaily(Request $request)
-    {
-        $request->validate([
-            'daily_date' => 'required',
-            'time_from' => 'required',
-            'time_to' => 'required',
-            'description' => 'required',
-        ]);
-    
-        Daily_Activity::create([
-            'date' => $request->input('daily_date'),
-            'time_from' => $request->input('time_from'),
-            'time_to' => $request->input('time_to'),
-            'description' => $request->input('description'),
-           
-        ]);
-        
-
-        return redirect()->route('vdr');with('success', 'Add Data Success');
-    }
-    public function storerunning(Request $request)
-    {
-        $request->validate([
-            'running_hours_date' => 'required',
-            'machine' => 'required',
-            'towing' => 'required',
-            'manouver' => 'required',
-            'slow' => 'required',
-            'economi' => 'required',
-            'full_speed' => 'required',
-            'standby' => 'required',
-        ]);
-    
-        Running_hours::create([
-            'date'=> $request->input('running_hours_date'),
-            'machine' => $request->input('machine'),
-            'towing' => $request->input('towing'),
-            'manouver' => $request->input('manouver'),
-            'slow' => $request->input('slow'),
-            'economi'=> $request->input('economi'),
-            'full_speed'=> $request->input('full_speed'),
-            'standby'=> $request->input('standby'),
-           
-        ]);
-        
-
-        return redirect()->route('vdr');with('success', 'Add Data Success');
-    }
-
-    public function storeconsumption(Request $request)
-    {
-        $request->validate([
-            'comsumption_date' => 'required',
-            'machine' => 'required',
-            'product_code' => 'required',
-            'product_name' => 'required',
-            'description' => 'required',
-            'used' => 'required',
-        ]);
-    
-        consumption::create([
-            'date'=> $request->input('comsumption_date'),
-            'machine' => $request->input('machine'),
-            'code_product' => $request->input('product_code'),
-            'name_product' => $request->input('product_name'),
-            'description' => $request->input('description'),
-            'used'=> $request->input('used'), 
-        ]);
-        
-
-        return redirect()->route('vdr');with('success', 'Add Data Success');
-    }
-
-    public function storemuatan(Request $request)
-    {
-        $request->validate([
-            'muatan_date' => 'required',
-            'product' => 'required',
-            'previous' => 'required',
-            'received' => 'required',
-            'transfered' => 'required',
-            'remain' => 'required',
-        ]);
-    
-        muatan::create([
-            'date'=> $request->input('muatan_date'),
-            'product_name' => $request->input('product'),
-            'previous' => $request->input('previous'),
-            'receive' => $request->input('received'),
-            'transfer' => $request->input('transfered'),
-            'remain'=> $request->input('remain'), 
-        ]);
-        
-
-        return redirect()->route('vdr');with('success', 'Add Data Success');
-    }
     public function storestock(Request $request)
     {
         $request->validate([
