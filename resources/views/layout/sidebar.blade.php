@@ -49,6 +49,7 @@
             </p>
           </a>
         </li>
+        @if (auth()->user()->hasRole('admin','operation'))
         <li class="nav-item">
           <a href="/vessel" class="nav-link">
             <i class="nav-icon fas fa-ship"></i>
@@ -65,6 +66,17 @@
             </p>
           </a>
         </li>
+        @endif
+        @if (auth()->user()->hasRole('admin'))
+        <li class="nav-item">
+          <a href="/user" class="nav-link">
+            <i class="nav-icon fas fa-user"></i>
+            <p>
+              User
+            </p>
+          </a>
+        </li>
+        @endif
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

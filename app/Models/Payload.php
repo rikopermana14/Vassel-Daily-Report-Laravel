@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class muatan extends Model
+class Payload extends Model
 {
     use HasFactory;
-    protected $table = 'muatan';
+    protected $table = 'payload';
     protected $primaryKey = "id";
     protected $fillable = [
         'date',

@@ -6,7 +6,7 @@ use App\Models\consumption;
 use App\Models\Daily_Activity;
 use Illuminate\Http\Request;
 use App\Models\GeneralInfo;
-use App\Models\muatan;
+use App\Models\Payload;
 use App\Models\Product;
 use App\Models\Running_hours;
 use App\Models\Stock_Status;
@@ -319,11 +319,41 @@ public function deleteconsumption(Request $request)
         return response()->json(['message' => 'Consumption deleted successfully']);
     }
 
+    public function getconsumption($id)
+    {
+        $editrunning = consumption::find($id);
+        
+        if (!$editrunning) {
+            return response()->json(['error' => 'Daily Activity not found'], 404);
+        }
 
-public function ajaxmuatan(Request $request)
+        return response()->json($editrunning);
+    }
+
+    public function editconsumption(Request $request, $id)
+    {
+        // Ambil data dari request
+        $data = [
+            'date'=> $request->input('date'),
+            'machine' => $request->input('machine'),
+            'code_product' => $request->input('code_product'),
+            'name_product' => $request->input('name_product'),
+            'description' => $request->input('description'),
+            'used'=> $request->input('used'),
+            // ... sesuaikan dengan field lainnya ...
+        ];
+        
+        // Lakukan update data di database berdasarkan ID
+        consumption::where('id', $id)->update($data);
+        
+        return response()->json(['message' => 'Activity updated successfully']);
+    }
+
+
+public function ajaxpayload(Request $request)
 {
     $user = Auth::User()->id;
-    $data = muatan::where('user_input',$user)->orderby('id','desc')->get();
+    $data = payload::where('user_input',$user)->orderby('id','desc')->get();
 
   $response = [
     'success' => true,
@@ -334,7 +364,7 @@ public function ajaxmuatan(Request $request)
 return response()->json($response, 200);
 }
 
-public function addmuatans(Request $request)
+public function addpayloads(Request $request)
 {
    // dd($request->all());
     $request->validate([
@@ -350,7 +380,7 @@ public function addmuatans(Request $request)
 
     DB::beginTransaction();
     try {
-        $addconsumption = muatan::create([
+        $addconsumption = payload::create([
             'date'=> $request->input('date'),
             'product_name' => $request->input('product_name'),
             'previous' => $request->input('previous'),
@@ -374,18 +404,48 @@ public function addmuatans(Request $request)
     }
 }
 
-public function deletemuatan(Request $request)
+public function deletepayload(Request $request)
     {
         $id = $request->id;
-        $muatan = muatan::find($id);
+        $payload = payload::find($id);
 
-        if (!$muatan) {
+        if (!$payload) {
             return response()->json(['error' => 'Consumption not found'], 404);
         }
 
-        $muatan->delete();
+        $payload->delete();
 
         return response()->json(['message' => 'Consumption deleted successfully']);
+    }
+
+    public function getpayload($id)
+    {
+        $payload = Payload::find($id);
+        
+        if (!$payload) {
+            return response()->json(['error' => 'Daily Activity not found'], 404);
+        }
+
+        return response()->json($payload);
+    }
+
+    public function editpayload(Request $request, $id)
+    {
+        // Ambil data dari request
+        $data = [
+            'date'=> $request->input('date'),
+            'product_name' => $request->input('product_name'),
+            'previous' => $request->input('previous'),
+            'receive' => $request->input('receive'),
+            'transfer' => $request->input('transfer'),
+            'remain'=> $request->input('remain'),
+            // ... sesuaikan dengan field lainnya ...
+        ];
+        
+        // Lakukan update data di database berdasarkan ID
+        payload::where('id', $id)->update($data);
+        
+        return response()->json(['message' => 'Activity updated successfully']);
     }
 
     public function storegeneralinfo(Request $request)

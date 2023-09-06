@@ -85,10 +85,10 @@
                               </form>
                                 </div>
 
-                                <!-- Konten Tab Muatan -->
+                                <!-- Konten Tab payload -->
                                 <div class="tab-pane" id="tab_6">
                                   
-                                    @include('vdr.muatan')
+                                    @include('vdr.payload')
                                     
                               </form>
                                 </div>
@@ -135,8 +135,8 @@
     $('#comsumption_date').datetimepicker({
       format: 'YYYY/MM/DD '
     });
-    //Date range picker for muatan
-    $('#muatan_date').datetimepicker({
+    //Date range picker for payload
+    $('#payload_date').datetimepicker({
       format: 'YYYY/MM/DD '
     });
     //Date range picker for Stock_Status
@@ -154,8 +154,8 @@
       $('#running_hours_date').data('datetimepicker').date(selectedDate);
       // Set tanggal di "Consumtion" sesuai dengan tanggal di "General Info"
       $('#comsumption_date').data('datetimepicker').date(selectedDate);
-       // Set tanggal di "Muatan" sesuai dengan tanggal di "General Info"
-      $('#muatan_date').data('datetimepicker').date(selectedDate);
+       // Set tanggal di "payload" sesuai dengan tanggal di "General Info"
+      $('#payload_date').data('datetimepicker').date(selectedDate);
     });
 
   });

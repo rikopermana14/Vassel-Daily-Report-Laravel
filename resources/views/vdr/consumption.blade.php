@@ -73,15 +73,33 @@
                   const productCodeSelect = document.getElementById("code_product");
                   const productNameInput = document.getElementById("name_product");
                   const productsData = {!! json_encode($data1) !!}; // Memasukkan data produk dari PHP ke JavaScript
+                  
+                  const productCodeSelectedit = document.getElementById("edit_code_product");
+                  const productNameInputedit = document.getElementById("edit_name_product");
+                  const productsDataedit = {!! json_encode($data1) !!}; // Memasukkan data produk dari PHP ke JavaScript
               
+
                   productNameInput.addEventListener("change", function () {
+                    console.log("Script executed");
                     const selectedProductName = productNameInput.value;
                     const selectedProduct = productsData.find(product => product.name === selectedProductName);
-              
+
                     if (selectedProduct) {
                       productCodeSelect.value = selectedProduct.product_id;
                     } else {
                       productCodeSelect.value = "";
+                    }
+                  });
+
+                  productNameInputedit.addEventListener("change", function () {
+                    console.log("Script executed");
+                    const selectedProductNameedit = productNameInputedit.value;
+                    const selectedProductedit = productsDataedit.find(product => product.name === selectedProductNameedit);
+
+                    if (selectedProductedit) {
+                      productCodeSelectedit.value = selectedProductedit.product_id;
+                    } else {
+                      productCodeSelectedit.value = "";
                     }
                   });
                 });
@@ -137,6 +155,7 @@
                 </div>
               </div>
 
+              @include('vdr.modal_edit.modal_consumption')
 
                <script>
                 $(document).ready(function() {
@@ -174,7 +193,7 @@
                                      <td>` + data.details[i].used + `</td> 
                                    
                                      <td class="text-center">
-                                        <button class="btn btn-warning btn-round ml-auto btn-sm baggage_edit" data-toggle="modal" data-target="#editModal1" data="` +
+                                        <button class="btn btn-warning btn-round ml-auto btn-sm baggage_edit" data-toggle="modal" data-target="#edit_modal_consumption" data="` +
                                         data.details[i].id +
                                         `">
                                           <i class="fa fa-edit"></i>
@@ -258,8 +277,65 @@
                 idToDelete = null;
             }
         });
-                  });
-        </script>          
+                   // Function to edit a daily activity
+    function editrunning(id) {
+      var formData = new FormData();
+    formData.append('_method', 'PUT'); // Menggunakan metode PUT untuk edit
+    formData.append('_token', $('#_tokenAdd').val());
+    formData.append('date', $('#edit_date_consumption').val());
+    formData.append('machine', $('#edit_machine_consumption').val());
+    formData.append('code_product', $('#edit_code_product').val());
+    formData.append('name_product', $('#edit_name_product').val());
+    formData.append('description', $('#edit_description_consumption').val());
+    formData.append('used', $('#edit_used').val());
+    formData.append('user_input', $('#user_input').val());
+
+    $.ajax({
+        type: 'POST', // Anda juga bisa gunakan method PUT sesuai kebutuhan Anda
+        url: '/consumption/' + id, // Ubah URL sesuai dengan rute yang benar
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function(data) {
+            $('#edit_modal_consumption').modal('hide');
+            getconsumption();
+            }
+        });
+    }
+
+    // Function to populate the edit modal
+    function populateEditModal(id) {
+        $.ajax({
+            type: 'GET',
+            url: '/consumption/' + id,
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                $('#edit_id').val(data.id);
+                $('#edit_date_consumption').val(data.date);
+                $('#edit_machine_consumption').val(data.machine);
+                $('#edit_code_product').val(data.code_product);
+                $('#edit_name_product').val(data.name_product);
+                $('#edit_description_consumption').val(data.description);
+                $('#edit_used').val(data.used);
+            }
+        });
+    }
+
+    $('#tableconsumption').on('click', '.baggage_edit', function() {
+        idToEdit = $(this).attr('data');
+        populateEditModal(idToEdit);
+        $('#edit_modal_consumption').modal('show');
+    });
+
+    $('#confirm-Edit-consumption').on('click', function() {
+        if (idToEdit) {
+            editrunning(idToEdit);
+            idToEdit = null;
+        }
+    });
+});
+</script>      
         
 
               
