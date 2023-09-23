@@ -281,7 +281,7 @@
 
     $.ajax({
         type: 'POST', // Anda juga bisa gunakan method PUT sesuai kebutuhan Anda
-        url: '/running/' + id, // Ubah URL sesuai dengan rute yang benar
+        url: 'running/' + id, // Ubah URL sesuai dengan rute yang benar
         processData: false,
         contentType: false,
         data: formData,
@@ -314,7 +314,8 @@
     }
 
     $('#tablerunning').on('click', '.baggage_edit', function() {
-        idToEdit = $(this).attr('data');
+      var idToEdit = $(this).attr('data');
+    console.log('ID yang akan diedit:', idToEdit);
         populateEditModal(idToEdit);
         $('#editModalrunning').modal('show');
     });

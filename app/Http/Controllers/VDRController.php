@@ -448,6 +448,116 @@ public function deletepayload(Request $request)
         return response()->json(['message' => 'Activity updated successfully']);
     }
 
+    public function ajaxstock(Request $request)
+{
+    $user = Auth::User()->id;
+    $data = Stock_Status::where('user_input',$user)->orderby('id','desc')->get();
+
+  $response = [
+    'success' => true,
+    'details' => $data,
+
+  ];
+
+return response()->json($response, 200);
+}
+
+public function addstock(Request $request)
+{
+   // dd($request->all());
+    $request->validate([
+            'date' => 'required',
+            'code_product' => 'required',
+            'name_product' => 'required',
+            'spec' => 'required',
+            'previous' => 'required',
+            'received' => 'required',
+            'used'=> 'required',
+            'transfered'=> 'required',
+            'sounding'=> 'required',
+            'remain'=> 'required',
+        ]);
+
+    $userid = $request->input('user_input');
+
+    DB::beginTransaction();
+    try {
+        $addstock = Stock_Status::create([
+            'date'=> $request->input('date'),
+            'code_product'=> $request->input('code_product'),
+            'name_product' => $request->input('name_product'),
+            'spec' => $request->input('spec'),
+            'previous' => $request->input('previous'),
+            'received' => $request->input('received'),
+            'used'=> $request->input('used'), 
+            'transfered'=> $request->input('transfered'), 
+            'sounding'=> $request->input('sounding'), 
+            'remain'=> $request->input('remain'), 
+            'user_input' => $userid,
+        ]);
+        
+        DB::commit();
+
+        $notification = [
+            'message' => 'Success add Baggage Identification',
+            'alert-type' => 'success'
+        ];
+
+        return response()->json($notification);
+    } catch (\Throwable $e) {
+        DB::rollback();
+        return response()->json("GAGAL");
+    }
+}
+
+public function deletestock(Request $request)
+    {
+        $id = $request->id;
+        $payload = Stock_Status::find($id);
+
+        if (!$payload) {
+            return response()->json(['error' => 'Consumption not found'], 404);
+        }
+
+        $payload->delete();
+
+        return response()->json(['message' => 'Consumption deleted successfully']);
+    }
+
+    public function getstock($id)
+    {
+        $payload = Stock_Status::find($id);
+        
+        if (!$payload) {
+            return response()->json(['error' => 'Daily Activity not found'], 404);
+        }
+
+        return response()->json($payload);
+    }
+
+    public function editstock(Request $request, $id)
+    {
+        // Ambil data dari request
+        $data = [
+            'date'=> $request->input('date'),
+            'code_product'=> $request->input('code_product'),
+            'name_product' => $request->input('name_product'),
+            'spec' => $request->input('spec'),
+            'previous' => $request->input('previous'),
+            'received' => $request->input('received'),
+            'used'=> $request->input('used'), 
+            'transfered'=> $request->input('transfered'), 
+            'sounding'=> $request->input('sounding'), 
+            'remain'=> $request->input('remain'), 
+            // ... sesuaikan dengan field lainnya ...
+        ];
+        
+        // Lakukan update data di database berdasarkan ID
+        payload::where('id', $id)->update($data);
+        
+        return response()->json(['message' => 'Activity updated successfully']);
+    }
+
     public function storegeneralinfo(Request $request)
     {
         $request->validate([
@@ -530,6 +640,7 @@ public function deletepayload(Request $request)
             'sound'=> 'required',
             'remain'=> 'required',
         ]);
+        $userid = Auth::User()->id;
     
         Stock_Status::create([
             'date'=> $request->input('stock_date'),
@@ -542,6 +653,7 @@ public function deletepayload(Request $request)
             'transfer'=> $request->input('transfer'), 
             'soud'=> $request->input('sound'), 
             'remain'=> $request->input('remain'), 
+            'user_input' => $userid,
         ]);
         
 

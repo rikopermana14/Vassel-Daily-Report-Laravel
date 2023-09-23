@@ -12,14 +12,15 @@ class Stock_Status extends Model
     protected $primaryKey = "id";
     protected $fillable = [
         'date',
-        'product_id',
-        'name',
-        'spec',
-        'previous',
-        'receive',
-        'use',
-        'transfer',
-        'soud',
-        'remain',
+        'code_product',
+        'name_product',
+        'spec'  ,
+        'previous',  
+        'received'  ,
+        'used'  ,
+        'transfered'  ,
+        'sounding'  ,
+        'remain'  ,
+        'user_input',
     ];
 }

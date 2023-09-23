@@ -33,7 +33,7 @@
                                 <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Daily Activities</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">Running Hours Machine</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#tab_4" data-toggle="tab">Consumption</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#tab_5" data-toggle="tab" role="tab">Stock Status</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#tab_5" data-toggle="tab" >Stock Status</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#tab_6" data-toggle="tab">Payload</a></li>
                                 <li>
                                     <a href="#" class="btn btn-warning">Kembali</a>
@@ -65,32 +65,24 @@
                                   
                                     @include('vdr.running_hours_machine')
                                     
-                              </form>
+
                                 </div>
 
                                 <!-- Konten Tab Konsumsi -->
                                 <div class="tab-pane" id="tab_4">
                                   
                                     @include('vdr.consumption')
-                                    
-                              </form>
+
                                 </div>
 
                                 <!-- Konten Tab Status Stok -->
                                 <div class="tab-pane" id="tab_5">
-                                  <form action="/stock_status" method="post" enctype="multipart/form-data">
-                                    @csrf
                                     @include('vdr.stock_status')
-                                    <button class="btn btn-primary">Simpan</button>
-                              </form>
                                 </div>
 
                                 <!-- Konten Tab payload -->
                                 <div class="tab-pane" id="tab_6">
-                                  
                                     @include('vdr.payload')
-                                    
-                              </form>
                                 </div>
                             </div>
                             <!-- /.tab-content -->

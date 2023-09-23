@@ -13,6 +13,10 @@
                  </div>
                </div>
 
+               <input type="hidden" name="_methodAdd" id="_methodAdd" value="POST">
+                 <input type="hidden" name="_enctype" id="_enctype" value="multipart/form-data">
+                 <input type="hidden" name="_tokenAdd" id="_tokenAdd" value="{{ csrf_token() }}">
+                 <input type="hidden" name="user_input" id="user_input" value="{{auth()->user()->id}}">
                 <div class="row">
                  <div class="col-sm-6">
                    <div class="form-group">
@@ -278,7 +282,7 @@
             }
         });
                    // Function to edit a daily activity
-    function editrunning(id) {
+    function editconsumption(id) {
       var formData = new FormData();
     formData.append('_method', 'PUT'); // Menggunakan metode PUT untuk edit
     formData.append('_token', $('#_tokenAdd').val());
@@ -330,7 +334,7 @@
 
     $('#confirm-Edit-consumption').on('click', function() {
         if (idToEdit) {
-            editrunning(idToEdit);
+            editconsumption(idToEdit);
             idToEdit = null;
         }
     });

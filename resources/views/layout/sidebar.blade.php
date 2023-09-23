@@ -34,7 +34,13 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
         <li class="nav-item ">
+          @if (auth()->user()->hasRole('admin'))
           <a href="/admin-page" class="nav-link ">
+            @elseif(auth()->user()->hasRole('operation'))
+            <a href="/operation-page" class="nav-link ">
+            @elseif(auth()->user()->hasRole('vessel'))
+            <a href="/vessel-page" class="nav-link ">
+            @endif
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard
@@ -49,7 +55,7 @@
             </p>
           </a>
         </li>
-        @if (auth()->user()->hasRole('admin','operation'))
+        @if (auth()->user()->hasRole('admin')|| auth()->user()->hasRole('operation'))
         <li class="nav-item">
           <a href="/vessel" class="nav-link">
             <i class="nav-icon fas fa-ship"></i>
