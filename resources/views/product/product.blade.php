@@ -38,7 +38,7 @@
                   </div>
                   <div class="col-sm">
                     <div class="col-sm">
-                      <a href="/add-product" class="btn btn-primary">Add</a>
+                      <a href="/product/add-product" class="btn btn-primary">Add</a>
                       <a id="editBtn" class="btn btn-warning" href="#">Edit</a>
                       <button type="button" class="btn btn-danger btn-sm text-center" data-toggle="modal" data-target="#deleteModal">
                         Delete

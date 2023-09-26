@@ -125,7 +125,6 @@ Route::middleware(['web','auth'])->group(function () {
     Route::prefix('vessel')->group(function () {
         Route::get('/', [App\Http\Controllers\VesselController::class, 'vessel'])->name('vessel');
         Route::get('/add', [App\Http\Controllers\VesselController::class, 'add'])->name('add');
-        Route::get('/add', [App\Http\Controllers\VesselController::class, 'add'])->name('add');
         Route::post('/store-vessel', [App\Http\Controllers\VesselController::class, 'storevessel'])->name('store-vessel');
         Route::get('/edit-vessel/{id}', [App\Http\Controllers\VesselController::class, 'editvessel'])->name('vessel.edit');
         Route::post('/edit-vessel/{id}', [App\Http\Controllers\VesselController::class, 'updatevessel'])->name('vessel.update');

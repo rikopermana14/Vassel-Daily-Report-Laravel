@@ -45,7 +45,7 @@
                   <div class="col-sm">
                   </div>
                   <div class="col-sm">
-                    <a href="/add" class="btn btn-primary">Add</a>
+                    <a href="/vessel/add" class="btn btn-primary">Add</a>
                     <a id="editBtn" class="btn btn-warning" href="#">Edit</a>
                       <button type="button" class="btn btn-danger btn-sm text-center" data-toggle="modal" data-target="#deleteModal">
                         Delete
@@ -133,11 +133,12 @@
     <!-- /.content -->
   
   <!-- Delete Modal -->
+<!-- Delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="deleteModalLabel">Delete Product</h5>
+              <h5 class="modal-title" id="deleteModalLabel">Delete Vessel</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
@@ -147,30 +148,38 @@
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              @foreach ($data as $item)
-              <a id="deleteConfirmBtn" class="btn btn-danger" href="{{ route('vessel.hapus', Crypt::encrypt ($item->id)) }}">Delete</a>
-              @endforeach
+              <a id="deleteConfirmBtn" class="btn btn-danger">Delete</a> <!-- Hapus href dan tambahkan class "btn btn-danger" -->
             </div>
       </div>
   </div>
 </div>
 
-<script>
-  $(document).ready(function() {
-      var deleteUrl = '';
-
-      $('.btn-danger').click(function() {
-          deleteUrl = $(this).attr('href'); // Menyimpan URL delete saat tombol "Delete" diklik
-      });
-
-      $('#deleteConfirmBtn').click(function() {
-          window.location.href = deleteUrl; // Redirect ke URL delete saat tombol "Delete" di modal diklik
-      });
-  });
-</script>
-
 
 <script>
+$(document).ready(function() {
+    var deleteUrl = '';
+
+    $('.btn-danger').click(function() {
+        var selectedRadio = $('input[name="selected_vessel"]:checked');
+        if (selectedRadio.length > 0) {
+            var encryptedId = selectedRadio.attr('data-product-id');
+            deleteUrl = "{{ route('vessel.hapus', ':encryptedId') }}".replace(':encryptedId', encryptedId);
+        } else {
+            alert("No item selected for deletion.");
+        }
+    });
+
+    $('#deleteConfirmBtn').click(function() {
+        if (deleteUrl !== '') {
+            window.location.href = deleteUrl; // Redirect ke URL delete saat tombol "Delete" di modal diklik
+        } else {
+            alert("No item selected for deletion.");
+        }
+    });
+});
+
+
+
   document.addEventListener("DOMContentLoaded", function() {
       var editBtn = document.getElementById("editBtn");
 
