@@ -20,5 +20,6 @@ class Running_hours extends Model
         'full_speed',
         'standby',
         'user_input',
+        'id_vdr',
     ];
 }

@@ -132,6 +132,7 @@
 
 
 <script>
+    var table; // Variabel table didefinisikan di luar fungsi
   $(function () {
     // Setup - add a text input to each footer cell
     $('#example thead tr').clone(true).appendTo( '#example thead' );
@@ -149,7 +150,7 @@
         } );
     } );
 
-    var table = $('#example').DataTable( {
+     table = $('#example').DataTable( {
         "orderCellsTop": true,
         "searching": true,
         "lengthChange": true,
@@ -167,6 +168,20 @@
        }
    });
   });
+
+  $('#date-range').daterangepicker({
+    startDate: '2023-01-01',
+    endDate: '2023-12-31',
+    opens: 'left',
+    locale: {
+        format: 'YYYY-MM-DD'
+    }
+  }, function(start, end, label) {
+    // Menyaring data tabel berdasarkan rentang tanggal yang dipilih
+    table.columns(0).search(start.format('YYYY-MM-DD') + '|' + end.format('YYYY-MM-DD')).draw();
+  });
+
+
 </script>
 
 </body>

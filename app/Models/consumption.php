@@ -18,5 +18,6 @@ class consumption extends Model
         'description',
         'used',
         'user_input',
+        'id_vdr',
     ];
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Temp_Running extends Model
 {
     use HasFactory;
-    protected $table = 'temp_running_hours';
+    protected $table = 'temp_runnings';
     protected $primaryKey = "id";
     protected $fillable = [
         'date',

@@ -22,5 +22,6 @@ class Stock_Status extends Model
         'sounding'  ,
         'remain'  ,
         'user_input',
+        'id_vdr',
     ];
 }

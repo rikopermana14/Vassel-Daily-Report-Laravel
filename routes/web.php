@@ -75,10 +75,15 @@ Route::middleware(['web','auth'])->group(function () {
         // Tambahkan rute vessel lainnya di sini
     });
 
+    // Rute Report
+    Route::prefix('report')->group(function () {
+        Route::get('/report', [App\Http\Controllers\ReportController::class, 'report'])->name('report.page');
+    });
+
     // Rute bersama untuk VDR
     Route::prefix('vdr')->group(function () {
         Route::get('/', [App\Http\Controllers\VDRController::class, 'vdr'])->name('vdr');
-        Route::post('/general-info', [App\Http\Controllers\VDRController::class, 'storegeneralinfo'])->name('general-info');
+        Route::post('/general-info', [App\Http\Controllers\VDRController::class, 'storevdr'])->name('general-info');
         Route::post('/daily-activities', [App\Http\Controllers\VDRController::class, 'storedaily'])->name('daily-activities');
                 Route::get('/ajaxdaily', [App\Http\Controllers\VDRController::class, 'ajaxdaily'])->name('dailyactivities.ajaxdaily');
                 Route::post('/adddaily', [App\Http\Controllers\VDRController::class, 'adddaily'])->name('dailyactivities.adddaily');

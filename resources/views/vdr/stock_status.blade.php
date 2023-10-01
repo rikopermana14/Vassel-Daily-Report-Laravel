@@ -1,5 +1,5 @@
 <div class="card-body">
-  @if (auth()->user()->hasRole('vessel'))
+  @if (auth()->user()->hasRole('admin')|| auth()->user()->hasRole('vessel'))
   <div class="row">
 <div class="col-sm-6">
  <div class="form-group">
@@ -105,6 +105,8 @@
     </div>
     </div>
   </div>
+
+  <button id="addstock" class="btn btn-primary">Add</button>
 @endif
 
 

@@ -45,7 +45,7 @@
                             <div class="tab-content">
                                 <!-- Konten Tab Informasi Umum -->
                                 <div class="tab-pane active" id="tab_1">
-                                  <form action="/general-info" method="post" enctype="multipart/form-data">
+                                  <form action="/vdr/general-info" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @include('vdr.general_info')
                                     <button class="btn btn-primary">Simpan</button>

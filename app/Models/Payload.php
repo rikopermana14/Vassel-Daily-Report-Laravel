@@ -18,5 +18,6 @@ class Payload extends Model
         'transfer',
         'remain',
         'user_input',
+        'id_vdr',
     ];
 }
