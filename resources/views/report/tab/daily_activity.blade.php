@@ -1,5 +1,6 @@
 <div class="card-body">
-    <table id="example" class="table table-bordered table-striped">
+
+    <table id="exampled" class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Date</th>

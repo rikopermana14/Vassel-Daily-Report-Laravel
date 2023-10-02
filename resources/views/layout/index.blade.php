@@ -132,7 +132,7 @@
 
 
 <script>
-    var table; // Variabel table didefinisikan di luar fungsi
+  var table1, table2, table3, table4, table5, table6; // Variabel table yang berbeda untuk setiap tabel
   $(function () {
     // Setup - add a text input to each footer cell
     $('#example thead tr').clone(true).appendTo( '#example thead' );
@@ -141,8 +141,8 @@
         $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
 
         $( 'input', this ).on( 'keyup change', function () {
-            if ( table.column(i).search() !== this.value ) {
-                table
+            if ( table1.column(i).search() !== this.value ) {
+                table1
                     .column(i)
                     .search( this.value )
                     .draw();
@@ -150,23 +150,115 @@
         } );
     } );
 
-     table = $('#example').DataTable( {
+    table1 = $('#example').DataTable( {
         "orderCellsTop": true,
         "searching": true,
         "lengthChange": true,
-       "fixedHeader": true,
+        "fixedHeader": true,
         dom: 'Bfrtip',
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-       initComplete: function() {
-         var $buttons = $('.dt-buttons').hide();
-         $('#exportLink').on('change', function() {
-            var btnClass = $(this).find(":selected")[0].id
-               ? '.buttons-' + $(this).find(":selected")[0].id
-               : null;
-            if (btnClass) $buttons.find(btnClass).click();
-         })
-       }
-   });
+        initComplete: function() {
+            var $buttons = $('.dt-buttons').hide();
+            $('#exportLink').on('change', function() {
+                var btnClass = $(this).find(":selected")[0].id
+                ? '.buttons-' + $(this).find(":selected")[0].id
+                : null;
+                if (btnClass) $buttons.find(btnClass).click();
+            })
+        }
+    });
+
+    // Inisialisasi DataTables untuk tabel lainnya (table2, table3, dan table4) di sini
+    // ...
+    
+    table2 = $('#exampled').DataTable( {
+        "orderCellsTop": true,
+        "searching": true,
+        "lengthChange": true,
+        "fixedHeader": true,
+        dom: 'Bfrtip',
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+        initComplete: function() {
+            var $buttons = $('.dt-buttons').hide();
+            $('#exportLink').on('change', function() {
+                var btnClass = $(this).find(":selected")[0].id
+                ? '.buttons-' + $(this).find(":selected")[0].id
+                : null;
+                if (btnClass) $buttons.find(btnClass).click();
+            })
+        }
+    });
+
+    table3 = $('#examplec').DataTable( {
+        "orderCellsTop": true,
+        "searching": true,
+        "lengthChange": true,
+        "fixedHeader": true,
+        dom: 'Bfrtip',
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+        initComplete: function() {
+            var $buttons = $('.dt-buttons').hide();
+            $('#exportLink').on('change', function() {
+                var btnClass = $(this).find(":selected")[0].id
+                ? '.buttons-' + $(this).find(":selected")[0].id
+                : null;
+                if (btnClass) $buttons.find(btnClass).click();
+            })
+        }
+    });
+
+    table4 = $('#examplep').DataTable( {
+        "orderCellsTop": true,
+        "searching": true,
+        "lengthChange": true,
+        "fixedHeader": true,
+        dom: 'Bfrtip',
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+        initComplete: function() {
+            var $buttons = $('.dt-buttons').hide();
+            $('#exportLink').on('change', function() {
+                var btnClass = $(this).find(":selected")[0].id
+                ? '.buttons-' + $(this).find(":selected")[0].id
+                : null;
+                if (btnClass) $buttons.find(btnClass).click();
+            })
+        }
+    });
+    table5 = $('#exampler').DataTable( {
+        "orderCellsTop": true,
+        "searching": true,
+        "lengthChange": true,
+        "fixedHeader": true,
+        dom: 'Bfrtip',
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+        initComplete: function() {
+            var $buttons = $('.dt-buttons').hide();
+            $('#exportLink').on('change', function() {
+                var btnClass = $(this).find(":selected")[0].id
+                ? '.buttons-' + $(this).find(":selected")[0].id
+                : null;
+                if (btnClass) $buttons.find(btnClass).click();
+            })
+        }
+    });
+    table6 = $('#examples').DataTable( {
+        "orderCellsTop": true,
+        "searching": true,
+        "lengthChange": true,
+        "fixedHeader": true,
+        dom: 'Bfrtip',
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+        initComplete: function() {
+            var $buttons = $('.dt-buttons').hide();
+            $('#exportLink').on('change', function() {
+                var btnClass = $(this).find(":selected")[0].id
+                ? '.buttons-' + $(this).find(":selected")[0].id
+                : null;
+                if (btnClass) $buttons.find(btnClass).click();
+            })
+        }
+    });
+
   });
 
   $('#date-range').daterangepicker({
@@ -178,10 +270,14 @@
     }
   }, function(start, end, label) {
     // Menyaring data tabel berdasarkan rentang tanggal yang dipilih
-    table.columns(0).search(start.format('YYYY-MM-DD') + '|' + end.format('YYYY-MM-DD')).draw();
+    table1.columns(0).search(start.format('YYYY-MM-DD') + '|' + end.format('YYYY-MM-DD')).draw();
+    // Terapkan ini juga ke table2, table3, dan table4 jika Anda menggunakannya
+    table2.columns(0).search(start.format('YYYY-MM-DD') + '|' + end.format('YYYY-MM-DD')).draw();
+    table3.columns(0).search(start.format('YYYY-MM-DD') + '|' + end.format('YYYY-MM-DD')).draw();
+    table4.columns(0).search(start.format('YYYY-MM-DD') + '|' + end.format('YYYY-MM-DD')).draw();
+    table5.columns(0).search(start.format('YYYY-MM-DD') + '|' + end.format('YYYY-MM-DD')).draw();
+    table6.columns(0).search(start.format('YYYY-MM-DD') + '|' + end.format('YYYY-MM-DD')).draw();
   });
-
-
 </script>
 
 </body>

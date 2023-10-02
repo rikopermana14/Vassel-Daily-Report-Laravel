@@ -19,24 +19,25 @@
       </div><!-- /.container-fluid -->
     </section>
           
-            <div class="card">
-              <div class="card-header">
-                <div class="row">
-                  <div class="col-sm">
-                   <select id="exportLink" class="form-control">
-                        <option>Export Data Table</option>
-                        <option id="csv">Export as CSV</option>
-                        <option id="excel">Export as XLS</option>
-                        <option id="copy">Copy to clipboard</option> 
-                        <option id="pdf">Export as PDF</option>
-                      </select>  
-                      <input type="text" id="date-range">
-                  </div>
-                  
-                    
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-sm">
+            <input type="text" id="date-range">
+          </div>
+    
+          <div class="col-sm">
+            <select id="exportLink" class="form-control">
+              <option>Export Data Table</option>
+              <option id="csv">Export as CSV</option>
+              <option id="excel">Export as XLS</option>
+              <option id="copy">Copy to clipboard</option>
+              <option id="pdf">Export as PDF</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
-                  
-                  
                     <div class="card">
                         <div class="card-header">
                             <ul class="nav nav-pills ml-auto p-2">
