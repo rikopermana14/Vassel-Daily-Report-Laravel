@@ -19,16 +19,12 @@
         </div>
         </div>
       </div>
-
+      <input type="hidden" name="user_input" id="user_input" value="{{auth()->user()->id}}">
            <div class="row">
         <div class="col-sm-6">
         <div class="form-group">
           <label>Vessel Name</label>
-        <select class="form-control" name="vessel_name">
-          <option>LOGINDO STAMINA</option>
-          <option>LOGINDO ENERGY</option>
-          <option>LOGINDO STOUT</option>
-        </select>
+          <input type="text" name="vessel_name" id="vessel_name" class="form-control" value="{{ Auth::user()->name }}"  readonly>
         </div>
         </div>
         <div class="col-sm-6">
@@ -48,6 +44,7 @@
           <option>AHTS</option>
           <option>AHT</option>
           <option>AWB</option>
+          <option>Tug Boat</option>
         </select>
         </div>
         </div>

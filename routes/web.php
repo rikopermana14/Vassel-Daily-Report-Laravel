@@ -71,7 +71,19 @@ Route::middleware(['web','auth'])->group(function () {
         Route::get('/vessel-page', [App\Http\Controllers\HomeController::class, 'index'])->name('vessel.page');
         Route::get('/stock/{id}', [App\Http\Controllers\VDRController::class, 'getstock'])->name('stock.getstock');
         Route::put('/stock/{id}', [App\Http\Controllers\VDRController::class, 'editstock'])->name('stock.editstock'); 
-    
+        
+
+        Route::get('/daily-activities/{id}', [App\Http\Controllers\VDRController::class, 'getDailyActivity'])->name('dailyactivities.getdaily');
+        Route::put('/daily-activities/{id}', [App\Http\Controllers\VDRController::class, 'editDailyActivity'])->name('dailyactivities.editdaily'); // Tambahkan route ini
+             
+        Route::get('/running/{id}', [App\Http\Controllers\VDRController::class, 'getrunning'])->name('running.getrunning');
+        Route::post('/running/{id}', [App\Http\Controllers\VDRController::class, 'editrunning'])->name('running.editrunning'); 
+        
+        Route::get('/consumption/{id}', [App\Http\Controllers\VDRController::class, 'getconsumption'])->name('consumption.getconsumption');
+        Route::put('/consumption/{id}', [App\Http\Controllers\VDRController::class, 'editconsumption'])->name('consumption.editconsumption'); 
+
+        Route::get('/payload/{id}', [App\Http\Controllers\VDRController::class, 'getpayload'])->name('payload.getpayload');
+        Route::put('/payload/{id}', [App\Http\Controllers\VDRController::class, 'editpayload'])->name('payload.editpayload'); 
         // Tambahkan rute vessel lainnya di sini
     });
 

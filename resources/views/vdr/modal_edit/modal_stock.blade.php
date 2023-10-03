@@ -44,7 +44,7 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label>Spec</label>
-                    <textarea class="form-control" name="edit_spec" id="edit_spec" rows="5"></textarea>
+                    <textarea class="form-control" name="edit_spec" id="edit_spec" rows="5" readonly></textarea>
                   </div>
                 </div>
               </div>
@@ -54,7 +54,7 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label>Previous</label>
-                    <input type="text" name="edit_previous"id="edit_previous" class="form-control">
+                    <input type="text" name="edit_previous"id="edit_previous" class="form-control" readonly>
                   </div>
                 </div>
               </div>
@@ -72,7 +72,7 @@
                 <div class="col-sm-6">
                 <div class="form-group">
                   <label>Used</label>
-                <input type="text" name="edit_used" name="edit_used1" class="form-control">
+                <input type="text" name="edit_used" id="edit_used1" class="form-control">
                 </div>
                 </div>
               </div>
@@ -99,7 +99,7 @@
                 <div class="col-sm-6">
                 <div class="form-group">
                   <label>Remain</label>
-                <input type="text" name="edit_remain" id="edit_remain" class="form-control">
+                <input type="text" name="edit_remain" id="edit_remain" class="form-control" readonly>
                 </div>
                 </div>
               </div>

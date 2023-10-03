@@ -78,12 +78,20 @@
             <div class="form-group">
             <label>Unit</label>  
             <select class="form-control" name="Product_Unit"value="{{ isset($product) ? $product->unit : '' }}">
+              <option>Liter</option>
+              <option>Tons</option>
               <option>Bottle</option>
               <option>Sachet</option>
               <option>Unit</option>
             </select>
             </div>
             </div>
+            <div class="col-sm">
+              <div class="form-group">
+              <label>Stock</label>
+              <input type="number" class="form-control" name="stock"value="{{ isset($product) ? $product->stock : '' }}">
+              </div>
+              </div>
 
             </div>
 

@@ -39,6 +39,7 @@ class VDR extends Model
         'towage_operation',
         'size_grt',
         'vessel_status',
+        'user_input',
         'id_daily_activities',
             'id_running_hours',
             'id_consumption',

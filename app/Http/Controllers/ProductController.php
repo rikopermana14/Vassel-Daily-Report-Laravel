@@ -60,6 +60,7 @@ class ProductController extends Controller
             'Delivery_Time' => 'required',
             'Idle_Time' => 'required',
             'Volume' => 'required',
+            'stock' => 'required',
         ]);
 
         // untuk menaruh foto ke folder image
@@ -83,6 +84,7 @@ class ProductController extends Controller
             'delivery' => $request->input('Delivery_Time'),
             'idle' => $request->input('Idle_Time'),
             'volume' => $request->input('Volume'),
+            'stock' => $request->input('stock'),
         ]);
 
         return redirect()->route('product')->with('success', 'Product created successfully.');
@@ -134,6 +136,7 @@ class ProductController extends Controller
             'Idle_Time' => 'required',
             'Volume' => 'required',
             'Product_Image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'stock' => 'required',
         ]);
         $product = Product::find($id);
 
@@ -149,6 +152,7 @@ class ProductController extends Controller
             'delivery' => $request->Delivery_Time,
             'idle' => $request->Idle_Time,
             'volume' => $request->Volume,
+            'stock' => $request->stock,
         ];
     
         if ($request->hasFile('Product_Image')) {

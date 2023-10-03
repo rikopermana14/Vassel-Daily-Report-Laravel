@@ -135,11 +135,12 @@
     $('#stock_date').datetimepicker({
       format: 'YYYY/MM/DD '
     });
+    
 
     // Tangkap tanggal saat tanggal di "General Info" berubah
     $('#joined_date').on('change.datetimepicker', function(e) {
       // Ambil tanggal yang dipilih dari "General Info"
-      var selectedDate = e.date.format('YYYY-MM-DD HH:mm');
+      var selectedDate = e.date.format('YYYY-MM-DD ');
       // Set tanggal di "Daily Activities" sesuai dengan tanggal di "General Info"
       $('#daily_date').data('datetimepicker').date(selectedDate);
       // Set tanggal di "Running Hours Machine" sesuai dengan tanggal di "General Info"

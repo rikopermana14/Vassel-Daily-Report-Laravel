@@ -129,10 +129,12 @@
 <script src="{{asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
 <script src="{{asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
 
 
 <script>
-  var table1, table2, table3, table4, table5, table6; // Variabel table yang berbeda untuk setiap tabel
+  var table1, table2, table3, table4, table5, table6,table7; // Variabel table yang berbeda untuk setiap tabel
   $(function () {
     // Setup - add a text input to each footer cell
     $('#example thead tr').clone(true).appendTo( '#example thead' );
@@ -171,23 +173,23 @@
     // Inisialisasi DataTables untuk tabel lainnya (table2, table3, dan table4) di sini
     // ...
     
-    table2 = $('#exampled').DataTable( {
-        "orderCellsTop": true,
-        "searching": true,
-        "lengthChange": true,
-        "fixedHeader": true,
-        dom: 'Bfrtip',
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-        initComplete: function() {
-            var $buttons = $('.dt-buttons').hide();
-            $('#exportLink').on('change', function() {
-                var btnClass = $(this).find(":selected")[0].id
+    table2 = $('#exampled').DataTable({
+    "orderCellsTop": true,
+    "searching": true,
+    "lengthChange": true,
+    "fixedHeader": true,
+    dom: 'Bfrtip',
+    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+    initComplete: function () {
+        var $buttons = $('.dt-buttons').hide();
+        $('#exportLink').on('change', function () {
+            var btnClass = $(this).find(":selected")[0].id
                 ? '.buttons-' + $(this).find(":selected")[0].id
                 : null;
-                if (btnClass) $buttons.find(btnClass).click();
-            })
-        }
-    });
+            if (btnClass) $buttons.find(btnClass).click();
+        })
+    }
+});
 
     table3 = $('#examplec').DataTable( {
         "orderCellsTop": true,
@@ -259,6 +261,24 @@
         }
     });
 
+    table7 = $('#exampleg').DataTable( {
+        "orderCellsTop": true,
+        "searching": true,
+        "lengthChange": true,
+        "fixedHeader": true,
+        dom: 'Bfrtip',
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+        initComplete: function() {
+            var $buttons = $('.dt-buttons').hide();
+            $('#exportLink').on('change', function() {
+                var btnClass = $(this).find(":selected")[0].id
+                ? '.buttons-' + $(this).find(":selected")[0].id
+                : null;
+                if (btnClass) $buttons.find(btnClass).click();
+            })
+        }
+    });
+
   });
 
   $('#date-range').daterangepicker({
@@ -277,7 +297,409 @@
     table4.columns(0).search(start.format('YYYY-MM-DD') + '|' + end.format('YYYY-MM-DD')).draw();
     table5.columns(0).search(start.format('YYYY-MM-DD') + '|' + end.format('YYYY-MM-DD')).draw();
     table6.columns(0).search(start.format('YYYY-MM-DD') + '|' + end.format('YYYY-MM-DD')).draw();
+    table7.columns(0).search(start.format('YYYY-MM-DD') + '|' + end.format('YYYY-MM-DD')).draw();
   });
+
+  function combineTableData() {
+          var combinedData = [];
+          combinedData = combinedData.concat(table2.rows().data().toArray());
+          return combinedData;
+      }
+      function combineTableConsumption() {
+      var combinedData = [];
+      combinedData = combinedData.concat(table3.rows().data().toArray());
+      return combinedData;
+      }
+      function combineTableRunning() {
+     var combinedData = [];
+      combinedData = combinedData.concat(table4.rows().data().toArray());
+      return combinedData;
+      }
+      function combineTablePayload() {
+          var combinedData = [];
+          combinedData = combinedData.concat(table5.rows().data().toArray());
+          return combinedData;
+      }
+      function combineTableStock() {
+          var combinedData = [];
+          combinedData = combinedData.concat(table6.rows().data().toArray());
+          return combinedData;
+      }
+      function combineTablegeneral() {
+          var combinedData = [];
+          combinedData = combinedData.concat(table7.rows().data().toArray());
+          return combinedData;
+      }
+
+
+       // Function untuk mengekspor data ke Excel
+function exportToExcel() {
+    var combinedData = combineTableData();
+    var combineTableRunningData = combineTableRunning();
+    var combineTableconsumptionData = combineTableConsumption();
+    var combineTablePayloadData = combineTablePayload();
+    var combineTableStockData = combineTableStock();
+    var combineTablegeneralData = combineTablegeneral();
+
+    // Membuat objek workbook ExcelJS
+    var workbook = new ExcelJS.Workbook();
+
+    // Membuat lembar kerja untuk data tabel utama
+    var worksheet1 = workbook.addWorksheet('Daily Activity');
+    
+    
+    // Menambahkan judul ke lembar kerja
+    worksheet1.mergeCells('A1:D1'); // Menggabungkan sel dari A1 hingga D1
+    worksheet1.getCell('A1').value = 'Daily Activity'; // Mengatur nilai judul
+
+    // Membuat lembar kerja untuk data tabel "Running Hours"
+    var worksheet2 = workbook.addWorksheet('Running Hours');
+
+
+    // Menambahkan judul ke lembar kerja
+    worksheet2.mergeCells('A1:D1'); // Menggabungkan sel dari A1 hingga D1
+    worksheet2.getCell('A1').value = 'Running Hours';
+
+    var worksheet3 = workbook.addWorksheet('Consumption');
+    
+
+    // Menambahkan judul ke lembar kerja
+    worksheet3.mergeCells('A1:D1'); // Menggabungkan sel dari A1 hingga D1
+    worksheet3.getCell('A1').value = 'Consumption'; // Mengatur nilai judul
+
+    var worksheet4 = workbook.addWorksheet('Stock Status');
+
+
+    // Menambahkan judul ke lembar kerja
+    worksheet4.mergeCells('A1:D1'); // Menggabungkan sel dari A1 hingga D1
+    worksheet4.getCell('A1').value = 'Stock Status'; // Mengatur nilai judul
+
+    var worksheet5 = workbook.addWorksheet('Payload');
+
+
+    // Menambahkan judul ke lembar kerja
+    worksheet5.mergeCells('A1:I1'); // Menggabungkan sel dari A1 hingga D1
+    worksheet5.getCell('A1').value = 'Payload'; // Mengatur nilai judul
+
+    var worksheet6 = workbook.addWorksheet('General Info');
+    // Menambahkan judul ke lembar kerja
+    worksheet6.mergeCells('A1:I1'); // Menggabungkan sel dari A1 hingga D1
+    worksheet6.getCell('A1').value = 'General Info'; // Mengatur nilai judul
+
+    // Mengatur ukuran judul
+    worksheet1.getCell('A1').font = { size: 20 }; // Mengatur nilai judul
+    worksheet2.getCell('A1').font = { size: 20 }; // Mengatur nilai judul
+    worksheet3.getCell('A1').font = { size: 20 }; // Mengatur nilai judul
+    worksheet4.getCell('A1').font = { size: 20 }; // Mengatur nilai judul
+    worksheet5.getCell('A1').font = { size: 20 }; // Mengatur nilai judul
+    worksheet6.getCell('A1').font = { size: 20 }; // Mengatur nilai judul
+
+    
+
+    // Tambahkan tabel untuk data tabel utama
+var table1Ref = 'E4'; // Lokasi awal tabel pada worksheet1
+var table1Data = table2.rows().data().toArray().map(function(row) {
+    return [row[0], row[1], row[2], row[3]]; // Sesuaikan dengan jumlah kolom
+});
+
+table1 = worksheet1.addTable({
+    name: 'Table1',
+    ref: table1Ref,
+    headerRow: true,
+    totalsRow: false,
+    style: {
+        theme: 'TableStyleLight9', // Opsi gaya tabel
+        showRowStripes: true,
+    },
+    columns: [
+        { name: 'Date' },
+        { name: 'Time From' },
+        { name: 'Time To' },
+        { name: 'Description' }
+        // Tambahkan kolom lainnya sesuai kebutuhan
+    ],
+    rows: table1Data,
+});
+
+//  // Mengambil nama kolom dari tabel DataTables
+//  var table1Columns = table2.columns().header().toArray();
+//     var table2Columns = table3.columns().header().toArray();
+//     var table3Columns = table4.columns().header().toArray();
+//     var table4Columns = table5.columns().header().toArray();
+//     var table5Columns = table6.columns().header().toArray();
+    
+//     // Header Tabel
+// var table2Headers = table2Columns.map(function (header) {
+//     return header.textContent;
+// });
+
+// Tambahkan tabel untuk data "Running Hours"
+// Tambahkan tabel untuk data "Payload"
+var table2Ref = 'E4'; // Lokasi awal tabel pada worksheet2
+var table2Data = table5.rows().data().toArray().map(function (row) {
+    return [row[0], row[1], row[2], row[3], row[4], row[5], row[6]];
+    // Sesuaikan dengan jumlah kolom
+});
+
+
+table2 = worksheet2.addTable({
+    name: 'Table2',
+    ref: table2Ref,
+    headerRow: true,
+    totalsRow: false,
+    style: {
+        theme: 'TableStyleLight9', // Opsi gaya tabel
+        showRowStripes: true,
+    },
+    columns: [
+        { name: 'Date' },
+        { name: 'Machine' },
+        { name: 'Run Hours Towing' },
+        { name: 'Run Hours Manouver' },
+        { name: 'Run Hours Slow' },
+        { name: 'Run Hours Economi' },
+        { name: 'Run Hours Full Speed' },
+        // Tambahkan kolom lainnya sesuai kebutuhan
+    ],
+    rows: table2Data,
+    autoFilter: {
+        from: 'A1', // Mulai dari sel A1 (termasuk baris judul)
+        to: 'D1' // Hingga sel D1
+    }
+});
+
+// Tambahkan tabel untuk data "Consumption"
+var table3Ref = 'E4'; // Lokasi awal tabel pada worksheet3
+var table3Data = table3.rows().data().toArray().map(function (row) {
+    return [row[0], row[1], row[2], row[3], row[4], row[5]];
+    // Sesuaikan dengan jumlah kolom
+});
+table3 = worksheet3.addTable({
+    name: 'Table3',
+    ref: table3Ref,
+    headerRow: true,
+    totalsRow: false,
+    style: {
+        theme: 'TableStyleLight9', // Opsi gaya tabel
+        showRowStripes: true,
+    },
+    columns: [
+        { name: 'Date' },
+        { name: 'Machine' },
+        { name: 'Product Code'},
+        { name: 'Product Name'},
+        { name: 'Description'},  
+        { name: 'used'},  
+        // Tambahkan kolom lainnya sesuai kebutuhan
+    ],
+    rows: table3Data,
+    autoFilter: {
+        from: 'A1', // Mulai dari sel A1 (termasuk baris judul)
+        to: 'D1' // Hingga sel D1
+    }
+});
+
+// Tambahkan tabel untuk data "Stock Status"
+var table4Ref = 'E4'; // Lokasi awal tabel pada worksheet4
+var table4Data = table6.rows().data().toArray().map(function (row) {
+    return [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9]];
+    // Sesuaikan dengan jumlah kolom
+});
+table4s = worksheet4.addTable({
+    name: 'Table4',
+    ref: table4Ref,
+    headerRow: true,
+    totalsRow: false,
+    style: {
+        theme: 'TableStyleLight9', // Opsi gaya tabel
+        showRowStripes: true,
+    },
+    columns: [
+        { name: 'Date' },
+        { name: 'Product Code'}, 
+                { name: 'Product Name'},
+                { name: 'Spec'},
+                { name: 'Previous'},
+                { name: 'Received'}, 
+                { name: 'Used'},
+                { name: 'Transfered'},
+                { name: 'Sounding'}, 
+                { name: 'Remain'}, 
+        // Tambahkan kolom lainnya sesuai kebutuhan
+    ],
+    rows: table4Data,
+    autoFilter: {
+        from: 'A1', // Mulai dari sel A1 (termasuk baris judul)
+        to: 'D1' // Hingga sel D1
+    }
+});
+
+// Tambahkan tabel untuk data "Payload"
+var table5Ref = 'E4'; // Lokasi awal tabel pada worksheet5
+var table5Data = table4.rows().data().toArray().map(function (row) {
+    return [row[0], row[1], row[2], row[3], row[4], row[5]];
+    // Sesuaikan dengan jumlah kolom
+});
+table5 = worksheet5.addTable({
+    name: 'Table5',
+    ref: table5Ref,
+    headerRow: true,
+    totalsRow: false,
+    style: {
+        theme: 'TableStyleLight9', // Opsi gaya tabel
+        showRowStripes: true,
+    },
+    columns: [
+        { name: 'Date' },
+        { name: 'Product Name'},
+                { name: 'Previous'}, 
+                { name: 'Received'},
+                { name: 'Transfered'},
+                { name: 'Remain'},  
+        // Tambahkan kolom lainnya sesuai kebutuhan
+    ],
+    rows: table5Data,
+    autoFilter: {
+        from: 'A1', // Mulai dari sel A1 (termasuk baris judul)
+        to: 'D1' // Hingga sel D1
+    }
+});
+
+// Tambahkan tabel untuk data "Running Hours"
+var table6Ref = 'A4'; // Lokasi awal tabel pada worksheet5
+var table6Data = table7.rows().data().toArray().map(function (row) {
+    return [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12],row[13],
+    row[14], row[15], row[16], row[17], row[18], row[19], row[20], row[21], row[22], row[23], row[24], row[25], row[26]];
+    // Sesuaikan dengan jumlah kolom
+});
+table6 = worksheet6.addTable({
+    name: 'Table6',
+    ref: table6Ref,
+    headerRow: true,
+    totalsRow: false,
+    style: {
+        theme: 'TableStyleLight9', // Opsi gaya tabel
+        showRowStripes: true,
+    },
+    columns: [
+        { name: 'Date' },
+        { name: 'Vessel Name'},
+                { name: 'Total Distance Run'},
+                { name: 'Vessel Group'},
+                { name: 'Time Run'},  
+                { name: 'General Position'},
+                { name: 'Total Time Run'},
+                { name: 'Master"s Name'},
+                { name: 'Average Speed'},
+                { name: 'Time Zone'},
+                { name:' General Average Speed'},
+                { name: 'Latitude'},
+                { name: 'Visibility Scale'},
+                { name: 'Longitude'},
+                { name:'Scale of Wind Force'},
+                { name: 'Scale of Sea Swell'},
+                { name: 'Barometer'},
+               { name: 'Wind Direction'},
+                { name: 'Vessel Course (T)'},
+                { name: 'Weather'},
+                { name: 'Distance To Go'},
+                { name: 'Temperature'},
+                { name: 'Towage Operation'},
+                { name: 'Destination'},
+                { name: 'Name / Size (GRT)'},
+                { name: 'ETA'},
+                { name: 'Vessel Status'},
+    ],
+    rows: table6Data,
+    autoFilter: {
+        from: 'A1', // Mulai dari sel A1 (termasuk baris judul)
+        to: 'D1' // Hingga sel D1
+    }
+});
+
+worksheet1.columns.forEach(function(column, i) {
+    var maxWidth = 0;
+    column.eachCell({ includeEmpty: true }, function(cell) {
+        var cellWidth = cell.value ? cell.value.toString().length : 10; // 10 adalah lebar default jika sel kosong
+        if (cellWidth > maxWidth) {
+            maxWidth = cellWidth;
+        }
+    });
+    column.width = maxWidth < 10 ? 10 : maxWidth; // Mengatur lebar kolom minimum
+});
+
+// Mengatur lebar kolom secara otomatis pada worksheet2
+worksheet2.columns.forEach(function(column, i) {
+    var maxWidth = 0;
+    column.eachCell({ includeEmpty: true }, function(cell) {
+        var cellWidth = cell.value ? cell.value.toString().length : 10; // 10 adalah lebar default jika sel kosong
+        if (cellWidth > maxWidth) {
+            maxWidth = cellWidth;
+        }
+    });
+    column.width = maxWidth < 10 ? 10 : maxWidth; // Mengatur lebar kolom minimum
+});
+
+// Mengatur lebar kolom secara otomatis pada worksheet2
+worksheet3.columns.forEach(function(column, i) {
+    var maxWidth = 0;
+    column.eachCell({ includeEmpty: true }, function(cell) {
+        var cellWidth = cell.value ? cell.value.toString().length : 10; // 10 adalah lebar default jika sel kosong
+        if (cellWidth > maxWidth) {
+            maxWidth = cellWidth;
+        }
+    });
+    column.width = maxWidth < 10 ? 10 : maxWidth; // Mengatur lebar kolom minimum
+});
+
+// Mengatur lebar kolom secara otomatis pada worksheet2
+worksheet4.columns.forEach(function(column, i) {
+    var maxWidth = 0;
+    column.eachCell({ includeEmpty: true }, function(cell) {
+        var cellWidth = cell.value ? cell.value.toString().length : 10; // 10 adalah lebar default jika sel kosong
+        if (cellWidth > maxWidth) {
+            maxWidth = cellWidth;
+        }
+    });
+    column.width = maxWidth < 10 ? 10 : maxWidth; // Mengatur lebar kolom minimum
+});
+
+// Mengatur lebar kolom secara otomatis pada worksheet2
+worksheet5.columns.forEach(function(column, i) {
+    var maxWidth = 0;
+    column.eachCell({ includeEmpty: true }, function(cell) {
+        var cellWidth = cell.value ? cell.value.toString().length : 10; // 10 adalah lebar default jika sel kosong
+        if (cellWidth > maxWidth) {
+            maxWidth = cellWidth;
+        }
+    });
+    column.width = maxWidth < 10 ? 10 : maxWidth; // Mengatur lebar kolom minimum
+});
+worksheet6.columns.forEach(function(column, i) {
+    var maxWidth = 0;
+    column.eachCell({ includeEmpty: true }, function(cell) {
+        var cellWidth = cell.value ? cell.value.toString().length : 10; // 10 adalah lebar default jika sel kosong
+        if (cellWidth > maxWidth) {
+            maxWidth = cellWidth;
+        }
+    });
+    column.width = maxWidth < 10 ? 10 : maxWidth; // Mengatur lebar kolom minimum
+});
+
+    // Mengubah hasil workbook menjadi blob
+    workbook.xlsx.writeBuffer().then(function (buffer) {
+        var blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'Vessel Daily Report.xlsx';
+        a.click();
+    });
+}
+
+// Menambahkan event handler ke tombol "Export Data"
+$('#export-data').on('click', exportToExcel);
+           
 </script>
 
 </body>

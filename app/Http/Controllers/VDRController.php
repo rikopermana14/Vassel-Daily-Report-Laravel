@@ -25,7 +25,8 @@ class VDRController extends Controller
     {   
         $stock=Stock_Status::all();
         $data1=Product::all();
-        return view('vdr.index', compact('data1','stock'));
+        $data2=Temp_Stock::all();
+        return view('vdr.index', compact('data1','data2','stock'));
     }
     public function getProduct($codeproduct)
 {
@@ -94,7 +95,6 @@ public function adddaily(Request $request)
     $request->validate([
         'date' => 'required',
         'time_from' => 'required',
-        'time_to' => 'required',
     ]);
 
     $userid = $request->input('user_input');
@@ -595,7 +595,7 @@ public function deletestock(Request $request)
             'eta' => 'required',
             'vessel_status' => 'required',
         ]);
-    
+        $userid = $request->input('user_input');
        $vdr = vdr::create([
             'date' => $request->input('joined_date'),
             'distance_run' => $request->input('distance_run'),
@@ -625,6 +625,7 @@ public function deletestock(Request $request)
             'size_grt' => $request->input('size'),
             'eta' => $request->input('eta'),
             'vessel_status' => $request->input('vessel_status'),
+            'user_input' => $userid,
         ]);
         $vdrid = $vdr->id;
          

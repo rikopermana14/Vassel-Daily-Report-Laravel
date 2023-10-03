@@ -1,5 +1,5 @@
 <div class="card-body">
-
+    <div class="table-responsive">
     <table id="exampled" class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -18,7 +18,7 @@
             </tr>
         </tfoot>
         <tbody> 
-            @foreach ($getbooking as $booking)
+            @foreach ($daily_activitiy as $booking)
             <tr>      
                 <td>{{ $booking->date }}</td>
                 <td>{{ $booking->time_from }}</td>
@@ -28,5 +28,5 @@
             @endforeach
         </tbody>
     </table>
-</div>
+</div></div>
 <!-- /.card-body -->

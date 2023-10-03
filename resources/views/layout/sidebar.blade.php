@@ -83,7 +83,7 @@
           </a>
         </li>
         @endif
-
+        @if (auth()->user()->hasRole('admin')|| auth()->user()->hasRole('operation'))
         <li class="nav-item">
           <a href="/report/report" class="nav-link">
             <i class="nav-icon fas fa-book-open"></i>
@@ -92,6 +92,7 @@
             </p>
           </a>
         </li>
+        @endif
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

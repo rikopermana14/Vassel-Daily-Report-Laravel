@@ -56,7 +56,7 @@
     <div class="col-sm-6">
       <div class="form-group">
         <label>Previous</label>
-        <input type="text" name="previous"id="previous" class="form-control">
+        <input type="text" name="previous"id="previous" class="form-control" readonly>
       </div>
     </div>
   </div>
@@ -101,7 +101,7 @@
     <div class="col-sm-6">
     <div class="form-group">
       <label>Remain</label>
-    <input type="text" name="remain" id="remain" class="form-control">
+    <input type="text" name="remain" id="remain" class="form-control" readonly>
     </div>
     </div>
   </div>
@@ -116,11 +116,19 @@
   document.addEventListener("DOMContentLoaded", function () {
     const produkkode = document.getElementById("productkode");
     const produknama = document.getElementById("productnama");
+    const produkspec = document.getElementById("spec");
+    const produkremain = document.getElementById("remain");
+    const produkused = document.getElementById("used_stock");
+    const produkprevious = document.getElementById("previous");
     const dataproduk = {!! json_encode($data1) !!}; // Memasukkan data produk dari PHP ke JavaScript
     
     const produkkodeedit = document.getElementById("edit_productkode");
     const produknamaedit = document.getElementById("edit_productnama");
-    const dataprodukedit = {!! json_encode($data1) !!}; // Memasukkan data produk dari PHP ke JavaScript
+    const produkspecedit = document.getElementById("edit_spec");
+    const produkremainedit = document.getElementById("edit_remain");
+    const produkusededit = document.getElementById("edit_used1");
+    const produkpreviousedit = document.getElementById("edit_previous");
+    const dataprodukeditedit = {!! json_encode($data1) !!}; // Memasukkan data produk dari PHP ke JavaScript
 
 
     produknama.addEventListener("change", function () {
@@ -130,22 +138,47 @@
 
       if (selekproduk) {
         produkkode.value = selekproduk.product_id;
+        produkspec.value = selekproduk.spec;
+        produkprevious.value = selekproduk.stock;
       } else {
         produkkode.value = "";
       }
     });
 
+    produkused.addEventListener("input", function () {
+  console.log("Script executed");
+  const usedValue = parseFloat(produkused.value);
+  const previousValue = parseFloat(produkprevious.value);
+
+  if (!isNaN(usedValue) && !isNaN(previousValue)) {
+    const updatedRemain = previousValue - usedValue;
+    produkremain.value = updatedRemain;
+  }
+});
+
     produknamaedit.addEventListener("change", function () {
       console.log("Script executed");
       const selekprodukNameedit = produknamaedit.value;
-      const selekprodukedit = dataprodukedit.find(product => product.name === selekprodukNameedit);
+      const selekprodukedit = dataproduk.find(product => product.name === selekprodukNameedit);
 
       if (selekprodukedit) {
         produkkodeedit.value = selekprodukedit.product_id;
+        produkspecedit.value = selekprodukedit.spec;
+        produkpreviousedit.value = selekprodukedit.stock;
       } else {
         produkkodeedit.value = "";
       }
     });
+    produkusededit.addEventListener("input", function () {
+  console.log("Script executed");
+  const usedValueedit = parseFloat(produkusededit.value);
+  const previousValueedit = parseFloat(produkpreviousedit.value);
+
+  if (!isNaN(usedValueedit) && !isNaN(previousValueedit)) {
+    const updatedRemainedit = previousValueedit - usedValueedit;
+    produkremainedit.value = updatedRemainedit;
+  }
+});
   });
 </script>
 
@@ -373,7 +406,7 @@ async: true,
 dataType: 'json',
 success: function(data) {
   $('#edit_id').val(data.id);
-  $('#edit_date_stock').val(data.date);
+  $('#edit_datestock').val(data.date);
   $('#edit_productkode').val(data.productkode);
   $('#edit_productnama').val(data.productnama);
   $('#edit_spec').val(data.spec);

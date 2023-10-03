@@ -14,7 +14,7 @@
                     <input type="hidden" name="edit_id_consumption" id="edit_id_consumption"> <!-- Hidden input for the ID -->
                     <div class="form-group">
                         <label for="edit_date_consumption">Date</label>
-                        <input type="date" class="form-control" name="edit_date_consumption" id="edit_date_consumption">
+                        <input type="date" class="input-group date" name="edit_date_consumption" id="edit_date_consumption" format='YYYY/MM/DD '>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
@@ -34,7 +34,7 @@
                          <div class="col-sm-6">
                            <div class="form-group">
                              <label>Product Code</label>
-                             <input type="text" name="edit_code_product" id="edit_code_product" class="form-control" readonly>
+                             <input type="text" name="edit_code_product" id="edit_code_product" class="form-control" >
                            </div>
                          </div>
                        </div>
@@ -43,11 +43,7 @@
                          <div class="col-sm-6">
                            <div class="form-group">
                              <label>Product Name</label>
-                             <select class="form-control" name="edit_name_product" id="edit_name_product">
-                               @foreach ($data1 as $item)
-                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
-                               @endforeach
-                             </select>
+                             <input type="text" class="form-control" name="edit_name_product" id="edit_name_product">
                            </div>
                          </div>
                        </div>

@@ -27,6 +27,9 @@
            <option>A/E 2</option>
            <option>M/E 1</option>                      
            <option>M/E 2</option>
+           <option>GB 1</option>                      
+           <option>GB 2</option>
+           <option>Emergency Genset 2</option>
          </select>
            </div>
          </div>

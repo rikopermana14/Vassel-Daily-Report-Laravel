@@ -1,4 +1,5 @@
 <div class="card-body">
+    <div class="table-responsive">
     <table id="exampler" class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -25,10 +26,10 @@
             </tr>
         </tfoot>
         <tbody> 
-            @foreach ($getbooking as $booking)
+            @foreach ($running_hours as $booking)
             <tr>      
-                <td>{{ $booking->date_run }}</td>
-        <td>{{ $booking->mac }}</td>
+                <td>{{ $booking->date }}</td>
+        <td>{{ $booking->machine }}</td>
         <td>{{ $booking->towing }}</td>
         <td>{{ $booking->manouver }}</td>
         <td>{{ $booking->slow }}</td>
@@ -39,5 +40,5 @@
             @endforeach
         </tbody>
     </table>
-</div>
+</div></div>
 <!-- /.card-body -->

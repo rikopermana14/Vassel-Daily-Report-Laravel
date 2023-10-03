@@ -1,4 +1,5 @@
 <div class="card-body">
+    <div class="table-responsive">
     <table id="examplep" class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -21,10 +22,10 @@
             </tr>
         </tfoot>
         <tbody> 
-            @foreach ($getbooking as $booking)
+            @foreach ($payload as $booking)
             <tr>      
-                <td>{{ $booking->date_pay }}</td>
-        <td>{{ $booking->name }}</td>
+                <td>{{ $booking->date }}</td>
+        <td>{{ $booking->product_name }}</td>
         <td>{{ $booking->previous }}</td>
         <td>{{ $booking->receive }}</td>
         <td>{{ $booking->transfer }}</td>
@@ -33,5 +34,5 @@
             @endforeach
         </tbody>
     </table>
-</div>
+</div></div>
 <!-- /.card-body -->

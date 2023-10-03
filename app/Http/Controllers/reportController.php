@@ -10,6 +10,7 @@ use App\Models\Payload;
 use App\Models\Product;
 use App\Models\Running_hours;
 use App\Models\Stock_Status;
+use App\Models\User;
 use App\Models\Temp_Daily;
 use App\Models\Temp_consumption;
 use App\Models\Temp_Payload;
@@ -21,23 +22,58 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
-        public function report()
+        public function report(Request $request)
     {   
-        $getbooking = vdr::join('daily_activitiy', 'vdr.id_daily', '=', 'daily_activitiy.id_vdr')
+        $bioskopId = $request->input('vessel');
+        $sqlQuery = vdr::join('daily_activitiy', 'vdr.id_daily', '=', 'daily_activitiy.id_vdr')
         ->join('consumption', 'vdr.id_consumption', '=', 'consumption.id_vdr')
         ->join('payload', 'vdr.id_payload', '=', 'payload.id_vdr')
         ->join('stock_status', 'vdr.id_stock_status', '=', 'stock_status.id_vdr')
         ->join('running_hours', 'vdr.id_running_hours', '=', 'running_hours.id_vdr')
-        ->select('vdr.*', 'daily_activitiy.date as date','daily_activitiy.time_from as time_from', 'daily_activitiy.time_to as time_to','daily_activitiy.description as description',
-        'consumption.date as datecon','consumption.machine as machine','consumption.code_product as con_code','consumption.name_product as con_name','consumption.description as con_desc','consumption.used as con_used',
-        'payload.date as date_pay','payload.product_name as name','payload.previous as previous','payload.receive as receive','payload.transfer as transfer','payload.remain as remain',
-        'stock_status.date as date_st','stock_status.code_product as stock_code','stock_status.name_product as stock_name','stock_status.spec as spec','stock_status.previous as stock_previous','stock_status.received as received','stock_status.used as use','stock_status.transfered as transfered','stock_status.sounding as sounding','stock_status.remain as stock_remain',
-        'running_hours.date as date_run','running_hours.machine as mac','running_hours.towing as towing','running_hours.manouver as manouver','running_hours.slow as slow','running_hours.economi as economi','running_hours.full_speed as full_speed','running_hours.standby as standby',
+        ->join('users', 'vdr.user_input', '=', 'users.id')
+        ->select('vdr.*','users.name as name_input',
         )
-        ->distinct()
-        ->latest('vdr.id')
-        ->get();
-        return view('report.report', compact('getbooking'));
+        ->when($bioskopId, function ($query) use ($bioskopId) {
+                return $query->where('vdr.user_input', $bioskopId);
+            })
+        ->latest('vdr.id');
+        // dd($sqlQuery->toSql());
+    
+    // Jalankan query dan kembalikan hasilnya
+    $getbooking = vdr::when($bioskopId, function ($getbooking) use ($bioskopId) {
+        return $getbooking->where('user_input', $bioskopId);
+    })
+    ->get();
+    $users=user::all();
+    // Query untuk mengambil data dari tabel daily_activity berdasarkan tanggal dan vdr.user_input
+    $daily_activitiy = Daily_Activity::when($bioskopId, function ($daily_activitiy) use ($bioskopId) {
+        return $daily_activitiy->where('user_input', $bioskopId);
+    })
+    ->get();
+//     $daily_activitiy = Daily_Activity::all();
+//     $consumption = consumption::all();
+        // $payload = payload::all();
+        // $stock_status = stock_status::all();
+        // $running_hours = running_hours::all();
+    $consumption = consumption::when($bioskopId, function ($consumption) use ($bioskopId) {
+        return $consumption->where('user_input', $bioskopId);
+    })
+    ->get();
+    $payload = payload::when($bioskopId, function ($payload) use ($bioskopId) {
+        return $payload->where('user_input', $bioskopId);
+    })
+    ->get();
+    $stock_status = stock_status::when($bioskopId, function ($stock_status) use ($bioskopId) {
+        return $stock_status->where('user_input', $bioskopId);
+    })
+    ->get();
+    $running_hours = running_hours::when($bioskopId, function ($running_hours) use ($bioskopId) {
+        return $running_hours->where('user_input', $bioskopId);
+    })
+    ->get();
+    
+    
+    return view('report.report', compact('getbooking','daily_activitiy','consumption','payload','stock_status','running_hours','users'));
     }
 
 }

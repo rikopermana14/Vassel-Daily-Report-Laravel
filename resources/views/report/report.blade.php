@@ -24,6 +24,7 @@
         <div class="row">
           <div class="col-sm">
             <input type="text" id="date-range">
+            <button id="export-data">Export ALL Data as CSV</button>
           </div>
     
           <div class="col-sm">
@@ -36,6 +37,19 @@
             </select>
           </div>
         </div>
+
+        <form action="/report/report" method="GET">
+          <div class="form-group">
+              <label for="vessel">vessel:</label>
+              <select name="vessel" id="vessel" class="form-control">
+                  <option value="">ALL vessel</option>
+                  @foreach($users as $vessel)
+      <option value="{{ $vessel->id }}">{{ $vessel->name }}</option>
+  @endforeach
+              </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Cek Laporan</button>
+      </form>
       </div>
 
                     <div class="card">

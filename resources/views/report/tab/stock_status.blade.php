@@ -29,18 +29,18 @@
             </tr>
         </tfoot>
         <tbody> 
-            @foreach ($getbooking as $booking)
+            @foreach ($stock_status as $booking)
             <tr>      
-                <td>{{ $booking->date_st }}</td>
-        <td>{{ $booking->stock_code }}</td>
-        <td>{{ $booking->stock_name }}</td>
+                <td>{{ $booking->date }}</td>
+        <td>{{ $booking->code_product }}</td>
+        <td>{{ $booking->name_product }}</td>
         <td>{{ $booking->spec }}</td>
-        <td>{{ $booking->stock_previous }}</td>
+        <td>{{ $booking->previous }}</td>
         <td>{{ $booking->received }}</td>
-        <td>{{ $booking->use }}</td>
+        <td>{{ $booking->used }}</td>
         <td>{{ $booking->transfered }}</td>
         <td>{{ $booking->sounding }}</td>
-        <td>{{ $booking->stock_remain }}</td>
+        <td>{{ $booking->remain }}</td>
             </tr>
             @endforeach
         </tbody>

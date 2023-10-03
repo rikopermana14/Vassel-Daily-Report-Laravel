@@ -35,7 +35,7 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Product Code</label>
-                      <input type="text" name="code_product" id="code_product" class="form-control" readonly>
+                      <input type="text" name="code_product" id="code_product" class="form-control">
                     </div>
                   </div>
                 </div>
@@ -44,12 +44,7 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Product Name</label>
-                      <select class="form-control" name="name_product" id="name_product">
-                        <option value="">-Pilih Product-</option>
-                        @foreach ($data1 as $item)
-                          <option value="{{ $item->name }}">{{ $item->name }}</option>
-                        @endforeach
-                      </select>
+                      <input type="text" class="form-control" name="name_product" id="name_product">
                     </div>
                   </div>
                 </div>
@@ -72,7 +67,7 @@
                  </div>
                </div>
 
-               <script>
+               {{-- <script>
                 document.addEventListener("DOMContentLoaded", function () {
                   const productCodeSelect = document.getElementById("code_product");
                   const productNameInput = document.getElementById("name_product");
@@ -107,7 +102,7 @@
                     }
                   });
                 });
-              </script>
+              </script> --}}
               
 
                <button id="addconsumption" class="btn btn-primary">Add</button>
