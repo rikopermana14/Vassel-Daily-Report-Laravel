@@ -1,8 +1,21 @@
   <!-- Brand Logo -->
-  <a href="index3.html" class="brand-link navbar-light">
+  @if (auth()->user()->hasRole('admin'))
+  <a href="/admin-page" class="brand-link navbar-light">
     <img src="{{asset('logo/logo-logindo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     <span class="brand-text" style="color: black;font-weight: bold; ">LOGINDO</span>
   </a>
+    @elseif(auth()->user()->hasRole('operation'))
+    <a href="/operation-page" class="brand-link navbar-light">
+      <img src="{{asset('logo/logo-logindo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text" style="color: black;font-weight: bold; ">LOGINDO</span>
+  </a>
+    @elseif(auth()->user()->hasRole('vessel'))
+    <a href="/vessel-page" class="brand-link navbar-light">
+      <img src="{{asset('logo/logo-logindo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text" style="color: black;font-weight: bold; ">LOGINDO</span>
+    
+  </a>
+  @endif
 
   <!-- Sidebar -->
   <div class="sidebar">

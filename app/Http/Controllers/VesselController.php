@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Vessel;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
 
 class VesselController extends Controller
@@ -22,6 +23,9 @@ class VesselController extends Controller
 
     public function add()
 {
+    $users = User::whereHas('roles', function($query) {
+        $query->where('name', 'vessel');
+    })->get();
     $latestVessel = Vessel::latest('vessel_id')->first(); // Mendapatkan data Vessel terakhir berdasarkan ID
 
     $vesselPrefix = 'VSL';
@@ -40,7 +44,7 @@ class VesselController extends Controller
 
     session(['vesselId' => $vesselId]);
 
-    return view('vessel.add.add');
+    return view('vessel.add.add', compact('users'));
 }
 
 
@@ -100,6 +104,7 @@ class VesselController extends Controller
             'Speed_Eco' => 'required',
             'Speed_Min' => 'required',
             'Horse_Power' => 'required',
+            'vessel' => 'required',
 
         ]);
 
@@ -122,6 +127,7 @@ class VesselController extends Controller
     
         Vessel::create([
             'vessel_id' => $vesselId,
+            'id_user'=> $request->input('vessel'),
             'vessel_name' => $request->input('Vessel_Name'),
     'email' => $request->input('Vessel_Email'),
     'vessel_type' => $request->input('Vessel_Type'),
@@ -178,8 +184,11 @@ class VesselController extends Controller
      */
     public function editvessel($id)
     {
+        $users = User::whereHas('roles', function($query) {
+            $query->where('name', 'vessel');
+        })->get();
         $vessel = Vessel::find(Crypt::decrypt($id));
-        return view('vessel.add.add', ['vessel' => $vessel]);
+        return view('vessel.add.add', ['vessel' => $vessel],compact('users'));
     }
 
     /**
@@ -225,10 +234,12 @@ class VesselController extends Controller
             'Speed_Eco' => 'required',
             'Speed_Min' => 'required',
             'Horse_Power' => 'required',
+            'vessel' => 'required',
         ]);
         $vessel = Vessel::find($id);
 
         $data = [
+            'id_user'=> $request->vessel,
             'product_id' => $request->ID_Product_Code,
             'vessel_name' => $request->Vessel_Name,
     'email' => $request->Vessel_Email,

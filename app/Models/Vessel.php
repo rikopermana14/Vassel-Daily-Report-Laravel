@@ -11,6 +11,7 @@ class Vessel extends Model
     protected $table = 'vessels';
     protected $primaryKey = "id";
     protected $fillable = [
+        'id_user',
         'vessel_id',
         'vessel_name',
         'email',

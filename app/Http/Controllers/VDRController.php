@@ -7,6 +7,7 @@ use App\Models\Daily_Activity;
 use Illuminate\Http\Request;
 use App\Models\VDR;
 use App\Models\Payload;
+use App\Models\Vessel;
 use App\Models\Product;
 use App\Models\Running_hours;
 use App\Models\Stock_Status;
@@ -15,6 +16,7 @@ use App\Models\Temp_consumption;
 use App\Models\Temp_Payload;
 use App\Models\Temp_Running;
 use App\Models\Temp_Stock;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -23,10 +25,15 @@ class VDRController extends Controller
 {
     public function vdr()
     {   
+        $user = Auth::user(); // Mengambil informasi pengguna yang saat ini masuk
+
+        // Mengambil data produk hanya untuk pengguna yang saat ini masuk
+        $data1 = Product::where('id_user', $user->id)->get();
         $stock=Stock_Status::all();
-        $data1=Product::all();
         $data2=Temp_Stock::all();
-        return view('vdr.index', compact('data1','data2','stock'));
+        $users = Auth::id();
+        $vessel = Vessel::where('id_user', $users)->get();;
+        return view('vdr.index', compact('data1','data2','stock','vessel'));
     }
     public function getProduct($codeproduct)
 {
@@ -468,38 +475,48 @@ return response()->json($response, 200);
 
 public function addstock(Request $request)
 {
-   // dd($request->all());
     $request->validate([
-            'date' => 'required',
-            'code_product' => 'required',
-            'name_product' => 'required',
-            'spec' => 'required',
-            'previous' => 'required',
-            'received' => 'required',
-            'used'=> 'required',
-            'transfered'=> 'required',
-            'sounding'=> 'required',
-            'remain'=> 'required',
-        ]);
+        'date' => 'required',
+        'code_product' => 'required',
+        'name_product' => 'required',
+        'spec' => 'required',
+        'previous' => 'required',
+        'received' => 'required',
+        'used' => 'required',
+        'transfered' => 'required',
+        'sounding' => 'required',
+        'remain' => 'required',
+    ]);
 
     $userid = $request->input('user_input');
 
     DB::beginTransaction();
     try {
         $addstock = Temp_stock::create([
-            'date'=> $request->input('date'),
-            'code_product'=> $request->input('code_product'),
+            'date' => $request->input('date'),
+            'code_product' => $request->input('code_product'),
             'name_product' => $request->input('name_product'),
             'spec' => $request->input('spec'),
             'previous' => $request->input('previous'),
             'received' => $request->input('received'),
-            'used'=> $request->input('used'), 
-            'transfered'=> $request->input('transfered'), 
-            'sounding'=> $request->input('sounding'), 
-            'remain'=> $request->input('remain'), 
+            'used' => $request->input('used'),
+            'transfered' => $request->input('transfered'),
+            'sounding' => $request->input('sounding'),
+            'remain' => $request->input('remain'),
             'user_input' => $userid,
         ]);
-        
+
+        // Ambil ID produk yang sesuai (gantilah dengan kode yang sesuai)
+        $productId = $addstock->code_product;
+
+        // Hitung sisa stok
+        $pre = $addstock->previous;
+        $us = $addstock->used;
+        $data = $pre - $us;
+
+        // Update tabel product
+        Product::where('product_id', $productId)->update(['stock' => $data]);
+
         DB::commit();
 
         $notification = [

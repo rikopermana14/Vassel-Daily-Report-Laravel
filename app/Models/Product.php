@@ -24,5 +24,6 @@ class Product extends Model
         'delivery',
         'idle',
         'volume',
+        'id_user',
     ];
 }

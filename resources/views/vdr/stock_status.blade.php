@@ -121,6 +121,7 @@
     const produkused = document.getElementById("used_stock");
     const produkprevious = document.getElementById("previous");
     const dataproduk = {!! json_encode($data1) !!}; // Memasukkan data produk dari PHP ke JavaScript
+    let userId = {{auth()->user()->id}};
     
     const produkkodeedit = document.getElementById("edit_productkode");
     const produknamaedit = document.getElementById("edit_productnama");
@@ -134,7 +135,7 @@
     produknama.addEventListener("change", function () {
       console.log("Script executed");
       const selekprodukName = produknama.value;
-      const selekproduk = dataproduk.find(product => product.name === selekprodukName);
+      const selekproduk = dataproduk.find(product => product.name === selekprodukName && product.id_user === userId);
 
       if (selekproduk) {
         produkkode.value = selekproduk.product_id;

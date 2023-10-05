@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\TemporaryProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use App\Models\User;
 
 class ProductController extends Controller
 {
@@ -16,13 +17,22 @@ class ProductController extends Controller
      */
     public function product()
     {
-        $data = Product::all();
-        return view('product.product', compact('data'));
+        $users = User::whereHas('roles', function($query) {
+            $query->where('name', 'vessel');
+        })->get();
+        $data = Product::join('users', 'products.id_user', '=', 'users.id')
+        ->select('products.*','users.name as user',
+        )
+        ->latest('products.id')
+        ->get();
+        return view('product.product', compact('data','users'));
     }
     public function add()
     {
-        $temporaryProducts = TemporaryProduct::all();
-        return view('product.add',compact('temporaryProducts'));
+        $users = User::whereHas('roles', function($query) {
+            $query->where('name', 'vessel');
+        })->get();
+        return view('product.add',compact('users'));
     }
     public function index()
     {
@@ -61,6 +71,7 @@ class ProductController extends Controller
             'Idle_Time' => 'required',
             'Volume' => 'required',
             'stock' => 'required',
+            'vessel' => 'required',
         ]);
 
         // untuk menaruh foto ke folder image
@@ -85,6 +96,7 @@ class ProductController extends Controller
             'idle' => $request->input('Idle_Time'),
             'volume' => $request->input('Volume'),
             'stock' => $request->input('stock'),
+            'id_user'=> $request->input('vessel'),
         ]);
 
         return redirect()->route('product')->with('success', 'Product created successfully.');
@@ -137,6 +149,7 @@ class ProductController extends Controller
             'Volume' => 'required',
             'Product_Image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'stock' => 'required',
+            'vessel' => 'required',
         ]);
         $product = Product::find($id);
 
@@ -153,6 +166,7 @@ class ProductController extends Controller
             'idle' => $request->Idle_Time,
             'volume' => $request->Volume,
             'stock' => $request->stock,
+            'id_user' => $request->vessel,
         ];
     
         if ($request->hasFile('Product_Image')) {
@@ -205,23 +219,4 @@ class ProductController extends Controller
         return redirect()->route('product');
 }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'product_id' => 'required',
-            'name' => 'required',
-            'spec' => 'required',
-            // Add validation rules for other fields if needed
-        ]);
-
-        TemporaryProduct::create($request->all());
-
-        return redirect()->back()->with('success', 'Product added to temporary list.');
-    }
-
-    public function clearTemporaryProducts()
-    {
-        TemporaryProduct::truncate();
-        return redirect()->back()->with('success', 'Temporary product list cleared.');
-    }
 }

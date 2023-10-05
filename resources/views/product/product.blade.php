@@ -31,9 +31,7 @@
                         <option id="pdf">Export as PDF</option>
                       </select>  
                   </div>
-                  <div class="col-sm">
-
-                  </div>
+                  
                   <div class="col-sm">
                   </div>
                   <div class="col-sm">
@@ -45,7 +43,23 @@
                     </button>
 
                   </div>
+                 
                 </div>
+                
+              </div>
+              <div class="col-sm">
+                <form action="/product/" method="GET">
+                  <div class="form-group">
+                      <label for="vessel">vessel:</label>
+                      <select name="vessel" id="vessel" class="form-control">
+                          <option value="">ALL vessel</option>
+                          @foreach($users as $vessel)
+              <option value="{{ $vessel->id }}">{{ $vessel->name }}</option>
+          @endforeach
+                      </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Check Inventory</button>
+              </form>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -59,7 +73,8 @@
                       <th>Product Image</th>
                       <th>Product Alias</th>
                       <th>Spesification</th>
-                      <th>Product Type</th>       
+                      <th>Product Type</th>  
+                      <th>Vessel</th>     
                   </tr>
                                     </thead>
                                     <tfoot>
@@ -71,6 +86,7 @@
                       <th>Product Alias</th>
                       <th>Spesification</th>
                       <th>Product Type</th>
+                      <th>Vessel</th>  
                   </tr>
                   </tfoot>
                   <tbody> 
@@ -83,6 +99,7 @@
                       <td>{{ $item->alias }}</td>
                       <td>{{ $item->spec }}</td>
                       <td>{{ $item->type }}</td>
+                      <td>{{ $item->user }}</td>
                     </tr>
                       @endforeach
                                     </tbody>
@@ -119,27 +136,35 @@
               Are you sure you want to delete this product?
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              @foreach ($data as $item)
-              <a id="deleteConfirmBtn" class="btn btn-danger" href="{{ route('product.hapus', Crypt::encrypt ($item->id)) }}">Delete</a>
-              @endforeach
-            </div>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <a id="deleteConfirmBtn" class="btn btn-danger">Delete</a> <!-- Hapus href dan tambahkan class "btn btn-danger" -->
+          </div>
       </div>
   </div>
 </div>
 
 <script>
-  $(document).ready(function() {
-      var deleteUrl = '';
+$(document).ready(function() {
+    var deleteUrl = '';
 
-      $('.btn-danger').click(function() {
-          deleteUrl = $(this).attr('href'); // Menyimpan URL delete saat tombol "Delete" diklik
-      });
+    $('.btn-danger').click(function() {
+        var selectedRadio = $('input[name="selected_product"]:checked');
+        if (selectedRadio.length > 0) {
+            var encryptedId = selectedRadio.attr('data-product-id');
+            deleteUrl = "{{ route('product.hapus', ':encryptedId') }}".replace(':encryptedId', encryptedId);
+        } else {
+            alert("No item selected for deletion.");
+        }
+    });
 
-      $('#deleteConfirmBtn').click(function() {
-          window.location.href = deleteUrl; // Redirect ke URL delete saat tombol "Delete" di modal diklik
-      });
-  });
+    $('#deleteConfirmBtn').click(function() {
+        if (deleteUrl !== '') {
+            window.location.href = deleteUrl; // Redirect ke URL delete saat tombol "Delete" di modal diklik
+        } else {
+            alert("No item selected for deletion.");
+        }
+    });
+});
 </script>
 
 

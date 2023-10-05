@@ -40,12 +40,9 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Vessel Group</label>
-        <select class="form-control"name="vessel_group">
-          <option>AHTS</option>
-          <option>AHT</option>
-          <option>AWB</option>
-          <option>Tug Boat</option>
-        </select>
+          @foreach ($vessel as $item)
+          <input type="text" name="vessel_group" id="vessel_group" class="form-control" value="{{ $item->vessel_type }}"  readonly>
+          @endforeach
         </div>
         </div>
         <div class="col-sm-6">

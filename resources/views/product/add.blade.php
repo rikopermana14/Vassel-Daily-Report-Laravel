@@ -126,6 +126,15 @@
               <input type="text" class="form-control" name="Volume"value="{{ isset($product) ? $product->volume : '' }}">
             </div>
             </div>
+            <div class="form-group">
+              <label for="vessel">vessel:</label>
+              <select name="vessel" id="vessel" class="form-control">
+                  @foreach($users as $vessel)
+                  <option  value="{{ isset($vessel) ? $vessel->id : '' }}">{{ isset($vessel) ? $vessel->name : '' }}</option>
+  @endforeach
+</select>
+            </div>
+            </div>
             </div>
 
             <div class="row">
