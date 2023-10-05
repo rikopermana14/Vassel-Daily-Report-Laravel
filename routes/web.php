@@ -153,7 +153,6 @@ Route::middleware(['web','auth'])->group(function () {
     Route::prefix('product')->group(function () {
         Route::get('/', [App\Http\Controllers\ProductController::class, 'product'])->name('product');
         Route::get('/add-product', [App\Http\Controllers\ProductController::class, 'add'])->name('add-product');
-        Route::get('/add-product', [App\Http\Controllers\ProductController::class, 'add'])->name('add-product');
         Route::post('/store-product', [App\Http\Controllers\ProductController::class, 'storeproduct'])->name('store-product');
         Route::get('/edit-product/{id}', [App\Http\Controllers\ProductController::class, 'editproduct'])->name('product.edit');
         Route::post('/edit-product/{id}', [App\Http\Controllers\ProductController::class, 'updateproduct'])->name('product.update');

@@ -15,14 +15,18 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function product()
+    public function product(Request $request )
     {
+        $bioskopId = $request->input('vessel');
         $users = User::whereHas('roles', function($query) {
             $query->where('name', 'vessel');
         })->get();
         $data = Product::join('users', 'products.id_user', '=', 'users.id')
         ->select('products.*','users.name as user',
         )
+        ->when($bioskopId, function ($query) use ($bioskopId) {
+            return $query->where('products.id_user', $bioskopId);
+        })
         ->latest('products.id')
         ->get();
         return view('product.product', compact('data','users'));
