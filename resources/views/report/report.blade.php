@@ -23,15 +23,12 @@
       <div class="card-header">
         <div class="row">
           <div class="col-sm">
-            <input type="text" id="date-range">
             <button id="export-data">Export ALL Data as CSV</button>
           </div>
     
           <div class="col-sm">
             <select id="exportLink" class="form-control">
               <option>Export Data Table</option>
-              <option id="csv">Export as CSV</option>
-              <option id="excel">Export as XLS</option>
               <option id="copy">Copy to clipboard</option>
               <option id="pdf">Export as PDF</option>
             </select>
@@ -39,6 +36,14 @@
         </div>
 
         <form action="/report/report" method="GET">
+          <div class="form-group">
+            <label for="start_date">Start Date:</label>
+            <input type="date" name="start_date" id="start_date" class="form-control" value="{{ $startDate }}">
+        </div>
+        <div class="form-group">
+            <label for="end_date">End Date:</label>
+            <input type="date" name="end_date" id="end_date" class="form-control" value="{{ $endDate }}">
+        </div>
           <div class="form-group">
               <label for="vessel">vessel:</label>
               <select name="vessel" id="vessel" class="form-control">
@@ -48,7 +53,7 @@
   @endforeach
               </select>
           </div>
-          <button type="submit" class="btn btn-primary">Cek Laporan</button>
+          <button type="submit" class="btn btn-primary">Check Report</button>
       </form>
       </div>
 
