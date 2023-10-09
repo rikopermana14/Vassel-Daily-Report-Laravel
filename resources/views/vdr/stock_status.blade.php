@@ -341,32 +341,31 @@
           return false;
       });
 
-      //untuk dellete 
       function deletestock(id) {
-$.ajax({
-  type: 'POST',
-  url: '{{ route('stock.deletestock') }}', // Ubah URL sesuai dengan rute Anda
-  data: {
+  $.ajax({
+    type: 'POST', // Ubah metode menjadi POST
+    url: '{{ route('stock.deletestock') }}',
+    data: {
       _token: $('#_tokenAdd').val(),
       id: id
-  },
-  success: function(data) {
+    },
+    success: function(data) {
       $('#delete_modal_stock').modal('hide');
       getstock();
-  }
-});
+    }
+  });
 }
 
 $('#tablestock').on('click', '.baggage_hapus', function() {
-idToDelete = $(this).attr('data');
-$('#delete_modal_stock').modal('show');
+  idToDelete = $(this).attr('data');
+  $('#delete_modal_stock').modal('show');
 });
 
 $('#confirm_delete_stock').on('click', function() {
-if (idToDelete) {
-  deletestock(idToDelete);
-  idToDelete = null;
-}
+  if (idToDelete) {
+    deletestock(idToDelete);
+    idToDelete = null;
+  }
 });
      // Function to edit a daily activity
 function editstock(id) {

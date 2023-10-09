@@ -11,6 +11,7 @@
                 <th>Run Hours Economi</th>
                 <th>Run Hours Full Speed</th>
                 <th>Run Hours Stand By</th>
+                <th>vessel</th>
             </tr>
         </thead>
         <tfoot>
@@ -23,6 +24,7 @@
                 <th>Run Hours Economi</th>
                 <th>Run Hours Full Speed</th>
                 <th>Run Hours Stand By</th>
+                <th>vessel</th>
             </tr>
         </tfoot>
         <tbody> 
@@ -36,6 +38,7 @@
         <td>{{ $booking->economi }}</td>
         <td>{{ $booking->full_speed }}</td>
         <td>{{ $booking->standby }}</td>
+        <td>{{ $booking->userr }}</td>
             </tr>
             @endforeach
         </tbody>

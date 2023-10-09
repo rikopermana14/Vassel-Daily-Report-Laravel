@@ -134,7 +134,7 @@
 
 
 <script>
-  var table1, table2, table3, table4, table5, table6,table7; // Variabel table yang berbeda untuk setiap tabel
+  var table1, table2, table3, table4, table5, table6,table7,table8; // Variabel table yang berbeda untuk setiap tabel
   $(function () {
     // Setup - add a text input to each footer cell
     $('#example thead tr').clone(true).appendTo( '#example thead' );
@@ -151,24 +151,59 @@
             }
         } );
     } );
+    
 
-    table1 = $('#example').DataTable( {
+    table8 = $('#exampleves').DataTable( {
         "orderCellsTop": true,
         "searching": true,
         "lengthChange": true,
         "fixedHeader": true,
-        dom: 'Bfrtip',
+        "paging": true,
+        "columnDefs": [
+            { "width": "20%", "targets": [0, 1] }, // Mengatur lebar kolom pertama dan kedua
+            // Mengatur lebar kolom keempat dan lainnya sesuai kebutuhan
+        ],
+        
+        "dom": 'Bfrtip',
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-        initComplete: function() {
+        "initComplete": function() {
             var $buttons = $('.dt-buttons').hide();
             $('#exportLink').on('change', function() {
                 var btnClass = $(this).find(":selected")[0].id
-                ? '.buttons-' + $(this).find(":selected")[0].id
-                : null;
+                    ? '.buttons-' + $(this).find(":selected")[0].id
+                    : null;
                 if (btnClass) $buttons.find(btnClass).click();
-            })
-        }
+            });
+        },
     });
+
+    // Inisialisasi DataTables dengan konfigurasi lebar kolom
+    table1 = $('#examplepro').DataTable( {
+        "orderCellsTop": true,
+        "searching": true,
+        "lengthChange": true,
+        "fixedHeader": true,
+        "columnDefs": [
+            { "width": "10px", "targets": [0, 1] },
+            { "width": "300px", "targets": [2, 3,4,5,6,7] }, // Mengatur lebar kolom pertama dan kedua
+            // Mengatur lebar kolom keempat dan lainnya sesuai kebutuhan
+        ],
+        
+        "dom": 'Bfrtip',
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+        "initComplete": function() {
+            var $buttons = $('.dt-buttons').hide();
+            $('#exportLink').on('change', function() {
+                var btnClass = $(this).find(":selected")[0].id
+                    ? '.buttons-' + $(this).find(":selected")[0].id
+                    : null;
+                if (btnClass) $buttons.find(btnClass).click();
+            });
+        },
+    });
+    
+
+
 
     // Inisialisasi DataTables untuk tabel lainnya (table2, table3, dan table4) di sini
     // ...
@@ -281,6 +316,36 @@
 
   });
 
+  function exportAllTablesToPDF() {
+    var doc = new jsPDF();
+
+    // Loop melalui semua tabel dan ekspor masing-masing ke PDF
+    var tables = [table1, table2, table3, table4, table5, table6, table7]; // Ganti dengan semua tabel yang Anda inisialisasi
+    var startY = 10;
+
+    tables.forEach(function(table, index) {
+        // Tambahkan judul tabel ke PDF
+        doc.setFontSize(16);
+        doc.text('Table ' + (index + 1), 10, startY);
+        
+        // Tambahkan tabel ke PDF
+        startY += 20; // Geser ke bawah untuk tabel berikutnya
+        doc.autoTable({ 
+            html: '#' + table.table().node().id, // Menggunakan ID tabel saat ini
+            startY: startY
+        });
+
+        // Tambahkan spasi antara tabel
+        startY += table.rows().count() * 7; // Menggunakan perkiraan tinggi tabel sebagai spasi
+    });
+
+    // Simpan file PDF
+    doc.save('All_Tables.pdf');
+}
+
+// Tambahkan event handler ke tombol "Export All Tables to PDF"
+$('#export-all-tables-pdf-button').on('click', exportAllTablesToPDF);
+
   $('#date-range').daterangepicker({
     startDate: '2023-01-01',
     endDate: '2023-12-31',
@@ -331,7 +396,7 @@
           return combinedData;
       }
 
-
+      
        // Function untuk mengekspor data ke Excel
 function exportToExcel() {
     var combinedData = combineTableData();

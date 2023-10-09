@@ -12,6 +12,7 @@
                 <th>Transfered</th>
                 <th>Sounding</th> 
                 <th>Remain</th>  
+                <th>vessel</th>
             </tr>
         </thead>
         <tfoot>
@@ -26,6 +27,7 @@
                 <th>Transfered</th>
                 <th>Sounding</th> 
                 <th>Remain</th>   
+                <th>vessel</th>
             </tr>
         </tfoot>
         <tbody> 
@@ -41,6 +43,7 @@
         <td>{{ $booking->transfered }}</td>
         <td>{{ $booking->sounding }}</td>
         <td>{{ $booking->remain }}</td>
+        <td>{{ $booking->users }}</td>
             </tr>
             @endforeach
         </tbody>

@@ -125,8 +125,11 @@ class ProductController extends Controller
      */
     public function editproduct($id)
     {
+        $users = User::whereHas('roles', function($query) {
+            $query->where('name', 'vessel');
+        })->get();
         $product = Product::find(Crypt::decrypt($id));
-        return view('product.add', ['product' => $product]);
+        return view('product.add', ['product' => $product],compact('users'));
     }
 
     /**

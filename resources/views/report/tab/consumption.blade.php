@@ -9,6 +9,7 @@
                 <th>Product Name</th>
                 <th>Description</th>  
                 <th>used</th>  
+                <th>vessel</th>
             </tr>
         </thead>
         <tfoot>
@@ -19,6 +20,7 @@
                 <th>Product Name</th>
                 <th>Description</th>  
                 <th>used</th> 
+                <th>vessel</th>
             </tr>
         </tfoot>
         <tbody> 
@@ -30,6 +32,7 @@
         <td>{{ $booking->name_product }}</td>
         <td>{{ $booking->description }}</td>
         <td>{{ $booking->used }}</td>
+        <td>{{ $booking->userc }}</td>
             </tr>
             @endforeach
         </tbody>

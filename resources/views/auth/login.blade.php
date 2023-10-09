@@ -23,7 +23,7 @@
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        {{-- <strong>{{ $message }}</strong> --}}
                                     </span>
                                 @enderror
                             </div>
@@ -37,7 +37,7 @@
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        {{-- <strong>{{ $message }}</strong> --}}
                                     </span>
                                 @enderror
                             </div>
@@ -70,7 +70,30 @@
     </div>
 </div>
 </div>
+
 </div>
+<div class="alert alert-danger alert-dismissible fade show fixed-top" role="alert" id="loginAlert" style="display: none;">
+    Email or password is incorrect
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<script>
+    // Fungsi untuk menampilkan alert melayang
+    function showLoginAlert(message) {
+        var alert = document.getElementById('loginAlert');
+        alert.innerHTML = message;
+        alert.style.display = 'block';
+        setTimeout(function() {
+            alert.style.display = 'none';
+        }, 8000); // Sembunyikan alert setelah 5 detik
+    }
+
+    // Panggil fungsi untuk menampilkan alert jika terjadi kesalahan login
+    @if ($errors->has('email') || $errors->has('password'))
+        showLoginAlert("Email or password is incorrect.");
+    @endif
+</script>
+
+
 
 <style>
     .login-container {

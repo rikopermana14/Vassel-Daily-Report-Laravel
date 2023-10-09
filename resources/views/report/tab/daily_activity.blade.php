@@ -7,6 +7,7 @@
                 <th>Time From</th>
                 <th>Time To</th>
                 <th>Description</th>  
+                <th>vessel</th>
             </tr>
         </thead>
         <tfoot>
@@ -15,6 +16,7 @@
                 <th>Time From</th>
                 <th>Time To</th>
                 <th>Description</th> 
+                <th>vessel</th>
             </tr>
         </tfoot>
         <tbody> 
@@ -24,6 +26,7 @@
                 <td>{{ $booking->time_from }}</td>
                 <td>{{ $booking->time_to }}</td>
                 <td>{{ $booking->description }}</td>
+                <td>{{ $booking->userd }}</td>
             </tr>
             @endforeach
         </tbody>

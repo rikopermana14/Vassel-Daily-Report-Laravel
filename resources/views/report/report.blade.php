@@ -1,6 +1,9 @@
 @extends('layout.index')
 @section('content')
 
+@php
+$selectedVesselId = $bioskopId; // Inisialisasi $selectedVesselId dengan nilai $vesselId
+@endphp
 <div class="wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -11,7 +14,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item">Home</a></li>
               <li class="breadcrumb-item active">Report VDR</li>
             </ol>
           </div>
@@ -23,16 +26,10 @@
       <div class="card-header">
         <div class="row">
           <div class="col-sm">
-            <button id="export-data">Export ALL Data as CSV</button>
+            <button id="export-data" class="btn btn-secondary">Export ALL Data as CSV</button>
+            <a href="{{ url('/report/cetak-pdf?start_date=' . $startDate . '&end_date=' . $endDate . '&vessel=' . $selectedVesselId) }}" class="btn btn-secondary">Export ALL Data as PDF</a>
           </div>
     
-          <div class="col-sm">
-            <select id="exportLink" class="form-control">
-              <option>Export Data Table</option>
-              <option id="copy">Copy to clipboard</option>
-              <option id="pdf">Export as PDF</option>
-            </select>
-          </div>
         </div>
 
         <form action="/report/report" method="GET">
@@ -125,5 +122,11 @@
   <!-- /.content-wrapper -->
 
 
+  <script>
+    document.getElementById('vessel').addEventListener('change', function() {
+        var selectedVesselId = this.value;
+        document.getElementById('vessel_id').value = selectedVesselId;
+    });
+</script>
 
 @endsection

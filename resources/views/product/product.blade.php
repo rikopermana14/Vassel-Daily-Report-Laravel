@@ -64,10 +64,10 @@
               <!-- /.card-header -->
               <div class="card-body">
                                    <div class="table-responsive">
-                <table id="example" class="table table-bordered table-striped">
+                <table id="examplepro" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                        <th>Select</th>
+                        <th >Select</th>
                       <th>Product Code</th>
                       <th>Product Name</th>
                       <th>Product Image</th>
@@ -92,7 +92,7 @@
                   <tbody> 
                     @foreach ($data as $item)
                        <tr>      
-                        <td><input type="radio"name="selected_product" class="select-product" data-product-id="{{ Crypt::encrypt($item->id) }}"></td>
+                        <td ><input type="radio"name="selected_product" class="select-product" data-product-id="{{ Crypt::encrypt($item->id) }}"></td>
                       <td>{{ $item->product_id }}</td>
                       <td>{{ $item->name }}</td>
                       <td><img src="{{ asset('image').'/'.$item->image }}" class="img-round elevation-2" height="100" width="100"></td>

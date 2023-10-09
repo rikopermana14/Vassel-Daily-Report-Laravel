@@ -9,6 +9,7 @@
                 <th>Received</th>
                 <th>Transfered</th>
                 <th>Remain</th>  
+                <th>vessel</th>
             </tr>
         </thead>
         <tfoot>
@@ -19,6 +20,7 @@
                 <th>Received</th>
                 <th>Transfered</th>
                 <th>Remain</th>  
+                <th>vessel</th>
             </tr>
         </tfoot>
         <tbody> 
@@ -30,6 +32,7 @@
         <td>{{ $booking->receive }}</td>
         <td>{{ $booking->transfer }}</td>
         <td>{{ $booking->remain }}</td>
+        <td>{{ $booking->userp }}</td>
             </tr>
             @endforeach
         </tbody>

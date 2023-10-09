@@ -39,7 +39,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Towing</label>
-         <input type="text" name="towing" id="towing" class="form-control">
+         <input type="time" name="towing" id="towing" class="form-control">
          </div>
          </div>
        </div>
@@ -48,7 +48,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Manouver</label>
-         <input type="text" name="manouver" id="manouver" class="form-control">
+         <input type="time" name="manouver" id="manouver" class="form-control">
          </div>
          </div>
        </div>
@@ -57,7 +57,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Slow</label>
-         <input type="text" name="slow" id="slow" class="form-control">
+         <input type="time" name="slow" id="slow" class="form-control">
          </div>
          </div>
        </div> 
@@ -66,7 +66,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Economi</label>
-         <input type="text" name="economi" id="economi" class="form-control">
+         <input type="time" name="economi" id="economi" class="form-control">
          </div>
          </div>
        </div>
@@ -75,7 +75,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Full Speed</label>
-         <input type="text" name="full_speed" id="full_speed" class="form-control">
+         <input type="time" name="full_speed" id="full_speed" class="form-control">
          </div>
          </div>
        </div>
@@ -84,7 +84,7 @@
          <div class="col-sm-6">
          <div class="form-group">
            <label>Run Hours Stand By</label>
-         <input type="text" name="standby" id="standby" class="form-control">
+         <input type="time" name="standby" id="standby" class="form-control">
          </div>
          </div>
        </div>

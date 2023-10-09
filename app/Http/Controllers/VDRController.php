@@ -535,6 +535,15 @@ public function deletestock(Request $request)
     {
         $id = $request->id;
         $payload = Temp_stock::find($id);
+        $stock = Temp_stock::where('id', $id)->first();
+        $kode = $stock->code_product;
+        
+
+        $data = [ 
+            'stock' => $stock->previous,
+            // ... sesuaikan dengan field lainnya ...
+        ];
+        Product::where('product_id', $kode)->update($data);
 
         if (!$payload) {
             return response()->json(['error' => 'Consumption not found'], 404);

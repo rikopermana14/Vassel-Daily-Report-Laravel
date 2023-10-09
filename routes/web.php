@@ -71,6 +71,7 @@ Route::middleware(['web','auth'])->group(function () {
         Route::get('/vessel-page', [App\Http\Controllers\HomeController::class, 'index'])->name('vessel.page');
         Route::get('/stock/{id}', [App\Http\Controllers\VDRController::class, 'getstock'])->name('stock.getstock');
         Route::put('/stock/{id}', [App\Http\Controllers\VDRController::class, 'editstock'])->name('stock.editstock'); 
+        Route::post('/stock/delete-stock', [App\Http\Controllers\VDRController::class, 'deletestock'])->name('stock.deletestock');
         
 
         Route::get('/daily-activities/{id}', [App\Http\Controllers\VDRController::class, 'getDailyActivity'])->name('dailyactivities.getdaily');
@@ -90,6 +91,7 @@ Route::middleware(['web','auth'])->group(function () {
     // Rute Report
     Route::prefix('report')->group(function () {
         Route::get('/report', [App\Http\Controllers\ReportController::class, 'report'])->name('report.page');
+        Route::get('/cetak-pdf', [App\Http\Controllers\ReportController::class, 'generateReport'])->name('cetak.pdf');
     });
 
     // Rute bersama untuk VDR

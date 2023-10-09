@@ -11,7 +11,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item">Home</a></li>
               <li class="breadcrumb-item active">Vessel File</li>
             </ol>
           </div>
@@ -55,7 +55,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <div class="table-responsive">
-                                    <table id="example" class="table table-bordered table-striped">
+                                    <table id="exampleves" class="table table-bordered table-striped">
                   <thead>
             <tr>
                 <th>Select</th>
@@ -195,6 +195,7 @@ $(document).ready(function() {
       });
   });
 </script>
+
 
 
 
