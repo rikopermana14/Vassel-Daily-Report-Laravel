@@ -92,7 +92,7 @@ public function update(Request $request, User $user)
         // Sync roles
         $user->syncRoles($request->input('edit_roles3'));
 
-        return redirect()->route('user')->with('success', 'User updated successfully.');
+        return redirect()->route('user')->with('success', 'User Edit successfully.');
     }
 
 

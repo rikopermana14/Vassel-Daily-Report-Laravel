@@ -1,18 +1,24 @@
 @extends('layout.index')
 @section('content')
 
+
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <div class="wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Add Product </h1>
+            <h1>Add Inventory </h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-product"><a href="#">Home</a></li>
-              <li class="breadcrumb-product active">Add Product </li>
+              <li class="breadcrumb-product">Home/</li>
+              <li class="breadcrumb-product active">Add Inventory </li>
             </ol>
           </div>
         </div>

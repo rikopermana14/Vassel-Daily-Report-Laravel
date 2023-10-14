@@ -1,5 +1,11 @@
 @extends('layout.index')
 @section('content')
+
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <!-- Main content -->
 <div class="wrapper">
     <!-- Content Header (Page header) -->

@@ -103,7 +103,7 @@ class ProductController extends Controller
             'id_user'=> $request->input('vessel'),
         ]);
 
-        return redirect()->route('product')->with('success', 'Product created successfully.');
+        return redirect()->route('product')->with('success', 'Inventory created successfully.');
     }
 
     /**
@@ -198,7 +198,7 @@ class ProductController extends Controller
     
         $product->update($data);
     
-        return redirect()->route('product')->with('success', 'Product updated successfully.');
+        return redirect()->route('product')->with('success', 'Inventory Edit successfully.');
     }
 
     /**
@@ -223,7 +223,7 @@ class ProductController extends Controller
         // Hapus data film
         $product->delete();
     
-        return redirect()->route('product');
+        return redirect()->route('product')->with('success', 'Delete successfully.');
 }
 
 }

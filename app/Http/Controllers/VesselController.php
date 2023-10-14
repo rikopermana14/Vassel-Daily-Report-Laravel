@@ -162,7 +162,7 @@ class VesselController extends Controller
     'horse_power' => $request->input('Horse_Power'),
         ]);
 
-        return redirect()->route('vessel');with('success', 'Add Data Success');
+        return redirect()->route('vessel')->with('success', 'ADD Vessel Success');
     }
 
     /**
@@ -278,7 +278,7 @@ class VesselController extends Controller
     
         $vessel->update($data);
     
-        return redirect()->route('vessel')->with('success', 'Product updated successfully.');
+        return redirect()->route('vessel')->with('success', 'Edit Vessel successfully.');
     }
 
     /**
@@ -293,6 +293,6 @@ class VesselController extends Controller
         // Hapus data film
         $Vessel->delete();
     
-        return redirect()->route('vessel');
+        return redirect()->route('vessel')->with('success', 'Delete successfully.');
 }
 }

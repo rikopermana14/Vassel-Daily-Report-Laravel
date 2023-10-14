@@ -2,6 +2,11 @@
 
 @section('content')
 
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <!-- Main content -->
 <div class="wrapper">
     <!-- Content Header (Page header) -->
@@ -35,10 +40,6 @@
                                 <li class="nav-item"><a class="nav-link" href="#tab_4" data-toggle="tab">Consumption</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#tab_5" data-toggle="tab" >Stock Status</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#tab_6" data-toggle="tab">Payload</a></li>
-                                <li>
-                                    <a href="#" class="btn btn-warning">Kembali</a>
-                                    <button class="btn btn-primary">Simpan</button>
-                                </li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
@@ -48,7 +49,7 @@
                                   <form action="/vdr/general-info" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @include('vdr.general_info')
-                                    <button class="btn btn-primary">Simpan</button>
+                                    <button class="btn btn-primary">Save</button>
                               </form>
                                 </div>
                              
