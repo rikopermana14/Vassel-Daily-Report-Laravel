@@ -2,6 +2,13 @@
                     <div class="row">
                  <div class="col-sm-6">
                    <div class="form-group">
+
+                    {{-- Notifikasi --}}
+                    <div class="alert alert-success" id="successMessagecom" style="display: none;">
+                      Comsumption added successfully.
+                  </div>
+                  {{-- end Notifikas --}}
+
                      <label>Date</label>
                      <div class="input-group date" id="comsumption_date" data-target-input="nearest">
                       <input name="comsumption_date" id="comsumption_date_input" type="text" class="form-control datetimepicker-input" data-target="#comsumption_date"/>
@@ -112,6 +119,16 @@
 
                <div class="row">
                 <div class="table-responsive">
+
+                  {{-- Notifikasi --}}
+                  <div class="alert alert-success" id="successMessagecomedit" style="display: none;">
+                    Comsumption edited successfully.
+                </div>
+                <div class="alert alert-success" id="successMessagecomdel" style="display: none;">
+                  Comsumption delete successfully.
+              </div>
+              {{-- End Notifikasi --}}
+
                   <table id="tableconsumption" class="display table table-hover" >
                       <thead>
                           <tr>
@@ -141,13 +158,13 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="delete_modal_consumptionLabel">Delete Daily Activity</h5>
+                      <h5 class="modal-title" id="delete_modal_consumptionLabel">Delete Consumption</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
-                      Are you sure you want to delete this daily activity?
+                      Are you sure you want to delete this Consumption?
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -243,10 +260,32 @@
                             contentType: false,
                             data: formData,
                             success: function(data) {
-                                {{--  console.log(data);  --}}
-                                //$('#addBaggageModal').modal('hide');
+                              // Tampilkan pesan notifikasi
+                              $('#successMessagecom').show();
+
+                              // Sembunyikan pesan notifikasi setelah beberapa detik (jika diperlukan)
+                              setTimeout(function() {
+                                  $('#successMessagecom').hide();
+                              }, 5000);
+
+                                // Bersihkan formulir atau lakukan tindakan lain yang diperlukan
+                              $('#comsumption_date_input').val('');
+                        $('#machine_consumption').val('');
+                        $('#code_product').val('');
+                         $('#name_product').val('');
+                         $('#description_consumption').val('');
+                         $('#used').val('');
+
                                 getconsumption();
-                            }
+                            },
+        error: function(xhr, status, error) {
+            // Tampilkan pesan notifikasi gagal
+            $('#successMessagecom').text('Failed to Add Consumption. Please check the form fields.');
+            $('#successMessagecom').removeClass('alert-success').addClass('alert-danger').show();
+            setTimeout(function() {
+                                  $('#successMessagecom').hide();
+                              }, 5000);
+        }
                         });
         
                         return false;
@@ -263,8 +302,22 @@
                 },
                 success: function(data) {
                     $('#delete_modal_consumption').modal('hide');
+                     $('#successMessagecomdel').show();
+
+                      // Sembunyikan pesan notifikasi setelah beberapa detik (jika diperlukan)
+                      setTimeout(function() {
+                      $('#successMessagecomdel').hide();
+                      }, 5000);
                     getconsumption();
-                }
+                },
+        error: function(xhr, status, error) {
+            // Tampilkan pesan notifikasi gagal
+            $('#successMessagecomdel').text('Failed to Delete Consumption. Please check the form fields.');
+            $('#successMessagecomdel').removeClass('alert-success').addClass('alert-danger').show();
+            setTimeout(function() {
+                                  $('#successMessagecomdel').hide();
+                              }, 5000);
+        }
             });
         }
 
@@ -279,7 +332,7 @@
                 idToDelete = null;
             }
         });
-                   // Function to edit a daily activity
+                   // Function to edit a Consumption
     function editconsumption(id) {
       var formData = new FormData();
     formData.append('_method', 'PUT'); // Menggunakan metode PUT untuk edit
@@ -300,8 +353,22 @@
         data: formData,
         success: function(data) {
             $('#edit_modal_consumption').modal('hide');
+            $('#successMessagecomedit').show();
+
+            // Sembunyikan pesan notifikasi setelah beberapa detik (jika diperlukan)
+            setTimeout(function() {
+                $('#successMessagecomedit').hide();
+            }, 5000);
             getconsumption();
-            }
+            },
+        error: function(xhr, status, error) {
+            // Tampilkan pesan notifikasi gagal
+            $('#successMessagecomeditmo').text('Failed to edit Consumption. Please check the form fields.');
+            $('#successMessagecomeditmo').removeClass('alert-success').addClass('alert-danger').show();
+            setTimeout(function() {
+                                  $('#successMessagecomeditmo').hide();
+                              }, 5000);
+        }
         });
     }
 

@@ -3,10 +3,27 @@
 @section('content')
 
 @if(session('success'))
-    <div class="alert alert-success">
+    <div class="alert alert-success" id="success-alert">
         {{ session('success') }}
     </div>
 @endif
+
+@if($errors->any())
+    <div class="alert alert-danger" id="error-alert">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+<script>
+  // Fungsi untuk menghilangkan notifikasi dalam 5 detik
+  setTimeout(function() {
+    $('#success-alert').hide();
+                                  $('#error-alert').hide();
+                              }, 5000);
+</script>
 <!-- Main content -->
 <div class="wrapper">
     <!-- Content Header (Page header) -->

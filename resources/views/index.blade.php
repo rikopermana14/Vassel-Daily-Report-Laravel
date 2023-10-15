@@ -15,7 +15,7 @@
         @foreach ($data as $item)
         <div class="col-6 col-sm-4">
             <div class="card" style="width: 18rem; background-color: #e6b215;">
-                <a href="#">
+                <a href="{{ route('product', ['vessel' => $item->id]) }}">
                     <center><i class="fas fa-ship custom-icon-size"></i></center>
                     <h5 style="text-align: center; color: black;"><br>{{ $item->vessel_name }}</h5>
                 </a>
@@ -29,10 +29,8 @@
         @foreach ($user as $item)
         <div class="col-6 col-sm-4">
             <div class="card" style="width: 18rem; background-color: #e6b215 ;">
-                <a href="#">
                     <center><i class="fas fa-ship custom-icon-size"></i></center>
                     <h5 style="text-align: center; color: black;"><br>{{ $item->vessel_name }}</h5>
-                </a>
             </div>
         </div>
         @endforeach

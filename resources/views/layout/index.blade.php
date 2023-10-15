@@ -44,7 +44,7 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{{asset('logo/logo-logindo.png')}}" alt="AdminLTELogo" >
+    <img class="animation__shake" src="{{asset('logo/logo-logindo.png')}}" alt="Logindo_Logo" >
   </div>
 
   <!-- Navbar -->

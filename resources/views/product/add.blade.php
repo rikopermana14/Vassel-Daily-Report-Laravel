@@ -2,11 +2,23 @@
 @section('content')
 
 
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
+@if($errors->has('Product_Image'))
+    <div class="alert alert-danger">
+        {{ $errors->first('Product_Image') }}
     </div>
 @endif
+
+@if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+
 <div class="wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">

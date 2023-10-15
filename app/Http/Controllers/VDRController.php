@@ -102,6 +102,8 @@ public function adddaily(Request $request)
     $request->validate([
         'date' => 'required',
         'time_from' => 'required',
+    ], [
+        'required' => 'The field cannot be empty.',
     ]);
 
     $userid = $request->input('user_input');
@@ -185,6 +187,8 @@ public function addrunning(Request $request)
             'economi' => 'required',
             'full_speed' => 'required',
             'standby' => 'required',
+    ], [
+        'required' => 'The field cannot be empty.',
     ]);
 
     $userid = $request->input('user_input');
@@ -286,6 +290,8 @@ public function addconsumption(Request $request)
             'name_product' => 'required',
             'description' => 'required',
             'used' => 'required',
+    ], [
+        'required' => 'The field cannot be empty.',
     ]);
 
     $userid = $request->input('user_input');
@@ -385,6 +391,8 @@ public function addpayloads(Request $request)
         'receive' => 'required',
         'transfer' => 'required',
         'remain' => 'required',
+    ], [
+        'required' => 'The field cannot be empty.',
     ]);
 
     $userid = $request->input('user_input');
@@ -486,6 +494,8 @@ public function addstock(Request $request)
         'transfered' => 'required',
         'sounding' => 'required',
         'remain' => 'required',
+    ], [
+        'required' => 'The field cannot be empty.',
     ]);
 
     $userid = $request->input('user_input');
@@ -581,10 +591,16 @@ public function deletestock(Request $request)
             'remain'=> $request->input('remain'), 
             // ... sesuaikan dengan field lainnya ...
         ];
-        
-        // Lakukan update data di database berdasarkan ID
-        Temp_stock::where('id', $id)->update($data);
-        
+        // Kode produk
+    $kode = $data['code_product'];
+
+    // Lakukan update data di tabel Temp_stock berdasarkan ID
+    Temp_stock::where('id', $id)->update($data);
+
+    // Update data di tabel Product
+    Product::where('product_id', $kode)->update(['stock' => $data['remain']]);
+    // ... sesuaikan dengan field lainnya yang perlu diperbarui ...
+
         return response()->json(['message' => 'Activity updated successfully']);
     }
 
@@ -620,6 +636,8 @@ public function deletestock(Request $request)
             'size' => 'required',
             'eta' => 'required',
             'vessel_status' => 'required',
+        ], [
+            'required' => 'The field cannot be empty.',
         ]);
         $userid = $request->input('user_input');
        $vdr = vdr::create([
@@ -785,7 +803,7 @@ public function deletestock(Request $request)
         DB::table('temp_stock')->truncate();
         DB::table('temp_payload')->truncate();
         
-        return redirect()->route('vdr');with('success', 'Add Data Success');
+        return redirect()->route('vdr')->with('success', 'Add Data Success');
     }
 
 }

@@ -9,6 +9,9 @@
                 </button>
             </div>
             <div class="modal-body">
+              <div class="alert alert-success" id="successMessagecomeditmo" style="display: none;">
+                    Daily activity edited successfully.
+                </div>
                 <!-- Form for editing daily activity -->
                 <form id="editconsumptionForm">
                     <input type="hidden" name="edit_id_consumption" id="edit_id_consumption"> <!-- Hidden input for the ID -->
@@ -21,10 +24,13 @@
                           <div class="form-group">
                             <label for="edit_machine">Machine</label>
                             <select class="form-control"name="edit_machine_consumption" id="edit_machine_consumption" >
-                          <option>A/E 1</option>
-                          <option>A/E 2</option>
-                          <option>M/E 1</option>                      
-                          <option>M/E 2</option>
+                              <option>A/E 1</option>
+                              <option>A/E 2</option>
+                              <option>M/E 1</option>                      
+                              <option>M/E 2</option>
+                              <option>GB 1</option>                      
+                              <option>GB 2</option>
+                              <option>Emergency Genset 2</option>
                         </select>
                           </div>
                         </div>

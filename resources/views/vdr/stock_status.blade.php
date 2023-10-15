@@ -3,6 +3,11 @@
   <div class="row">
 <div class="col-sm-6">
  <div class="form-group">
+   {{-- Notifikasi --}}
+   <div class="alert alert-success" id="successMessagesto" style="display: none;">
+    Stock Status added successfully.
+</div>
+{{-- end Notifikas --}}
    <label>Date</label>
         <div class="input-group date" id="stock_date" data-target-input="nearest">
           <input name="stock_date" id="stock_date_input" type="text" class="form-control datetimepicker-input" data-target="#stock_date"/>
@@ -46,7 +51,7 @@
     <div class="col-sm-6">
       <div class="form-group">
         <label>Spec</label>
-        <textarea class="form-control" name="spec" id="spec" rows="5"></textarea>
+        <textarea class="form-control" name="spec" id="spec" readonly></textarea>
       </div>
     </div>
   </div>
@@ -131,9 +136,8 @@
     const produkpreviousedit = document.getElementById("edit_previous");
     const dataprodukeditedit = {!! json_encode($data1) !!}; // Memasukkan data produk dari PHP ke JavaScript
 
-
+    // Fungsi untuk mengisi kolom-kolom terkait saat memilih nama produk
     produknama.addEventListener("change", function () {
-      console.log("Script executed");
       const selekprodukName = produknama.value;
       const selekproduk = dataproduk.find(product => product.name === selekprodukName && product.id_user === userId);
 
@@ -143,24 +147,28 @@
         produkprevious.value = selekproduk.stock;
       } else {
         produkkode.value = "";
+        produkspec.value = "";
+        produkprevious.value = "";
       }
     });
 
+    // Fungsi untuk menghitung dan mengisi kolom "Remain" saat "Used" diubah
     produkused.addEventListener("input", function () {
-  console.log("Script executed");
-  const usedValue = parseFloat(produkused.value);
-  const previousValue = parseFloat(produkprevious.value);
+      const usedValue = parseFloat(produkused.value);
+      const previousValue = parseFloat(produkprevious.value);
 
-  if (!isNaN(usedValue) && !isNaN(previousValue)) {
-    const updatedRemain = previousValue - usedValue;
-    produkremain.value = updatedRemain;
-  }
-});
+      if (!isNaN(usedValue) && !isNaN(previousValue)) {
+        const updatedRemain = previousValue - usedValue;
+        produkremain.value = updatedRemain;
+      } else {
+        produkremain.value = ""; // Reset jika input tidak valid
+      }
+    });
 
+    // Fungsi untuk mengisi kolom-kolom terkait saat memilih nama produk di modal edit
     produknamaedit.addEventListener("change", function () {
-      console.log("Script executed");
       const selekprodukNameedit = produknamaedit.value;
-      const selekprodukedit = dataproduk.find(product => product.name === selekprodukNameedit);
+      const selekprodukedit = dataprodukeditedit.find(product => product.name === selekprodukNameedit);
 
       if (selekprodukedit) {
         produkkodeedit.value = selekprodukedit.product_id;
@@ -168,25 +176,41 @@
         produkpreviousedit.value = selekprodukedit.stock;
       } else {
         produkkodeedit.value = "";
+        produkspecedit.value = "";
+        produkpreviousedit.value = "";
       }
     });
-    produkusededit.addEventListener("input", function () {
-  console.log("Script executed");
-  const usedValueedit = parseFloat(produkusededit.value);
-  const previousValueedit = parseFloat(produkpreviousedit.value);
 
-  if (!isNaN(usedValueedit) && !isNaN(previousValueedit)) {
-    const updatedRemainedit = previousValueedit - usedValueedit;
-    produkremainedit.value = updatedRemainedit;
-  }
-});
+    // Fungsi untuk menghitung dan mengisi kolom "Remain" di modal edit saat "Used" diubah
+    produkusededit.addEventListener("input", function () {
+      const usedValueedit = parseFloat(produkusededit.value);
+      const previousValueedit = parseFloat(produkpreviousedit.value);
+
+      if (!isNaN(usedValueedit) && !isNaN(previousValueedit)) {
+        const updatedRemainedit = previousValueedit - usedValueedit;
+        produkremainedit.value = updatedRemainedit;
+      } else {
+        produkremainedit.value = ""; // Reset jika input tidak valid
+      }
+    });
   });
 </script>
 
 
 
+
  <div class="row">
   <div class="table-responsive">
+
+             {{-- Notifikasi --}}
+             <div class="alert alert-success" id="successMessagestoedit" style="display: none;">
+              Stock Status edited successfully.
+          </div>
+          <div class="alert alert-success" id="successMessagestodel" style="display: none;">
+            Stock Status delete successfully.
+        </div>
+        {{-- End Notifikasi --}}
+
     <table id="tablestock" class="display table table-hover" >
         <thead>
             <tr>
@@ -330,109 +354,153 @@
               contentType: false,
               data: formData,
               success: function(data) {
-    console.log(data); // Tampilkan respons dari server di konsol
-    getstock();
-  },
-  error: function(xhr, textStatus, errorThrown) {
-    console.log(xhr.responseText); // Tampilkan pesan kesalahan jika terjadi
-  }
-          });
+               // Tampilkan pesan notifikasi
+               $('#successMessagesto').show();
 
-          return false;
+              // Sembunyikan pesan notifikasi setelah beberapa detik (jika diperlukan)
+              setTimeout(function() {
+                  $('#successMessagesto').hide();
+              }, 5000);
+
+          $('#stock_date_input').val('');
+          $('#productkode').val('');
+          $('#productnama').val('');
+          $('#spec').val('');
+          $('#previous').val('');
+          $('#received').val('');
+          $('#used_stock').val('');
+          $('#transfered').val('');
+          $('#sounding').val('');
+          $('#remain').val('');
+
+              getstock();
+            },
+        error: function(xhr, status, error) {
+            // Tampilkan pesan notifikasi gagal
+            $('#successMessagesto').text('Failed to Add Stock Status. Please check the form fields.');
+            $('#successMessagesto').removeClass('alert-success').addClass('alert-danger').show();
+            setTimeout(function() {
+                                  $('#successMessagesto').hide();
+                              }, 5000);
+        }
+                  });
+
+                  return false;
+              });
+
+              function deletestock(id) {
+          $.ajax({
+            type: 'POST', // Ubah metode menjadi POST
+            url: '{{ route('stock.deletestock') }}',
+            data: {
+              _token: $('#_tokenAdd').val(),
+              id: id
+            },
+            success: function(data) {
+              $('#delete_modal_stock').modal('hide');
+                $('#successMessagestodel').show();
+
+                  // Sembunyikan pesan notifikasi setelah beberapa detik (jika diperlukan)
+                  setTimeout(function() {
+                  $('#successMessagestodel').hide();
+                  }, 5000);
+
+              getstock();
+            }
+          });
+        }
+
+              $('#tablestock').on('click', '.baggage_hapus', function() {
+                idToDelete = $(this).attr('data');
+                $('#delete_modal_stock').modal('show');
+              });
+
+              $('#confirm_delete_stock').on('click', function() {
+                if (idToDelete) {
+                  deletestock(idToDelete);
+                  idToDelete = null;
+                }
+              });
+          // Function to edit a Stock Status
+                function editstock(id) {
+                var formData = new FormData();
+                formData.append('_method', 'PUT'); // Menggunakan metode PUT untuk edit
+                formData.append('_token', $('#_tokenAdd').val());
+                formData.append('date', $('#edit_datestock').val());
+                formData.append('code_product', $('#edit_productkode').val());
+                formData.append('name_product', $('#edit_productnama').val());
+                formData.append('spec', $('#edit_spec').val());
+                formData.append('previous', $('#edit_previous').val());
+                formData.append('received', $('#edit_received').val());
+                formData.append('used', $('#edit_used1').val());
+                formData.append('transfered', $('#edit_transfered').val());
+                formData.append('sounding', $('#edit_sounding').val());
+                formData.append('remain', $('#edit_remain').val());
+                formData.append('user_input', $('#user_input').val());
+
+      $.ajax({
+      type: 'POST', // Anda juga bisa gunakan method PUT sesuai kebutuhan Anda
+      url: '/stock/' + id, // Ubah URL sesuai dengan rute yang benar
+      processData: false,
+      contentType: false,
+      data: formData,
+      success: function(data) {
+      $('#editModalstock').modal('hide');
+      $('#successMessagestoedit').show();
+
+                          // Sembunyikan pesan notifikasi setelah beberapa detik (jika diperlukan)
+                          setTimeout(function() {
+                              $('#successMessagestoedit').hide();
+                          }, 5000);
+      getstock();
+      },
+        error: function(xhr, status, error) {
+            // Tampilkan pesan notifikasi gagal
+            $('#successMessagestoeditmo').text('Failed to edit Stock Status. Please check the form fields.');
+            $('#successMessagestoeditmo').removeClass('alert-success').addClass('alert-danger').show();
+            setTimeout(function() {
+                                  $('#successMessagestoeditmo').hide();
+                              }, 5000);
+        }
+      });
+      }
+
+      // Function to populate the edit modal
+      function populateEditModal(id) {
+      $.ajax({
+      type: 'GET',
+      url: '/stock/' + id,
+      async: true,
+      dataType: 'json',
+      success: function(data) {
+        $('#edit_id').val(data.id);
+        $('#edit_datestock').val(data.date);
+        $('#edit_productkode').val(data.code_product);
+        $('#edit_productnama').val(data.name_product);
+        $('#edit_spec').val(data.spec);
+        $('#edit_previous').val(data.previous);
+        $('#edit_received').val(data.received);
+        $('#edit_used1').val(data.used);
+        $('#edit_transfered').val(data.transfered);
+        $('#edit_sounding').val(data.sounding);
+        $('#edit_remain').val(data.remain);
+      }
+      });
+      }
+
+      $('#tablestock').on('click', '.baggage_edit', function() {
+      idToEdit = $(this).attr('data');
+      populateEditModal(idToEdit);
+      $('#editModalstock').modal('show');
       });
 
-      function deletestock(id) {
-  $.ajax({
-    type: 'POST', // Ubah metode menjadi POST
-    url: '{{ route('stock.deletestock') }}',
-    data: {
-      _token: $('#_tokenAdd').val(),
-      id: id
-    },
-    success: function(data) {
-      $('#delete_modal_stock').modal('hide');
-      getstock();
-    }
-  });
-}
-
-$('#tablestock').on('click', '.baggage_hapus', function() {
-  idToDelete = $(this).attr('data');
-  $('#delete_modal_stock').modal('show');
-});
-
-$('#confirm_delete_stock').on('click', function() {
-  if (idToDelete) {
-    deletestock(idToDelete);
-    idToDelete = null;
-  }
-});
-     // Function to edit a daily activity
-function editstock(id) {
-var formData = new FormData();
-formData.append('_method', 'PUT'); // Menggunakan metode PUT untuk edit
-formData.append('_token', $('#_tokenAdd').val());
-formData.append('date', $('#edit_datestock').val());
-          formData.append('code_product', $('#productkode').val());
-          formData.append('name_product', $('#productnama').val());
-          formData.append('spec', $('#spec').val());
-          formData.append('previous', $('#previous').val());
-          formData.append('received', $('#received').val());
-          formData.append('used', $('#used_stock').val());
-          formData.append('transfered', $('#transfered').val());
-          formData.append('sounding', $('#sounding').val());
-          formData.append('remain', $('#remain').val());
-          formData.append('user_input', $('#user_input').val());
-
-$.ajax({
-type: 'POST', // Anda juga bisa gunakan method PUT sesuai kebutuhan Anda
-url: '/stock/' + id, // Ubah URL sesuai dengan rute yang benar
-processData: false,
-contentType: false,
-data: formData,
-success: function(data) {
-$('#editModalstock').modal('hide');
-getstock();
-}
-});
-}
-
-// Function to populate the edit modal
-function populateEditModal(id) {
-$.ajax({
-type: 'GET',
-url: '/stock/' + id,
-async: true,
-dataType: 'json',
-success: function(data) {
-  $('#edit_id').val(data.id);
-  $('#edit_datestock').val(data.date);
-  $('#edit_productkode').val(data.productkode);
-  $('#edit_productnama').val(data.productnama);
-  $('#edit_spec').val(data.spec);
-  $('#edit_previous').val(data.previous);
-  $('#edit_received').val(data.received);
-  $('#edit_used1').val(data.used);
-  $('#edit_transfered').val(data.transfered);
-  $('#edit_sounding').val(data.sounding);
-  $('#edit_remain').val(data.remain);
-}
-});
-}
-
-$('#tablestock').on('click', '.baggage_edit', function() {
-idToEdit = $(this).attr('data');
-populateEditModal(idToEdit);
-$('#editModalstock').modal('show');
-});
-
-$('#confirm-Edit-stock').on('click', function() {
-if (idToEdit) {
-editstock(idToEdit);
-idToEdit = null;
-}
-});
-});
+      $('#confirm-Edit-stock').on('click', function() {
+      if (idToEdit) {
+      editstock(idToEdit);
+      idToEdit = null;
+      }
+      });
+      });
 </script>   
   
   

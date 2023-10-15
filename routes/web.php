@@ -78,7 +78,7 @@ Route::middleware(['web','auth'])->group(function () {
         Route::put('/daily-activities/{id}', [App\Http\Controllers\VDRController::class, 'editDailyActivity'])->name('dailyactivities.editdaily'); // Tambahkan route ini
              
         Route::get('/running/{id}', [App\Http\Controllers\VDRController::class, 'getrunning'])->name('running.getrunning');
-        Route::post('/running/{id}', [App\Http\Controllers\VDRController::class, 'editrunning'])->name('running.editrunning'); 
+        Route::put('/running/{id}', [App\Http\Controllers\VDRController::class, 'editrunning'])->name('running.editrunning'); 
         
         Route::get('/consumption/{id}', [App\Http\Controllers\VDRController::class, 'getconsumption'])->name('consumption.getconsumption');
         Route::put('/consumption/{id}', [App\Http\Controllers\VDRController::class, 'editconsumption'])->name('consumption.editconsumption'); 

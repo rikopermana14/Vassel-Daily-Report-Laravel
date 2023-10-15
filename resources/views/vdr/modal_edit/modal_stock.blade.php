@@ -9,6 +9,9 @@
                 </button>
             </div>
             <div class="modal-body">
+              <div class="alert alert-success" id="successMessagestoeditmo" style="display: none;">
+                    Daily activity edited successfully.
+                </div>
                 <!-- Form for editing daily activity -->
                 <form id="editstockForm">
                     <input type="hidden" name="edit_idstock" id="edit_idstock"> <!-- Hidden input for the ID -->
@@ -31,7 +34,6 @@
                   <div class="form-group">
                     <label>Product Name</label>
                     <select class="form-control" name="edit_product_name" id="edit_productnama">
-                      <option value="">-Pilih Product-</option>
                       @foreach ($data1 as $item)
                         <option value="{{ $item->name }}">{{ $item->name }}</option>
                       @endforeach

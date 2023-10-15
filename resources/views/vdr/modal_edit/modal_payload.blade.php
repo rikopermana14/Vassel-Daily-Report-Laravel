@@ -9,6 +9,9 @@
                 </button>
             </div>
             <div class="modal-body">
+              <div class="alert alert-success" id="successMessagepyeditmo" style="display: none;">
+                Daily activity edited successfully.
+            </div>
                 <!-- Form for editing daily activity -->
                 <form id="editconsumptionForm">
                     <input type="hidden" name="edit_id_payload" id="edit_id_payload"> <!-- Hidden input for the ID -->

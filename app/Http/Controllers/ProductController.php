@@ -76,15 +76,24 @@ class ProductController extends Controller
             'Volume' => 'required',
             'stock' => 'required',
             'vessel' => 'required',
+        ], [
+            'required' => 'The field cannot be empty.',
         ]);
 
+        try {
         // untuk menaruh foto ke folder image
-        $imagePath = null;
         if ($request->hasFile('Product_Image')) {
             $image = $request->file('Product_Image');
-            $imagePath =date('YmdHis') . '.' . $image->getClientOriginalExtension();
+            $allowedMimes = ['jpeg', 'png', 'jpg', 'gif'];
+    
+            if (!in_array($image->getClientOriginalExtension(), $allowedMimes)) {
+                return redirect()->route('product')->withErrors('Wrong type file. Allowed file types are: jpeg, png, jpg, gif');
+            }
+    
+            $imagePath = date('YmdHis') . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('image'), $imagePath);
         }
+    
 
         Product::create([
             'product_id' => $request->input('ID_Product_Code'),
@@ -104,6 +113,10 @@ class ProductController extends Controller
         ]);
 
         return redirect()->route('product')->with('success', 'Inventory created successfully.');
+    } catch (\Exception $e) {
+        // Tangkap kesalahan dan kirim notifikasi kesalahan
+        return redirect()->route('product')->withErrors('Failed to create inventory.');
+    }
     }
 
     /**
@@ -157,6 +170,8 @@ class ProductController extends Controller
             'Product_Image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'stock' => 'required',
             'vessel' => 'required',
+        ], [
+            'required' => 'The field cannot be empty.',
         ]);
         $product = Product::find($id);
 

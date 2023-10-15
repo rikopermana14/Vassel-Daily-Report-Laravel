@@ -5,6 +5,7 @@
             <tr>
                 <th>Date</th>
         <th>Vessel Name</th>
+        <th>Distance Run</th>
         <th>Total Distance Run</th>
         <th>Vessel Group</th>
         <th>Time Run</th>
@@ -37,6 +38,7 @@
             <tr>
                 <th>Date</th>
         <th>Vessel Name</th>
+        <th>Distance Run</th>
         <th>Total Distance Run</th>
         <th>Vessel Group</th>
         <th>Time Run</th>
@@ -69,6 +71,7 @@
             <tr>      
                 <td>{{ $booking->date }}</td>
         <td>{{ $booking->vessel_name }}</td>
+        <td>{{ $booking->distance_run }}</td>
         <td>{{ $booking->total_distance }}</td>
         <td>{{ $booking->vessel_group }}</td>
         <td>{{ $booking->time_run }}</td>

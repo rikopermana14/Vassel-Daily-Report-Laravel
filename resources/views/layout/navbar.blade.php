@@ -35,7 +35,7 @@
       
       <script>
       function confirmLogout() {
-          if (confirm('Apakah Anda yakin ingin keluar?')) {
+          if (confirm('Are you sure want to logout?')) {
               document.getElementById('logout-form').submit();
           }
       }

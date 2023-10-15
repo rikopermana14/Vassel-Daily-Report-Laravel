@@ -2,6 +2,13 @@
         <div class="row">
          <div class="col-sm-6">
            <div class="form-group">
+
+                        {{-- Notifikasi --}}
+                        <div class="alert alert-success" id="successMessagerun" style="display: none;">
+                          Running Hours Machine added successfully.
+                      </div>
+                      {{-- end Notifikas --}}
+
              <label>Date</label>
              <div class="input-group date" id="running_hours_date" data-target-input="nearest">
               <input name="running_hours_date" id="running_hours_date_input" type="text" class="form-control datetimepicker-input" data-target="#running_hours_date"/>
@@ -93,6 +100,14 @@
 
        <div class="row">
         <div class="table-responsive">
+                   {{-- Notifikasi --}}
+         <div class="alert alert-success" id="successMessagerunedit" style="display: none;">
+          Running Hours Machine edited successfully.
+      </div>
+      <div class="alert alert-success" id="successMessagerundel" style="display: none;">
+        Running Hours Machine delete successfully.
+    </div>
+    {{-- End Notifikasi --}}
           <table id="tablerunning" class="display table table-hover" >
               <thead>
                   <tr>
@@ -231,10 +246,33 @@
                     contentType: false,
                     data: formData,
                     success: function(data) {
-                        {{--  console.log(data);  --}}
-                        //$('#addBaggageModal').modal('hide');
+                         // Tampilkan pesan notifikasi
+                         $('#successMessagerun').show();
+
+                            // Sembunyikan pesan notifikasi setelah beberapa detik (jika diperlukan)
+                            setTimeout(function() {
+                                $('#successMessagerun').hide();
+                            }, 5000);
+
+                            $('#running_hours_date_input').val('');
+                            $('#machine').val('');
+                            $('#towing').val('');
+                            $('#manouver').val('');
+                            $('#slow').val('');
+                            $('#economi').val('');
+                            $('#full_speed').val('');
+                            $('#standby').val('');
+                              
                         getrunning();
-                    }
+                    },
+        error: function(xhr, status, error) {
+            // Tampilkan pesan notifikasi gagal
+            $('#successMessagerun').text('Failed to Add Running Hours Machine. Please check the form fields.');
+            $('#successMessagerun').removeClass('alert-success').addClass('alert-danger').show();
+            setTimeout(function() {
+                                  $('#successMessagerun').hide();
+                              }, 5000);
+        }
                 });
 
                 return false;
@@ -251,6 +289,12 @@
                 },
                 success: function(data) {
                     $('#delete_modal_running').modal('hide');
+                      $('#successMessagerundel').show();
+
+                      // Sembunyikan pesan notifikasi setelah beberapa detik (jika diperlukan)
+                      setTimeout(function() {
+                      $('#successMessagerundel').hide();
+                      }, 5000);
                     getrunning();
                 }
             });
@@ -267,7 +311,7 @@
                 idToDelete = null;
             }
         });
-                   // Function to edit a daily activity
+                   // Function to edit a Running Hours Machine
     function editrunning(id) {
       var formData = new FormData();
     formData.append('_method', 'PUT'); // Menggunakan metode PUT untuk edit
@@ -284,14 +328,28 @@
 
     $.ajax({
         type: 'POST', // Anda juga bisa gunakan method PUT sesuai kebutuhan Anda
-        url: 'running/' + id, // Ubah URL sesuai dengan rute yang benar
+        url: '/running/' + id, // Ubah URL sesuai dengan rute yang benar
         processData: false,
         contentType: false,
         data: formData,
         success: function(data) {
             $('#editModalrunning').modal('hide');
+                  $('#successMessagerunedit').show();
+
+                    // Sembunyikan pesan notifikasi setelah beberapa detik (jika diperlukan)
+                    setTimeout(function() {
+                        $('#successMessagerunedit').hide();
+                    }, 5000);
             getrunning();
-            }
+            },
+        error: function(xhr, status, error) {
+            // Tampilkan pesan notifikasi gagal
+            $('#successMessageruneditmo').text('Failed to edit Running Hours Machine. Please check the form fields.');
+            $('#successMessageruneditmo').removeClass('alert-success').addClass('alert-danger').show();
+            setTimeout(function() {
+                                  $('#successMessageruneditmo').hide();
+                              }, 5000);
+        }
         });
     }
 
@@ -317,7 +375,7 @@
     }
 
     $('#tablerunning').on('click', '.baggage_edit', function() {
-      var idToEdit = $(this).attr('data');
+       idToEdit = $(this).attr('data');
     console.log('ID yang akan diedit:', idToEdit);
         populateEditModal(idToEdit);
         $('#editModalrunning').modal('show');

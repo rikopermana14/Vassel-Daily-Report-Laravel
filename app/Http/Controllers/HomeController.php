@@ -47,8 +47,9 @@ public function store(Request $request)
         'email' => 'required|email|unique:users',
         'password' => 'required|min:6',
         'roles' => 'required|array',
+    ], [
+        'required' => 'The field cannot be empty.',
     ]);
-
     $user = User::create([
         'name' => $request->name,
         'email' => $request->email,
@@ -74,6 +75,8 @@ public function update(Request $request, User $user)
             'edit_email3' => 'required|email',
             'edit_password3' => 'nullable|min:6',
             // Add other fields validation here
+        ], [
+            'required' => 'The field cannot be empty.',
         ]);
 
         // Update user's name and other fields as needed

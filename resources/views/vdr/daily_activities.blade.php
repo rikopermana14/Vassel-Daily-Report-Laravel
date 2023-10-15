@@ -2,6 +2,9 @@
                     <div class="row">
                    <div class="col-sm-6">
                    <div class="form-group">
+                    <div class="alert alert-success" id="successMessage" style="display: none;">
+                      Daily activity added successfully.
+                  </div>
                      <label>Date</label>
                      <div class="input-group date" id="daily_date" data-target-input="nearest">
                       <input name="daily_date" id="daily_date_input" type="text" class="form-control datetimepicker-input" data-target="#daily_date"/>
@@ -47,6 +50,12 @@
 
                 <div class="row">
                   <div class="table-responsive">
+                    <div class="alert alert-success" id="successMessageedit" style="display: none;">
+                      Daily activity edited successfully.
+                  </div>
+                  <div class="alert alert-success" id="successMessagedel" style="display: none;">
+                    Daily activity delete successfully.
+                </div>
                     <table id="tabledaily" class="display table table-hover" >
                         <thead>
                             <tr>
@@ -173,14 +182,36 @@
                               contentType: false,
                               data: formData,
                               success: function(data) {
-                                  {{--  console.log(data);  --}}
-                                  //$('#addBaggageModal').modal('hide');
-                                  getdaily();
-                              }
-                          });
-                          
-                          return false;
-                      });
+                // Tampilkan pesan notifikasi sukses
+                $('#successMessage').text('Daily activity added successfully.');
+                $('#successMessage').removeClass('alert-danger').addClass('alert-success').show();
+                // Bersihkan formulir atau lakukan tindakan lain yang diperlukan
+                $('#daily_date_input').val('');
+                $('#time_from').val('');
+                $('#time_to').val('');
+                $('#description').val('');
+
+
+            // Sembunyikan pesan notifikasi setelah beberapa detik (jika diperlukan)
+            setTimeout(function() {
+                $('#successMessage').hide();
+            }, 5000);
+
+            // Muat data
+            getdaily();
+        },
+        error: function(xhr, status, error) {
+            // Tampilkan pesan notifikasi gagal
+            $('#successMessage').text('Failed to edit Daily Activity. Please check the form fields.');
+            $('#successMessage').removeClass('alert-success').addClass('alert-danger').show();
+            setTimeout(function() {
+                                  $('#successMessage').hide();
+                              }, 5000);
+        }
+    });
+    
+    return false;
+});
 
 
                       //untuk dellete 
@@ -194,8 +225,22 @@
                 },
                 success: function(data) {
                     $('#deleteModal').modal('hide');
+                    $('#successMessagedel').show();
+
+                              // Sembunyikan pesan notifikasi setelah beberapa detik (jika diperlukan)
+                              setTimeout(function() {
+                                  $('#successMessagedel').hide();
+                              }, 5000);
                     getdaily();
-                }
+                },
+        error: function(xhr, status, error) {
+            // Tampilkan pesan notifikasi gagal
+            $('#successMessagedel').text('Failed to add Daily Activity. Please check the form fields.');
+            $('#successMessagedel').removeClass('alert-success').addClass('alert-danger').show();
+            setTimeout(function() {
+                                  $('#successMessage1').hide();
+                              }, 5000);
+        }
             });
         }
 
@@ -232,8 +277,22 @@
         data: formData,
         success: function(data) {
             $('#editModal').modal('hide');
+            $('#successMessageedit').show();
+
+                              // Sembunyikan pesan notifikasi setelah beberapa detik (jika diperlukan)
+                              setTimeout(function() {
+                                  $('#successMessageedit').hide();
+                              }, 5000);
             getdaily();
-            }
+            },
+        error: function(xhr, status, error) {
+            // Tampilkan pesan notifikasi gagal
+            $('#successMessageeditmo').text('Failed to edit Daily Activity. Please check the form fields.');
+            $('#successMessageeditmo').removeClass('alert-success').addClass('alert-danger').show();
+            setTimeout(function() {
+                                  $('#successMessageeditmo').hide();
+                              }, 5000);
+        }
         });
     }
 

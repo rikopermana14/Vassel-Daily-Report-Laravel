@@ -9,6 +9,9 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div class="alert alert-success" id="successMessageruneditmo" style="display: none;">
+                    Daily activity edited successfully.
+                </div>
                 <!-- Form for editing daily activity -->
                 <form id="editrunningForm">
                     <input type="hidden" name="edit_idrunning" id="edit_idrunning"> <!-- Hidden input for the ID -->
@@ -20,34 +23,37 @@
                         <label for="edit_machine">Machine</label>
                         <select class="form-control"name="edit_machine" id="edit_machine">
                             <option>A/E 1</option>
-                            <option>A/E 2</option>
-                            <option>M/E 1</option>                      
-                            <option>M/E 2</option>
+                      <option>A/E 2</option>
+                      <option>M/E 1</option>                      
+                      <option>M/E 2</option>
+                      <option>GB 1</option>                      
+                      <option>GB 2</option>
+                      <option>Emergency Genset 2</option>
                           </select>
                     </div>
                     <div class="form-group">
                         <label for="edit_towing">Run Hours Towing</label>
-                        <input type="text" class="form-control" name="edit_towing" id="edit_towing">
+                        <input type="time" class="form-control" name="edit_towing" id="edit_towing">
                     </div>
                     <div class="form-group">
                         <label for="edit_manouver">Run Hours Manouver</label>
-                        <input class="form-control" name="edit_manouver" id="edit_manouver" >
+                        <input type="time" class="form-control" name="edit_manouver" id="edit_manouver" >
                     </div>
                     <div class="form-group">
                         <label for="edit_slow">Run Hours Slow</label>
-                        <input class="form-control" name="edit_slow" id="edit_slow" >
+                        <input type="time" class="form-control" name="edit_slow" id="edit_slow" >
                     </div>
                     <div class="form-group">
                         <label for="edit_economi">Run Hours Economi</label>
-                        <input class="form-control" name="edit_economi" id="edit_economi" >
+                        <input type="time" class="form-control" name="edit_economi" id="edit_economi" >
                     </div>
                     <div class="form-group">
                         <label for="edit_full_speed">Run Hours Full Speed</label>
-                        <input class="form-control" name="edit_full_speed" id="edit_full_speed" >
+                        <input type="time" class="form-control" name="edit_full_speed" id="edit_full_speed" >
                     </div>
                     <div class="form-group">
                         <label for="edit_standby">Run Hours Stand BY</label>
-                        <input class="form-control" name="edit_standby" id="edit_standby" >
+                        <input type="time" class="form-control" name="edit_standby" id="edit_standby" >
                     </div>
                 </form>
             </div>

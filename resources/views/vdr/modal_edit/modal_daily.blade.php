@@ -9,6 +9,9 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div class="alert alert-success" id="successMessageeditmo" style="display: none;">
+                    Daily activity edited successfully.
+                </div>
                 <!-- Form for editing daily activity -->
                 <form id="editForm">
                     <input type="hidden" name="edit_id" id="edit_id"> <!-- Hidden input for the ID -->

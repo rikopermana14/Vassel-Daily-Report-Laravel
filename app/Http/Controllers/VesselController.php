@@ -106,6 +106,8 @@ class VesselController extends Controller
             'Horse_Power' => 'required',
             'vessel' => 'required',
 
+        ], [
+            'required' => 'The field cannot be empty.',
         ]);
 
          // Menghasilkan Vessel ID
@@ -235,6 +237,8 @@ class VesselController extends Controller
             'Speed_Min' => 'required',
             'Horse_Power' => 'required',
             'vessel' => 'required',
+        ], [
+            'required' => 'The field cannot be empty.',
         ]);
         $vessel = Vessel::find($id);
 
