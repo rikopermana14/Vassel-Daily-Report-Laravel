@@ -2,12 +2,13 @@
 @section('content')
 
 @if(session('success'))
-    <div class="alert alert-success">
+    <div class="alert alert-success" id="success-alert">
         {{ session('success') }}
     </div>
 @endif
+
 @if($errors->any())
-    <div class="alert alert-danger">
+    <div class="alert alert-danger" id="error-alert">
         <ul>
             @foreach($errors->all() as $error)
                 <li>{{ $error }}</li>
@@ -15,6 +16,13 @@
         </ul>
     </div>
 @endif
+<script>
+  // Fungsi untuk menghilangkan notifikasi dalam 5 detik
+  setTimeout(function() {
+    $('#success-alert').hide();
+                                  $('#error-alert').hide();
+                              }, 5000);
+</script>
 <!-- Main content -->
 <div class="wrapper">
     <!-- Content Header (Page header) -->
@@ -22,12 +30,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Vessel Add</h1>
+            <h1>{{ $pageTitle }}</h1> 
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Vessel Add</li>
+              <li class="breadcrumb-item">Home</a></li>
+              <li class="breadcrumb-item active">{{ $pageTitle }}</li>
             </ol>
           </div>
         </div>

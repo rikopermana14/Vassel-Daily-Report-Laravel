@@ -36,7 +36,8 @@ class ProductController extends Controller
         $users = User::whereHas('roles', function($query) {
             $query->where('name', 'vessel');
         })->get();
-        return view('product.add',compact('users'));
+        $pageTitle = 'Inventory Add';
+        return view('product.add',compact('users','pageTitle'));
     }
     public function index()
     {
@@ -142,7 +143,8 @@ class ProductController extends Controller
             $query->where('name', 'vessel');
         })->get();
         $product = Product::find(Crypt::decrypt($id));
-        return view('product.add', ['product' => $product],compact('users'));
+        $pageTitle = 'Inventory Edit';
+        return view('product.add', ['product' => $product],compact('users','pageTitle'));
     }
 
     /**

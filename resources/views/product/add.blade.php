@@ -2,14 +2,14 @@
 @section('content')
 
 
-@if($errors->has('Product_Image'))
-    <div class="alert alert-danger">
-        {{ $errors->first('Product_Image') }}
+@if(session('success'))
+    <div class="alert alert-success" id="success-alert">
+        {{ session('success') }}
     </div>
 @endif
 
 @if($errors->any())
-    <div class="alert alert-danger">
+    <div class="alert alert-danger" id="error-alert">
         <ul>
             @foreach($errors->all() as $error)
                 <li>{{ $error }}</li>
@@ -17,6 +17,13 @@
         </ul>
     </div>
 @endif
+<script>
+  // Fungsi untuk menghilangkan notifikasi dalam 5 detik
+  setTimeout(function() {
+    $('#success-alert').hide();
+                                  $('#error-alert').hide();
+                              }, 5000);
+</script>
 
 
 <div class="wrapper">
@@ -25,12 +32,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Add Inventory </h1>
+            <h1>{{ $pageTitle }}</h1> 
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-product">Home/</li>
-              <li class="breadcrumb-product active">Add Inventory </li>
+              <li class="breadcrumb-item">Home</a></li>
+              <li class="breadcrumb-item active">{{ $pageTitle }}</li>
             </ol>
           </div>
         </div>
@@ -63,13 +70,13 @@
                     <label>Product Name</label>
               <input type="text" class="form-control" name="Product_Name" placeholder="Product Name"value="{{ isset($product) ? $product->name : '' }}">
               <p></p>
+
               <label>Product Type</label>
-          <select class="form-control select2bs4" name="ID_Product_Type" value="{{ isset($product) ? $product->type : '' }}">
-                     		<option value="AHU">Heating Ventilation Air Conditioning</option>
-                   		<option value="BMT">Building Material</option>
-                   		<option value="DEQ">Deck Equipment</option>
-                   		<option value=""></option>
-                     </select>
+          <select class="form-control select2bs4" name="ID_Product_Type">
+              <option value="AHU" {{ isset($product) && $product->type === 'AHU' ? 'selected' : '' }}>Heating Ventilation Air Conditioning</option>
+              <option value="BMT" {{ isset($product) && $product->type === 'BMT' ? 'selected' : '' }}>Building Material</option>
+              <option value="DEQ" {{ isset($product) && $product->type === 'DEQ' ? 'selected' : '' }}>Deck Equipment</option>
+          </select>
             </div>
             </div>
             <div class="col-sm">
@@ -95,12 +102,12 @@
             <div class="col-sm">
             <div class="form-group">
             <label>Unit</label>  
-            <select class="form-control" name="Product_Unit"value="{{ isset($product) ? $product->unit : '' }}">
-              <option>Liter</option>
-              <option>Tons</option>
-              <option>Bottle</option>
-              <option>Sachet</option>
-              <option>Unit</option>
+            <select class="form-control" name="Product_Unit">
+              <option value="Liter" {{ isset($product) && $product->unit === 'Liter' ? 'selected' : '' }}>Liter</option>
+              <option value="Tons" {{ isset($product) && $product->unit === 'Tons' ? 'selected' : '' }}>Tons</option>
+              <option value="Bottle" {{ isset($product) && $product->unit === 'Bottle' ? 'selected' : '' }}>Bottle</option>
+              <option value="Sachet" {{ isset($product) && $product->unit === 'Sachet' ? 'selected' : '' }}>Sachet</option>
+              <option value="Unit" {{ isset($product) && $product->unit === 'Unit' ? 'selected' : '' }}>Unit</option>
             </select>
             </div>
             </div>
@@ -148,9 +155,11 @@
               <label for="vessel">vessel:</label>
               <select name="vessel" id="vessel" class="form-control">
                   @foreach($users as $vessel)
-                  <option  value="{{ isset($vessel) ? $vessel->id : '' }}">{{ isset($vessel) ? $vessel->name : '' }}</option>
-  @endforeach
-</select>
+                  <option value="{{ $vessel->id }}" {{ isset($product) && $product->id_user == $vessel->id ? 'selected' : '' }}>
+                    {{ $vessel->name }}
+                  </option>
+              @endforeach
+            </select>
             </div>
             </div>
             </div>

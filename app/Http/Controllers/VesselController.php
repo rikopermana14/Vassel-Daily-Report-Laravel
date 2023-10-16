@@ -43,8 +43,9 @@ class VesselController extends Controller
     $vesselId = $vesselPrefix . $formattedNumber; // Menggabungkan dengan prefix
 
     session(['vesselId' => $vesselId]);
+    $pageTitle = 'Vessel Add';
 
-    return view('vessel.add.add', compact('users'));
+    return view('vessel.add.add', compact('users','pageTitle'));
 }
 
 
@@ -185,13 +186,16 @@ class VesselController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function editvessel($id)
-    {
-        $users = User::whereHas('roles', function($query) {
-            $query->where('name', 'vessel');
-        })->get();
-        $vessel = Vessel::find(Crypt::decrypt($id));
-        return view('vessel.add.add', ['vessel' => $vessel],compact('users'));
-    }
+{
+    $users = User::whereHas('roles', function($query) {
+        $query->where('name', 'vessel');
+    })->get();
+    $vessel = Vessel::find(Crypt::decrypt($id));
+    $pageTitle = 'Vessel Edit'; // Ubah nama halaman menjadi "Vessel Edit"
+    
+    return view('vessel.add.add', compact('vessel', 'users', 'pageTitle'));
+}
+
 
     /**
      * Update the specified resource in storage.
