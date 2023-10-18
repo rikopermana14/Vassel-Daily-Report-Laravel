@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Models\Vessel;
 use App\Models\User;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -31,7 +32,9 @@ class HomeController extends Controller
         $users = Auth::id();
         $user = Vessel::where('id_user', $users)->get();;
         $data=Vessel::all();
-        return view('index', compact('data','user'));
+
+        $inventory=Product::all();
+        return view('index', compact('data','user','inventory'));
     }
 
     public function create()

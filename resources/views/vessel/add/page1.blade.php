@@ -117,8 +117,10 @@
 <div class="form-group">
     <label for="vessel">Login</label>
     <select name="vessel" id="vessel" class="form-control">
-        @foreach($users as $vessel)
-        <option  value="{{ isset($vessel) ? $vessel->id : '' }}">{{ isset($vessel) ? $vessel->name : '' }}</option>
+        @foreach($users as $user)
+        <option value="{{ $user->id }}" {{ isset($vessel) && $vessel->id_user == $user->id ? 'selected' : '' }}>
+            {{ $user->name }}
+          </option>
 @endforeach
 </select>
   </div>

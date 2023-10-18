@@ -46,8 +46,8 @@ Route::middleware(['web','auth'])->group(function () {
     });
 
     // Rute operator
-    Route::middleware(['role:operation'])->group(function () {
-        Route::get('/operation-page', [App\Http\Controllers\HomeController::class, 'index'])->name('operation.page');
+    Route::middleware(['role:purchasing'])->group(function () {
+        Route::get('/purchasing-page', [App\Http\Controllers\HomeController::class, 'index'])->name('purchasing.page');
         Route::get('/daily-activities/{id}', [App\Http\Controllers\VDRController::class, 'getDailyActivity'])->name('dailyactivities.getdaily');
         Route::put('/daily-activities/{id}', [App\Http\Controllers\VDRController::class, 'editDailyActivity'])->name('dailyactivities.editdaily'); // Tambahkan route ini
              

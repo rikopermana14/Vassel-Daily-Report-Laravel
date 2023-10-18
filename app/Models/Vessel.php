@@ -47,27 +47,8 @@ class Vessel extends Model
         'horse_power',
     ];
 
-    // protected static function booted()
-    // {
-    //     static::creating(function ($vessel) {
-    //         $vessel->id = 'VSL' . static::generateId();
-    //     });
-    // }
-
-    // private static function generateId()
-    // {
-    //     // Mendapatkan ID terakhir yang disimpan dalam database
-    //     $lastId = static::latest('id')->value('id');
-
-    //     // Jika tidak ada data sebelumnya atau format ID tidak sesuai, mulai dari 1
-    //     if (!$lastId || !preg_match('/^VSL(\d+)$/', $lastId, $matches)) {
-    //         return 1;
-    //     }
-
-    //     // Dapatkan angka dari ID terakhir dan tambahkan 1
-    //     $number = (int)$matches[1] + 1;
-
-    //     // Format ulang ID dengan awalan "VSL" dan tambahkan angka nol di depan jika kurang dari 4 digit
-    //     return 'VSL' . str_pad($number, 4, '0', STR_PAD_LEFT);
-    // }
+    public function products()
+{
+    return $this->hasMany(Product::class, 'id_user', 'id_user');
+}
 }

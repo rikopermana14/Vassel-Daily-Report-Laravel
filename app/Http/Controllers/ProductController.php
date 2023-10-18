@@ -21,13 +21,13 @@ class ProductController extends Controller
         $users = User::whereHas('roles', function($query) {
             $query->where('name', 'vessel');
         })->get();
-        $data = Product::join('users', 'products.id_user', '=', 'users.id')
-        ->select('products.*','users.name as user',
+        $data = Product::join('users', 'inventory.id_user', '=', 'users.id')
+        ->select('inventory.*','users.name as user',
         )
         ->when($bioskopId, function ($query) use ($bioskopId) {
-            return $query->where('products.id_user', $bioskopId);
+            return $query->where('inventory.id_user', $bioskopId);
         })
-        ->latest('products.id')
+        ->latest('inventory.id')
         ->get();
         return view('product.product', compact('data','users'));
     }

@@ -184,7 +184,7 @@
         "lengthChange": true,
         "fixedHeader": true,
         "columnDefs": [
-            { "width": "10px", "targets": [0, 1] },
+            { "width": "10%", "targets": [0, 1] },
             { "width": "300px", "targets": [2, 3,4,5,6,7] }, // Mengatur lebar kolom pertama dan kedua
             // Mengatur lebar kolom keempat dan lainnya sesuai kebutuhan
         ],

@@ -100,6 +100,7 @@
                       <th>Product Alias</th>
                       <th>Spesification</th>
                       <th>Product Type</th>  
+                      <th>Stock</th>
                       <th>Vessel</th>     
                   </tr>
                                     </thead>
@@ -112,6 +113,7 @@
                       <th>Product Alias</th>
                       <th>Spesification</th>
                       <th>Product Type</th>
+                      <th>Stock</th>  
                       <th>Vessel</th>  
                   </tr>
                   </tfoot>
@@ -121,10 +123,11 @@
                         <td ><input type="radio"name="selected_product" class="select-product" data-product-id="{{ Crypt::encrypt($item->id) }}"></td>
                       <td>{{ $item->product_id }}</td>
                       <td>{{ $item->name }}</td>
-                      <td><img src="{{ asset('image').'/'.$item->image }}" class="img-round elevation-2" height="100" width="100"></td>
+                      <td><img src="{{ asset('image').'/'.$item->image }}" class="img-round elevation-2" height="80" width="80"></td>
                       <td>{{ $item->alias }}</td>
                       <td>{{ $item->spec }}</td>
                       <td>{{ $item->type }}</td>
+                      <td>{{ $item->stock }}</td>
                       <td>{{ $item->user }}</td>
                     </tr>
                       @endforeach
