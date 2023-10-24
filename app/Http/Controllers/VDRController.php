@@ -669,7 +669,7 @@ public function deletestock(Request $request)
             'size_grt' => $request->input('size'),
             'eta' => $request->input('eta'),
             'vessel_status' => $request->input('vessel_status'),
-            'user_input' => $userid,
+            'id_user' => $userid,
         ]);
         $vdrid = $vdr->id;
          
