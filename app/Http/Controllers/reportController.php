@@ -33,7 +33,7 @@ class ReportController extends Controller
         ->join('payload', 'vdr.id_payload', '=', 'payload.id_vdr')
         ->join('stock_status', 'vdr.id_stock_status', '=', 'stock_status.id_vdr')
         ->join('running_hours', 'vdr.id_running_hours', '=', 'running_hours.id_vdr')
-        ->join('users', 'vdr.user_input', '=', 'users.id')
+        ->join('users', 'vdr.id_user', '=', 'users.id')
         ->select('vdr.*','users.name as name_input',
         )
         ->when($bioskopId, function ($query) use ($bioskopId) {
@@ -48,10 +48,10 @@ class ReportController extends Controller
         
 
     // Jalankan query dan kembalikan hasilnya
-    $getbooking = vdr::join('users', 'vdr.user_input', '=', 'users.id')
+    $getbooking = vdr::join('users', 'vdr.id_user', '=', 'users.id')
     ->select('vdr.*','users.name as userg',)
     ->when($bioskopId, function ($getbooking) use ($bioskopId) {
-        return $getbooking->where('user_input', $bioskopId);
+        return $getbooking->where('id_user', $bioskopId);
     })
     ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
         return $query->whereBetween('vdr.date', [$startDate, $endDate]);
@@ -142,10 +142,10 @@ class ReportController extends Controller
         
 
     // Jalankan query dan kembalikan hasilnya
-    $getbooking = vdr::join('users', 'vdr.user_input', '=', 'users.id')
+    $getbooking = vdr::join('users', 'vdr.id_user', '=', 'users.id')
     ->select('vdr.*','users.name as userg',)
     ->when($bioskopId, function ($getbooking) use ($bioskopId) {
-        return $getbooking->where('user_input', $bioskopId);
+        return $getbooking->where('id_user', $bioskopId);
     })
     ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
         return $query->whereBetween('vdr.date', [$startDate, $endDate]);
@@ -208,24 +208,26 @@ class ReportController extends Controller
     ->get();
 
     // Generate PDF using the retrieved data
-    $html = view('report.laporan_pdf', compact('getbooking','daily_activitiy','consumption','payload','stock_status','running_hours','users','startDate','endDate'))->render();
+// Generate PDF using the retrieved data
+$html = view('report.laporan_pdf', compact('getbooking', 'daily_activitiy', 'consumption', 'payload', 'stock_status', 'running_hours', 'users', 'startDate', 'endDate'))->render();
 
-    $dompdf = new Dompdf();
+$dompdf = new Dompdf();
 
-    // Load HTML into the PDF
-    $dompdf->loadHtml($html);
+// Load HTML into the PDF
+$dompdf->loadHtml($html);
 
-    // Set paper size and orientation
-    $dompdf->setPaper('A4', 'landscape');
+// Set paper size and orientation
+$dompdf->setPaper('A4', 'landscape');
 
-    // Render the HTML as PDF
-    $dompdf->render();
+// Render the HTML as PDF
+$dompdf->render();
 
-    // Set the PDF download filename
-    $filename = 'Vessel Daily Report-' . date('Y-m-d-His') . '.pdf';
+// Set the PDF download filename
+$filename = 'Vessel Daily Report-' . date('Y-m-d-His') . '.pdf';
 
-    // Download the PDF file
-    $dompdf->stream($filename);
+// Download the PDF file
+$dompdf->stream($filename);
+
 }
 
 }
