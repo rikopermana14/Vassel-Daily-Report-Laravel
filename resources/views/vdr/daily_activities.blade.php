@@ -186,7 +186,7 @@
                 $('#successMessage').text('Daily activity added successfully.');
                 $('#successMessage').removeClass('alert-danger').addClass('alert-success').show();
                 // Bersihkan formulir atau lakukan tindakan lain yang diperlukan
-                $('#daily_date_input').val('');
+
                 $('#time_from').val('');
                 $('#time_to').val('');
                 $('#description').val('');

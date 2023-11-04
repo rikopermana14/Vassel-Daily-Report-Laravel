@@ -269,7 +269,7 @@
                               }, 5000);
 
                                 // Bersihkan formulir atau lakukan tindakan lain yang diperlukan
-                              $('#comsumption_date_input').val('');
+                          
                         $('#machine_consumption').val('');
                         $('#code_product').val('');
                          $('#name_product').val('');

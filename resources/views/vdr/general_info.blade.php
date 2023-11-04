@@ -48,7 +48,7 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Time Run</label>
-          <input type="text" name="time_run" class="form-control">
+          <input type="time" name="time_run" class="form-control">
         </div>
         </div>
       </div>
@@ -64,7 +64,7 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Total Time Run</label>
-          <input type="text" name="total_time" class="form-control">
+          <input type="time" name="total_time" class="form-control">
         </div>
         </div>
       </div>
@@ -181,7 +181,7 @@
         <div class="col-sm-6">
         <div class="form-group">
           <label>Temperature</label>
-        <input type="text" name="temperature" class="form-control">
+          <input type="text" name="temperature" class="form-control" id="temperature">
         </div>
         </div>
         <div class="col-sm-6">
@@ -226,3 +226,19 @@
       </div>
 
       </div>
+      <script>
+        // Mendapatkan elemen input
+        var temperatureInput = document.getElementById("temperature");
+    
+        // Menambahkan event listener untuk perubahan input
+    temperatureInput.addEventListener("input", function () {
+        // Mengambil nilai yang dimasukkan oleh pengguna
+        var enteredValue = temperatureInput.value;
+
+        // Menghilangkan "°C" jika ada
+        enteredValue = enteredValue.replace("°C", "");
+
+        // Menambahkan "°C" kembali
+        temperatureInput.value = enteredValue + "°C";
+    });
+</script>

@@ -522,10 +522,12 @@ public function addstock(Request $request)
         // Hitung sisa stok
         $pre = $addstock->previous;
         $us = $addstock->used;
-        $data = $pre - $us;
+        $receiv = $addstock->received;
+        $data = $pre - $us + $receiv;
+
 
         // Update tabel product
-        Product::where('product_id', $productId)->update(['stock' => $data]);
+        Product::where('product_id', $productId)->where('id_user', $userid)->update(['stock' => $data]);
 
         DB::commit();
 

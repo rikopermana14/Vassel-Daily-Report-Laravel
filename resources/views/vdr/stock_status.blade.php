@@ -122,6 +122,7 @@
     const produkkode = document.getElementById("productkode");
     const produknama = document.getElementById("productnama");
     const produkspec = document.getElementById("spec");
+    const rece = document.getElementById("received");
     const produkremain = document.getElementById("remain");
     const produkused = document.getElementById("used_stock");
     const produkprevious = document.getElementById("previous");
@@ -155,10 +156,11 @@
     // Fungsi untuk menghitung dan mengisi kolom "Remain" saat "Used" diubah
     produkused.addEventListener("input", function () {
       const usedValue = parseFloat(produkused.value);
+      const receValue = parseFloat(rece.value);
       const previousValue = parseFloat(produkprevious.value);
 
       if (!isNaN(usedValue) && !isNaN(previousValue)) {
-        const updatedRemain = previousValue - usedValue;
+        const updatedRemain = previousValue - usedValue + receValue ;
         produkremain.value = updatedRemain;
       } else {
         produkremain.value = ""; // Reset jika input tidak valid
@@ -362,7 +364,7 @@
                   $('#successMessagesto').hide();
               }, 5000);
 
-          $('#stock_date_input').val('');
+         
           $('#productkode').val('');
           $('#productnama').val('');
           $('#spec').val('');

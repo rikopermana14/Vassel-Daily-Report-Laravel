@@ -254,7 +254,7 @@
                                 $('#successMessagerun').hide();
                             }, 5000);
 
-                            $('#running_hours_date_input').val('');
+                            
                             $('#machine').val('');
                             $('#towing').val('');
                             $('#manouver').val('');

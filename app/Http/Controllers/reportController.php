@@ -133,7 +133,9 @@ class ReportController extends Controller
         ->when($bioskopId, function ($query) use ($bioskopId) {
                 return $query->where('vdr.user_input', $bioskopId);
             })
+            ->orderBy('vdr.date', 'asc')
         ->latest('vdr.id');
+        
         // dd($sqlQuery->toSql());
     
         $users = User::whereHas('roles', function($query) {
@@ -150,6 +152,7 @@ class ReportController extends Controller
     ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
         return $query->whereBetween('vdr.date', [$startDate, $endDate]);
     })
+    ->orderBy('vdr.date', 'asc')
     ->get();
 
     // Query untuk mengambil data dari tabel daily_activity berdasarkan tanggal dan vdr.user_input
@@ -161,6 +164,7 @@ class ReportController extends Controller
     ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
         return $query->whereBetween('daily_activitiy.date', [$startDate, $endDate]);
     })
+    ->orderBy('daily_activitiy.date', 'asc')
     ->get();
 //     $daily_activitiy = Daily_Activity::all();
 //     $consumption = consumption::all();
@@ -175,6 +179,7 @@ class ReportController extends Controller
     ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
         return $query->whereBetween('consumption.date', [$startDate, $endDate]);
     })
+    ->orderBy('consumption.date', 'asc')
     ->get();
 
     $payload = payload::join('users', 'payload.user_input', '=', 'users.id')
@@ -185,6 +190,7 @@ class ReportController extends Controller
     ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
         return $query->whereBetween('payload.date', [$startDate, $endDate]);
     })
+    ->orderBy('payload.date', 'asc')
     ->get();
 
     $stock_status = stock_status::join('users', 'stock_status.user_input', '=', 'users.id')
@@ -195,6 +201,7 @@ class ReportController extends Controller
     ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
         return $query->whereBetween('stock_status.date', [$startDate, $endDate]);
     })
+    ->orderBy('stock_status.date', 'asc')
     ->get();
 
     $running_hours = running_hours::join('users', 'running_hours.user_input', '=', 'users.id')
@@ -205,6 +212,7 @@ class ReportController extends Controller
     ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
         return $query->whereBetween('running_hours.date', [$startDate, $endDate]);
     })
+    ->orderBy('running_hours.date', 'asc')
     ->get();
 
     // Generate PDF using the retrieved data

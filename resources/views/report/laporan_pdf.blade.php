@@ -23,8 +23,7 @@
         }
         th, td {
             border: 1px solid #333;
-            padding: 8px;
-            text-align: left;
+            text-align: center;
         }
         img {
             width: 5cm;
@@ -96,6 +95,7 @@
     <table>
         <thead>
             <tr>
+                <th>NO</th>
         <th>Scale of Sea Swell</th>
         <th>Barometer</th>
         <th>Wind Direction</th>
@@ -112,8 +112,10 @@
             </tr>
         </thead>
         <tbody>
+            <?php $no = 1; ?>
             @foreach ($getbooking as $booking)
-                <tr>      
+                <tr> 
+                    <td>{{$no++}}</td>     
             <td>{{ $booking->scale_sea }}</td>
             <td>{{ $booking->barometer }}</td>
             <td>{{ $booking->wind }}</td>

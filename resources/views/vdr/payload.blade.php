@@ -227,7 +227,7 @@
                               }, 5000);
 
                                 // Bersihkan formulir atau lakukan tindakan lain yang diperlukan
-                                $('#payload_date_input').val('');
+                                
                                 $('#product_payload').val('');
                                 $('#previous_payload').val('');
                                 $('#received_payload').val('');
