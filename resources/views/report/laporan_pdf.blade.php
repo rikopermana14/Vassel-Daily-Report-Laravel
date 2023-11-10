@@ -11,6 +11,7 @@
         }
         h1 {
             color: #333;
+            text-align:center;
         }
         h5 {
             color: #333;
@@ -30,8 +31,9 @@
             float: left; /* Mengatur gambar agar mengapung di sebelah kiri */
         }
         h3 {
-            font-size: 12px;
+            font-size: 16px;
             text-align: center;
+            margin:0;
             margin-left: 6cm; /* Mengatur margin kiri untuk memberi jarak antara gambar dan teks */
         }
     </style>
